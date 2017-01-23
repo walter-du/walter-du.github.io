@@ -4,9 +4,9 @@
   <subtitle>That is exactly what I&#39;m saying.</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://walter-du.io/"/>
+  <link href="http://walter-du.github.io/"/>
   <updated>2017-01-23T13:46:10.820Z</updated>
-  <id>http://walter-du.io/</id>
+  <id>http://walter-du.github.io/</id>
   
   <author>
     <name>walter-du</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>Git manual</title>
-    <link href="http://walter-du.io/2017/01/23/Git%20manual/"/>
-    <id>http://walter-du.io/2017/01/23/Git manual/</id>
+    <link href="http://walter-du.github.io/2017/01/23/Git%20manual/"/>
+    <id>http://walter-du.github.io/2017/01/23/Git manual/</id>
     <published>2017-01-22T16:00:00.000Z</published>
     <updated>2017-01-23T13:46:10.820Z</updated>
     
@@ -144,17 +144,17 @@ $ git push origin v1.0
     
     </summary>
     
-      <category term="tools" scheme="http://walter-du.io/categories/tools/"/>
+      <category term="tools" scheme="http://walter-du.github.io/categories/tools/"/>
     
     
-      <category term="git" scheme="http://walter-du.io/tags/git/"/>
+      <category term="git" scheme="http://walter-du.github.io/tags/git/"/>
     
   </entry>
   
   <entry>
     <title>UDP Q&amp;A</title>
-    <link href="http://walter-du.io/2017/01/22/UDP%20Q&amp;A/"/>
-    <id>http://walter-du.io/2017/01/22/UDP Q&amp;A/</id>
+    <link href="http://walter-du.github.io/2017/01/22/UDP%20Q&amp;A/"/>
+    <id>http://walter-du.github.io/2017/01/22/UDP Q&amp;A/</id>
     <published>2017-01-21T16:00:00.000Z</published>
     <updated>2017-01-23T06:57:47.504Z</updated>
     
@@ -223,17 +223,17 @@ $ git push origin v1.0
     
     </summary>
     
-      <category term="network" scheme="http://walter-du.io/categories/network/"/>
+      <category term="network" scheme="http://walter-du.github.io/categories/network/"/>
     
     
-      <category term="network" scheme="http://walter-du.io/tags/network/"/>
+      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
     
   </entry>
   
   <entry>
     <title>Ssh-tunnel AND SS</title>
-    <link href="http://walter-du.io/2017/01/22/Ssh-tunnel%20AND%20SS/"/>
-    <id>http://walter-du.io/2017/01/22/Ssh-tunnel AND SS/</id>
+    <link href="http://walter-du.github.io/2017/01/22/Ssh-tunnel%20AND%20SS/"/>
+    <id>http://walter-du.github.io/2017/01/22/Ssh-tunnel AND SS/</id>
     <published>2017-01-21T16:00:00.000Z</published>
     <updated>2017-01-23T07:00:00.802Z</updated>
     
@@ -270,12 +270,12 @@ $ git push origin v1.0
     
     </summary>
     
-      <category term="network" scheme="http://walter-du.io/categories/network/"/>
+      <category term="network" scheme="http://walter-du.github.io/categories/network/"/>
     
     
-      <category term="network" scheme="http://walter-du.io/tags/network/"/>
+      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
     
-      <category term="SS" scheme="http://walter-du.io/tags/SS/"/>
+      <category term="SS" scheme="http://walter-du.github.io/tags/SS/"/>
     
   </entry>
   
