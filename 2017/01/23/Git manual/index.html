@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Git manual | Simply this | That is exactly what I&#39;m saying.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="git">
+    <meta name="description" content="Git commands">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git manual">
+<meta property="og:url" content="http://walter-du.io/2017/01/23/Git manual/index.html">
+<meta property="og:site_name" content="Simply this">
+<meta property="og:description" content="Git commands">
+<meta property="og:updated_time" content="2017-01-23T13:46:10.820Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git manual">
+<meta name="twitter:description" content="Git commands">
+    
+        <link rel="alternative" href="/atom.xml" title="Simply this" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/some.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">walter-du</h5>
+          <h6 class="motto">Burn out or fade away, up to youself~</h6>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/walter-du" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Git manual</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Git manual</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-01-22T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-01-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/tools/">tools</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常用操作"><span class="post-toc-number">1.</span> <span class="post-toc-text">常用操作</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本概念"><span class="post-toc-number">2.</span> <span class="post-toc-text">基本概念</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#初始化Git仓库-和-添加-提交文件"><span class="post-toc-number">3.</span> <span class="post-toc-text">初始化Git仓库 和 添加\提交文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看状态-git-status-和-git-diff"><span class="post-toc-number">4.</span> <span class="post-toc-text">查看状态 git status 和 git diff</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#版本回退-git-reset"><span class="post-toc-number">5.</span> <span class="post-toc-text">版本回退 git reset</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看日志"><span class="post-toc-number">6.</span> <span class="post-toc-text">查看日志</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#撤销修改"><span class="post-toc-number">7.</span> <span class="post-toc-text">撤销修改</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-checkout"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">git checkout</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-reset"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">git reset</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#删除文件"><span class="post-toc-number">8.</span> <span class="post-toc-text">删除文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#首次关联和推送"><span class="post-toc-number">9.</span> <span class="post-toc-text">首次关联和推送</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#提交"><span class="post-toc-number">10.</span> <span class="post-toc-text">提交</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Branch-管理"><span class="post-toc-number">11.</span> <span class="post-toc-text">Branch 管理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Branch-更新"><span class="post-toc-number">12.</span> <span class="post-toc-text">Branch 更新</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Tag-管理"><span class="post-toc-number">13.</span> <span class="post-toc-text">Tag 管理</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Git manual"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Git manual</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年01月23日 0:00" datetime="2017-01-22T16:00:00.000Z"  itemprop="datePublished">2017-01-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/tools/">tools</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><pre><code>$ git branch -vv[l/a]     查看branch[本地/与origin分支]
+$ git push origin master  提交本地修改
+$ git checkout release    切换到本地 release 分支
+$ git pull origin release 更新本地库中的 origin/release 分支且合并到本地 release 分支
+$ git log --graph --pretty=oneline --abbrev-commit 查看日志
+</code></pre><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><pre><code>Git 分为 工作区 (Working Directory) 、暂存区 (Stage) 和 版本库 (Repository)
+Git 管理的是修改，NOT 文件;
+Git 在远端和本地各维护着一个代码库;
+</code></pre><h2 id="初始化Git仓库-和-添加-提交文件"><a href="#初始化Git仓库-和-添加-提交文件" class="headerlink" title="初始化Git仓库 和 添加\提交文件"></a>初始化Git仓库 和 添加\提交文件</h2><pre><code>初始化一个Git仓库，使用 git init 命令。
+添加文件到Git仓库，分两步：
+    第一步，使用命令 git add ，注意，可反复多次使用，添加多个文件；
+    第二步，使用命令 git commit ，完成。
+</code></pre><h2 id="查看状态-git-status-和-git-diff"><a href="#查看状态-git-status-和-git-diff" class="headerlink" title="查看状态 git status 和 git diff"></a>查看状态 git status 和 git diff</h2><pre><code>要随时掌握工作区的状态，使用 git status 命令。
+如果 git status 告诉你有文件被修改过，用 git diff [--staged] 可以查看修改内容。
+</code></pre><h2 id="版本回退-git-reset"><a href="#版本回退-git-reset" class="headerlink" title="版本回退 git reset"></a>版本回退 git reset</h2><pre><code>HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令 git reset --hard commit_id 。
+穿梭前，用 git log 可以查看提交历史，以便确定要回退到哪个版本。
+要重返未来，用 git reflog 查看命令历史，以便确定要回到未来的哪个版本。
+</code></pre><h2 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h2><pre><code>日志简写
+git log --pretty=oneline --abbrev-commit
+
+日志跟踪
+git log --graph --pretty=oneline --abbrev-commit
+</code></pre><h2 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h2><pre><code>场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令 git checkout -- file。
+场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步:
+    第一步用命令 git reset HEAD file，就回到了场景1;
+    第二步按场景1操作。
+场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。
+</code></pre><h3 id="git-checkout"><a href="#git-checkout" class="headerlink" title="git checkout"></a>git checkout</h3><pre><code>git checkout -- readme.txt 意思就是，把 readme.txt 文件在工作区的修改全部撤销，这有两种情况：
+    一种是 readme.txt 自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态;
+    一种是 readme.txt 已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+    总之，就是让这个文件回到最近一次 git commit 或 git add 时的状态。
+    $ git checkout -- readme.txt
+</code></pre><h3 id="git-reset"><a href="#git-reset" class="headerlink" title="git reset"></a>git reset</h3><pre><code>git reset HEAD file 可以把暂存区的修改撤销掉（unstage），重新放回工作区：
+    $ git reset HEAD readme.txt
+    Unstaged changes after reset:
+    M readme.txt
+
+    git reset命令既可以回退版本，也可以把暂存区的修改回退到工作区。
+</code></pre><h2 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h2><pre><code>$ rm test.txt
+$ git rm test.txt
+$ git commit -m &quot;remove test.txt&quot;
+git rm 用于删除一个文件。如果这个文件已经被提交到版本库，那么你永远不用担心误删，
+但是要小心，你只能恢复文件到最新版本，你会丢失最近一次提交后你修改的内容。
+</code></pre><h2 id="首次关联和推送"><a href="#首次关联和推送" class="headerlink" title="首次关联和推送"></a>首次关联和推送</h2><pre><code>$ git remote add origin https://github.com/&lt;git_name&gt;/&lt;git_repos_name&gt;.git
+[ OR $ git remote add origin git@github.com:&lt;git_name&gt;/&lt;git_repos_name&gt;.git ]
+$ git push -u origin master
+PS: Git支持多种协议，包括https，但通过ssh支持的原生git协议速度最快。
+
+switch to git :
+$ git remote rm origin
+$ git remote add origin git@github.com:&lt;git_name&gt;/&lt;git_repos_name&gt;.git
+</code></pre><h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><pre><code>From now on, 只要本地作了提交，就可以通过命令：
+$ git push origin master
+</code></pre><h2 id="Branch-管理"><a href="#Branch-管理" class="headerlink" title="Branch 管理"></a>Branch 管理</h2><pre><code>创建并切换到分支
+$ git checkout -b dev
+==
+$ git branch dev
+$ git checkout dev
+
+查看分支
+$ git branch
+$ git branch -r
+$ git branch -a
+$ git branch -vv
+
+切换到 master 分支
+$ git checkout master
+
+合并 dev 分支修改到 当前 分支
+$ git merge dev
+
+删除 dev 分支
+$ git branch -d dev
+</code></pre><h2 id="Branch-更新"><a href="#Branch-更新" class="headerlink" title="Branch 更新"></a>Branch 更新</h2><pre><code>$ git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;
+
+取回 origin 主机的 next 分支，与本地的 master 分支合并:
+$ git pull origin next:master
+如果远程分支是与当前分支合并，则冒号后面的部分可以省略:
+$ git pull origin next
+==
+$ git fetch origin
+$ git merge origin/next
+
+$ git pull origin master
+==
+$ git fetch origin master
+从远程的 origin 的 master 主分支下载最新的版本到 origin/master 分支上
+$ git log -p master..origin/master
+比较本地的 master 分支和 origin/master 分支的差别
+$ git merge origin/master
+合并到当前分支
+==
+$ git fetch origin master:tmp
+$ git diff tmp 
+$ git merge tmp
+
+更新某个文件
+$ git fetch origin card [update本地库中的 origin/card 分支]
+$ git checkout origin/card -- &lt;path/to/file&gt; [获取本地库中的 origin/card 分支的某个文件到本地 card 分支]
+</code></pre><h2 id="Tag-管理"><a href="#Tag-管理" class="headerlink" title="Tag 管理"></a>Tag 管理</h2><pre><code>在最新 commit 上打 tag
+$ git tag v1.0
+在某个 commit id 上打 tag
+$ git tag v0.5 &lt;commit_id&gt;
+$ git tag -a v0.5 [-m &lt;msg&gt;] &lt;commit_id&gt;
+
+查看 tag
+$ git tag
+$ git show &lt;tag_name&gt;
+
+删除某个 tag
+$ git tag -d &lt;tag_name&gt;
+
+推送某个 tag 到 remote
+$ git push origin v1.0
+</code></pre>
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-01-23T13:46:10.820Z" itemprop="dateUpdated">2017年1月23日 21:46</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2017/01/23/Git manual/" target="_blank" rel="external">http://walter-du.io/2017/01/23/Git manual/</a>
+    </div>
+    <footer>
+        <a href="http://walter-du.io">
+            <img src="/img/some.jpg" alt="walter-du">
+            walter-du
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.io/2017/01/23/Git manual/&title=《Git manual》 — Simply this&pic=http://walter-du.io/img/some.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.io/2017/01/23/Git manual/&title=《Git manual》 — Simply this&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.io/2017/01/23/Git manual/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Git manual》 — Simply this&url=http://walter-du.io/2017/01/23/Git manual/&via=http://walter-du.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.io/2017/01/23/Git manual/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/01/22/UDP Q&A/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">UDP Q&amp;A</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Simply this &copy; 2016 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.io/2017/01/23/Git manual/&title=《Git manual》 — Simply this&pic=http://walter-du.io/img/some.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.io/2017/01/23/Git manual/&title=《Git manual》 — Simply this&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.io/2017/01/23/Git manual/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Git manual》 — Simply this&url=http://walter-du.io/2017/01/23/Git manual/&via=http://walter-du.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.io/2017/01/23/Git manual/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAByUlEQVR42u3aywqDQAxG4b7/S1voqiDa808mwcKZlbSOfm5CLvN64XV81vf1eZ3vv9p1fubmJVeu3DL3uF1rRLI3vUeuXLnzXBK87kPV/S5+5w+bXLlyH8ZN0xSe4siVK/ffuRWcXLly/4tLihP0OJAADdVqcuXKLXDXGqZ7r9v7u3Llyt00lUjDCt+1+F65cuWOcHn7I01Q7tMg8hxUq8mVK7eBywMTGbVWxirks+XKlTvP5QlN2vpMP+zyd7ly5Y5zK0codo1JUK0mV67cEe5aucIPZ6THNX40ROTKldvMTUua9F+e9PBDHnLlyu3mkpeRF/P7UfvjyiNXrtwRLm+M8iC41mQJxrRy5cod4aaNy8qIJU2eUHYmV67crVwyFl0LRvGYhBzilCtX7gg3HYWm45a4sOEJlly5ctu4lcMWvFBJgyMassqVK7eNm6YphJImQGmglCtXbjf3CBdPccgHp2WVXLlyZ7h8EdzeRirq78qVK7eNS4LXWrCrHMKQK1fuE7j1wWq94EGtW7ly5T6Sy8MZGc+0BzK5cuU2c9OhbJoqoRNkcuXKHeTWGxzprsXmiFy5cke4acO0nr7wg18b+rty5crNuG9mlhsxQbMACwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

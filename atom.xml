@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://walter-du.io/"/>
-  <updated>2017-01-23T07:00:00.802Z</updated>
+  <updated>2017-01-23T13:46:10.820Z</updated>
   <id>http://walter-du.io/</id>
   
   <author>
@@ -16,51 +16,138 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Ssh-tunnel AND SS</title>
-    <link href="http://walter-du.io/2017/01/22/Ssh-tunnel%20AND%20SS/"/>
-    <id>http://walter-du.io/2017/01/22/Ssh-tunnel AND SS/</id>
-    <published>2017-01-21T16:00:00.000Z</published>
-    <updated>2017-01-23T07:00:00.802Z</updated>
+    <title>Git manual</title>
+    <link href="http://walter-du.io/2017/01/23/Git%20manual/"/>
+    <id>http://walter-du.io/2017/01/23/Git manual/</id>
+    <published>2017-01-22T16:00:00.000Z</published>
+    <updated>2017-01-23T13:46:10.820Z</updated>
     
-    <content type="html"><![CDATA[<hr>
-<h2 id="On-Top"><a href="#On-Top" class="headerlink" title="On-Top"></a>On-Top</h2><ul>
-<li>update ‘hosts’</li>
-<li>update ‘g~f~wlist’</li>
-</ul>
-<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
-<li>Windows 自带 MD5 命令: certutil -hashfile <filename> MD5 ;</filename></li>
-<li>‘ssh’/‘netcat’(nc,支持明文或其他加密) 都能实现简单的端口转发功能;<br>  eg:<blockquote>
-<p>查看某 server 是否开启 80 端口: # nc &lt;server’s ip&gt; 80 (strace 或 tcpdump 查看报文交互)</p>
-</blockquote>
-</li>
-<li>‘dig’ for lookup ;</li>
-</ul>
-<h2 id="单一的-ssh-tunnel"><a href="#单一的-ssh-tunnel" class="headerlink" title="单一的 ssh-tunnel"></a>单一的 ssh-tunnel</h2><ul>
-<li>由于 ssh 本身就是基于 RSA 加密技术,所以 G~F~W 无法从数据传输的过程中对加密数据内容进行关键词分析,避免了被重置链接的问题;</li>
-<li>但由于创建隧道和数据传输的过程中, ssh 本身的特征是明显的,所以 G~F~W 可以通过分析连接的特征进行干扰,导致 ssh 存在被定向进行干扰的问题。</li>
-</ul>
-<h2 id="SS"><a href="#SS" class="headerlink" title="SS"></a>SS</h2><ul>
-<li><p>简单理解的话, SS 是将原来 ssh 创建的 Socks5 协议拆开成 server 端和 client 端,其原理基本上和利用 ssh-tunnel 大致类似:<br>  1.客户端发出的请求基于 Socks5 协议跟 ss-local 端进行通讯,由于这个 ss-local 一般是本机或路由器或局域网的其他机器,不经过 G~F~W ,所以解决了上面被 G~F~W 通过特征分析进行干扰的问题;<br>  2.ss-local 和 ss-server 两端通过多种可选的加密方法进行通讯,经过 G~F~W 的时候是常规的 TCP 包,没有明显的特征码且 G~F~W 也无法对通讯数据进行解密;<br>  3.ss-server 将收到的加密数据进行解密,还原原来的请求,再发送到用户需要访问的服务,获取响应原路返回。</p>
-<p>  两条 DNS 查询链：</p>
-<blockquote>
-<p>国外：Client—ChinaDNS—dnsmasq—SS—代理Server—GoogleDNS<br>国内：Client—ChinaDNS—114DNS</p>
-</blockquote>
-</li>
-</ul>
-]]></content>
+    <content type="html"><![CDATA[<h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><pre><code>$ git branch -vv[l/a]     查看branch[本地/与origin分支]
+$ git push origin master  提交本地修改
+$ git checkout release    切换到本地 release 分支
+$ git pull origin release 更新本地库中的 origin/release 分支且合并到本地 release 分支
+$ git log --graph --pretty=oneline --abbrev-commit 查看日志
+</code></pre><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><pre><code>Git 分为 工作区 (Working Directory) 、暂存区 (Stage) 和 版本库 (Repository)
+Git 管理的是修改，NOT 文件;
+Git 在远端和本地各维护着一个代码库;
+</code></pre><h2 id="初始化Git仓库-和-添加-提交文件"><a href="#初始化Git仓库-和-添加-提交文件" class="headerlink" title="初始化Git仓库 和 添加\提交文件"></a>初始化Git仓库 和 添加\提交文件</h2><pre><code>初始化一个Git仓库，使用 git init 命令。
+添加文件到Git仓库，分两步：
+    第一步，使用命令 git add ，注意，可反复多次使用，添加多个文件；
+    第二步，使用命令 git commit ，完成。
+</code></pre><h2 id="查看状态-git-status-和-git-diff"><a href="#查看状态-git-status-和-git-diff" class="headerlink" title="查看状态 git status 和 git diff"></a>查看状态 git status 和 git diff</h2><pre><code>要随时掌握工作区的状态，使用 git status 命令。
+如果 git status 告诉你有文件被修改过，用 git diff [--staged] 可以查看修改内容。
+</code></pre><h2 id="版本回退-git-reset"><a href="#版本回退-git-reset" class="headerlink" title="版本回退 git reset"></a>版本回退 git reset</h2><pre><code>HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令 git reset --hard commit_id 。
+穿梭前，用 git log 可以查看提交历史，以便确定要回退到哪个版本。
+要重返未来，用 git reflog 查看命令历史，以便确定要回到未来的哪个版本。
+</code></pre><h2 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h2><pre><code>日志简写
+git log --pretty=oneline --abbrev-commit
+
+日志跟踪
+git log --graph --pretty=oneline --abbrev-commit
+</code></pre><h2 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h2><pre><code>场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令 git checkout -- file。
+场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步:
+    第一步用命令 git reset HEAD file，就回到了场景1;
+    第二步按场景1操作。
+场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。
+</code></pre><h3 id="git-checkout"><a href="#git-checkout" class="headerlink" title="git checkout"></a>git checkout</h3><pre><code>git checkout -- readme.txt 意思就是，把 readme.txt 文件在工作区的修改全部撤销，这有两种情况：
+    一种是 readme.txt 自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态;
+    一种是 readme.txt 已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+    总之，就是让这个文件回到最近一次 git commit 或 git add 时的状态。
+    $ git checkout -- readme.txt
+</code></pre><h3 id="git-reset"><a href="#git-reset" class="headerlink" title="git reset"></a>git reset</h3><pre><code>git reset HEAD file 可以把暂存区的修改撤销掉（unstage），重新放回工作区：
+    $ git reset HEAD readme.txt
+    Unstaged changes after reset:
+    M readme.txt
+
+    git reset命令既可以回退版本，也可以把暂存区的修改回退到工作区。
+</code></pre><h2 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h2><pre><code>$ rm test.txt
+$ git rm test.txt
+$ git commit -m &quot;remove test.txt&quot;
+git rm 用于删除一个文件。如果这个文件已经被提交到版本库，那么你永远不用担心误删，
+但是要小心，你只能恢复文件到最新版本，你会丢失最近一次提交后你修改的内容。
+</code></pre><h2 id="首次关联和推送"><a href="#首次关联和推送" class="headerlink" title="首次关联和推送"></a>首次关联和推送</h2><pre><code>$ git remote add origin https://github.com/&lt;git_name&gt;/&lt;git_repos_name&gt;.git
+[ OR $ git remote add origin git@github.com:&lt;git_name&gt;/&lt;git_repos_name&gt;.git ]
+$ git push -u origin master
+PS: Git支持多种协议，包括https，但通过ssh支持的原生git协议速度最快。
+
+switch to git :
+$ git remote rm origin
+$ git remote add origin git@github.com:&lt;git_name&gt;/&lt;git_repos_name&gt;.git
+</code></pre><h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><pre><code>From now on, 只要本地作了提交，就可以通过命令：
+$ git push origin master
+</code></pre><h2 id="Branch-管理"><a href="#Branch-管理" class="headerlink" title="Branch 管理"></a>Branch 管理</h2><pre><code>创建并切换到分支
+$ git checkout -b dev
+==
+$ git branch dev
+$ git checkout dev
+
+查看分支
+$ git branch
+$ git branch -r
+$ git branch -a
+$ git branch -vv
+
+切换到 master 分支
+$ git checkout master
+
+合并 dev 分支修改到 当前 分支
+$ git merge dev
+
+删除 dev 分支
+$ git branch -d dev
+</code></pre><h2 id="Branch-更新"><a href="#Branch-更新" class="headerlink" title="Branch 更新"></a>Branch 更新</h2><pre><code>$ git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;
+
+取回 origin 主机的 next 分支，与本地的 master 分支合并:
+$ git pull origin next:master
+如果远程分支是与当前分支合并，则冒号后面的部分可以省略:
+$ git pull origin next
+==
+$ git fetch origin
+$ git merge origin/next
+
+$ git pull origin master
+==
+$ git fetch origin master
+从远程的 origin 的 master 主分支下载最新的版本到 origin/master 分支上
+$ git log -p master..origin/master
+比较本地的 master 分支和 origin/master 分支的差别
+$ git merge origin/master
+合并到当前分支
+==
+$ git fetch origin master:tmp
+$ git diff tmp 
+$ git merge tmp
+
+更新某个文件
+$ git fetch origin card [update本地库中的 origin/card 分支]
+$ git checkout origin/card -- &lt;path/to/file&gt; [获取本地库中的 origin/card 分支的某个文件到本地 card 分支]
+</code></pre><h2 id="Tag-管理"><a href="#Tag-管理" class="headerlink" title="Tag 管理"></a>Tag 管理</h2><pre><code>在最新 commit 上打 tag
+$ git tag v1.0
+在某个 commit id 上打 tag
+$ git tag v0.5 &lt;commit_id&gt;
+$ git tag -a v0.5 [-m &lt;msg&gt;] &lt;commit_id&gt;
+
+查看 tag
+$ git tag
+$ git show &lt;tag_name&gt;
+
+删除某个 tag
+$ git tag -d &lt;tag_name&gt;
+
+推送某个 tag 到 remote
+$ git push origin v1.0
+</code></pre>]]></content>
     
     <summary type="html">
     
-      Ssh-tunnel, SS
+      Git commands
     
     </summary>
     
-      <category term="network" scheme="http://walter-du.io/categories/network/"/>
+      <category term="tools" scheme="http://walter-du.io/categories/tools/"/>
     
     
-      <category term="network" scheme="http://walter-du.io/tags/network/"/>
-    
-      <category term="SS" scheme="http://walter-du.io/tags/SS/"/>
+      <category term="git" scheme="http://walter-du.io/tags/git/"/>
     
   </entry>
   
@@ -140,6 +227,55 @@
     
     
       <category term="network" scheme="http://walter-du.io/tags/network/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ssh-tunnel AND SS</title>
+    <link href="http://walter-du.io/2017/01/22/Ssh-tunnel%20AND%20SS/"/>
+    <id>http://walter-du.io/2017/01/22/Ssh-tunnel AND SS/</id>
+    <published>2017-01-21T16:00:00.000Z</published>
+    <updated>2017-01-23T07:00:00.802Z</updated>
+    
+    <content type="html"><![CDATA[<hr>
+<h2 id="On-Top"><a href="#On-Top" class="headerlink" title="On-Top"></a>On-Top</h2><ul>
+<li>update ‘hosts’</li>
+<li>update ‘g~f~wlist’</li>
+</ul>
+<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
+<li>Windows 自带 MD5 命令: certutil -hashfile <filename> MD5 ;</filename></li>
+<li>‘ssh’/‘netcat’(nc,支持明文或其他加密) 都能实现简单的端口转发功能;<br>  eg:<blockquote>
+<p>查看某 server 是否开启 80 端口: # nc &lt;server’s ip&gt; 80 (strace 或 tcpdump 查看报文交互)</p>
+</blockquote>
+</li>
+<li>‘dig’ for lookup ;</li>
+</ul>
+<h2 id="单一的-ssh-tunnel"><a href="#单一的-ssh-tunnel" class="headerlink" title="单一的 ssh-tunnel"></a>单一的 ssh-tunnel</h2><ul>
+<li>由于 ssh 本身就是基于 RSA 加密技术,所以 G~F~W 无法从数据传输的过程中对加密数据内容进行关键词分析,避免了被重置链接的问题;</li>
+<li>但由于创建隧道和数据传输的过程中, ssh 本身的特征是明显的,所以 G~F~W 可以通过分析连接的特征进行干扰,导致 ssh 存在被定向进行干扰的问题。</li>
+</ul>
+<h2 id="SS"><a href="#SS" class="headerlink" title="SS"></a>SS</h2><ul>
+<li><p>简单理解的话, SS 是将原来 ssh 创建的 Socks5 协议拆开成 server 端和 client 端,其原理基本上和利用 ssh-tunnel 大致类似:<br>  1.客户端发出的请求基于 Socks5 协议跟 ss-local 端进行通讯,由于这个 ss-local 一般是本机或路由器或局域网的其他机器,不经过 G~F~W ,所以解决了上面被 G~F~W 通过特征分析进行干扰的问题;<br>  2.ss-local 和 ss-server 两端通过多种可选的加密方法进行通讯,经过 G~F~W 的时候是常规的 TCP 包,没有明显的特征码且 G~F~W 也无法对通讯数据进行解密;<br>  3.ss-server 将收到的加密数据进行解密,还原原来的请求,再发送到用户需要访问的服务,获取响应原路返回。</p>
+<p>  两条 DNS 查询链：</p>
+<blockquote>
+<p>国外：Client—ChinaDNS—dnsmasq—SS—代理Server—GoogleDNS<br>国内：Client—ChinaDNS—114DNS</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      Ssh-tunnel, SS
+    
+    </summary>
+    
+      <category term="network" scheme="http://walter-du.io/categories/network/"/>
+    
+    
+      <category term="network" scheme="http://walter-du.io/tags/network/"/>
+    
+      <category term="SS" scheme="http://walter-du.io/tags/SS/"/>
     
   </entry>
   
