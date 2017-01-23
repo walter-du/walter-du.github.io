@@ -239,18 +239,22 @@
         },
         page: (function () {
             var $elements = $$('.fade, .fade-scale');
+            var visible = false;
 
             return {
                 loaded: function () {
                     forEach.call($elements, function (el) {
                         el.classList.add('in')
-                    })
+                    });
+                    visible = true;
                 },
                 unload: function () {
                     forEach.call($elements, function (el) {
                         el.classList.remove('in')
-                    })
-                }
+                    });
+                    visible = false;
+                },
+                visible: visible
             }
 
         })(),
@@ -417,15 +421,17 @@
     });
 
     var ignoreUnload = false;
-    //$('a[href^="mailto"]').addEventListener(even, function () {
-    //    ignoreUnload = true;
-    //});
     w.addEventListener('beforeunload', function (e) {
         if (!ignoreUnload) {
             Blog.page.unload();
         } else {
             ignoreUnload = false;
         }
+    });
+
+    w.addEventListener('pageshow', function () {
+        // fix OSX safari #162
+        !Blog.page.visible && Blog.page.loaded();
     });
 
     w.addEventListener('resize', function () {
