@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>UDP Q&amp;A | Simply this | That is exactly what I&#39;m saying.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="network">
+    <meta name="description" content="UDP Q&amp;A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UDP Q&A">
+<meta property="og:url" content="http://walter-du.io/2017/01/22/UDP Q&A/index.html">
+<meta property="og:site_name" content="Simply this">
+<meta property="og:description" content="UDP Q&amp;A">
+<meta property="og:updated_time" content="2017-01-23T06:57:47.504Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UDP Q&A">
+<meta name="twitter:description" content="UDP Q&amp;A">
+    
+        <link rel="alternative" href="/atom.xml" title="Simply this" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.6">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/some.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">walter-du</h5>
+          <h6 class="motto">Burn out or fade away, up to you~</h6>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/walter-du" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">UDP Q&amp;A</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">UDP Q&amp;A</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-01-21T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-01-22
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/network/">network</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#UDP-发送大包会发生什么"><span class="post-toc-number">1.</span> <span class="post-toc-text">UDP 发送大包会发生什么?</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#UDP-发包过快会发生什么？对端会如何处理？"><span class="post-toc-number">2.</span> <span class="post-toc-text">UDP 发包过快会发生什么？对端会如何处理？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#UDP-是否需要绑定源端口"><span class="post-toc-number">3.</span> <span class="post-toc-text">UDP 是否需要绑定源端口?</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#UDP-为何是无连接的-connectionless-？"><span class="post-toc-number">4.</span> <span class="post-toc-text">UDP 为何是无连接的(connectionless)？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#UDP-何为有边界记录？"><span class="post-toc-number">5.</span> <span class="post-toc-text">UDP 何为有边界记录？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#UDP-数据报一次-read-未读完-是否还能继续读完？"><span class="post-toc-number">6.</span> <span class="post-toc-text">UDP 数据报一次 read 未读完,是否还能继续读完？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#UDP-为何不可靠？"><span class="post-toc-number">7.</span> <span class="post-toc-text">UDP 为何不可靠？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#UDP-适用什么场景？"><span class="post-toc-number">8.</span> <span class="post-toc-text">UDP 适用什么场景？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#UDP-与-“两军问题”-？"><span class="post-toc-number">9.</span> <span class="post-toc-text">UDP 与 “两军问题” ？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#UDP-与-‘SO-REUSEADDR’-和-‘SO-REUSEPORT’"><span class="post-toc-number">10.</span> <span class="post-toc-text">UDP 与 ‘SO_REUSEADDR’ 和 ‘SO_REUSEPORT’</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SS-是否支持封装-encapsulate-UDP-报文"><span class="post-toc-number">11.</span> <span class="post-toc-text">SS 是否支持封装(encapsulate) UDP 报文?</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-UDP Q&amp;A"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">UDP Q&A</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年01月22日 0:00" datetime="2017-01-21T16:00:00.000Z"  itemprop="datePublished">2017-01-22</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/network/">network</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <hr>
+<h2 id="UDP-发送大包会发生什么"><a href="#UDP-发送大包会发生什么" class="headerlink" title="UDP 发送大包会发生什么?"></a>UDP 发送大包会发生什么?</h2><ul>
+<li>UDP 不存在发送缓冲区;</li>
+<li>套接口选项 ‘SO_SNDBUF’ 可用来设置允许 write 的 UDP 数据报大小的上限,超出则返回 EMSGSIZE ;</li>
+<li>UDP 层传到 IP 层,IP 层传到链路层时,如果大于 MTU 则会导致分片;</li>
+<li>UDP write 若能成功返回,则说明 UDP 数据报(或其分片片段)一路向下,已加入到链路层队列。</li>
+</ul>
+<h2 id="UDP-发包过快会发生什么？对端会如何处理？"><a href="#UDP-发包过快会发生什么？对端会如何处理？" class="headerlink" title="UDP 发包过快会发生什么？对端会如何处理？"></a>UDP 发包过快会发生什么？对端会如何处理？</h2><ul>
+<li>对于发送端,发送过快,发送端的 NIC 的 DMA ring 来不及消耗(从 NIC 发出), DMA ring 用完,通常会 stop 发送软中断,即停止链路层的输出队列 skb 出队,进而输出队列满,返回 ENOBUFS;</li>
+<li>对于接收端,接收过快(NIC 能力范围内),导致 UDP 的接收缓冲区满(应用进程未及时读),则 UDP 直接将收到的数据报丢弃;</li>
+<li>对于接收端,若实在太快导致 NIC 的接收中断 overflow error, NIC 已无力回天,显然报文就会默默的消失。</li>
+</ul>
+<h2 id="UDP-是否需要绑定源端口"><a href="#UDP-是否需要绑定源端口" class="headerlink" title="UDP 是否需要绑定源端口?"></a>UDP 是否需要绑定源端口?</h2><ul>
+<li>可以 bind,但不是必须的;</li>
+<li>未 bind 直接 sendto 的话, UDP 会自动选择一个 PORT 然后将其置为绑定状态。</li>
+</ul>
+<h2 id="UDP-为何是无连接的-connectionless-？"><a href="#UDP-为何是无连接的-connectionless-？" class="headerlink" title="UDP 为何是无连接的(connectionless)？"></a>UDP 为何是无连接的(connectionless)？</h2><ul>
+<li>发送端和接收端不必存在长期的关系。</li>
+</ul>
+<h2 id="UDP-何为有边界记录？"><a href="#UDP-何为有边界记录？" class="headerlink" title="UDP 何为有边界记录？"></a>UDP 何为有边界记录？</h2><ul>
+<li>每个 UDP 数据报都有一个长度,其长度值会直接传给接收端。</li>
+</ul>
+<h2 id="UDP-数据报一次-read-未读完-是否还能继续读完？"><a href="#UDP-数据报一次-read-未读完-是否还能继续读完？" class="headerlink" title="UDP 数据报一次 read 未读完,是否还能继续读完？"></a>UDP 数据报一次 read 未读完,是否还能继续读完？</h2><ul>
+<li>每个 UDP 数据报都有一个长度,通常应用进程 write 时应保证这个长度小于 MTU 以避免分片;</li>
+<li>应用进程 read UDP 数据报时,应尽可能一次读完一整个 UDP 数据报;</li>
+<li>即 readmsg 中设置的 buf’s nbytes &gt;= sizeof (UDP 数据报);</li>
+<li><p>因为每个 UDP 数据报是以一个整体 skb 出队的,一次 read 不完的话这个 skb 中剩余的 data 会被丢弃,并且会返回 <code>msg-&gt;msg_flags |= MSG_TRUNC</code>;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">copied = skb-&gt;len - sizeof(struct udphdr);</div><div class="line">if (copied &gt; len) &#123;</div><div class="line">    copied = len;</div><div class="line">    msg-&gt;msg_flags |= MSG_TRUNC;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>如果 readmsg 中 flags 设置了 MSG_TRUNC,则不管 readmsg 实际读取了多少 nbytes,其返回值总是为整个 UDP 数据报的长度:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">if (flags &amp; MSG_TRUNC)</div><div class="line">    err = skb-&gt;len - sizeof(struct udphdr);</div></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>PS</strong>:  Refer to ‘<em>udp.c</em>‘ – ‘<em>udp_recvmsg()</em>‘.</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="UDP-为何不可靠？"><a href="#UDP-为何不可靠？" class="headerlink" title="UDP 为何不可靠？"></a>UDP 为何不可靠？</h2><ul>
+<li>数据报出错(丢失,参见上)后无重传机制。</li>
+</ul>
+<h2 id="UDP-适用什么场景？"><a href="#UDP-适用什么场景？" class="headerlink" title="UDP 适用什么场景？"></a>UDP 适用什么场景？</h2><ul>
+<li>广播或多播;</li>
+<li>少量的数据传输,简答的请求-应答交互;</li>
+<li>尽量可靠的网络,如局域网。</li>
+</ul>
+<h2 id="UDP-与-“两军问题”-？"><a href="#UDP-与-“两军问题”-？" class="headerlink" title="UDP 与 “两军问题” ？"></a>UDP 与 “两军问题” ？</h2><ul>
+<li>BAIDU 或 GOOGLE</li>
+</ul>
+<h2 id="UDP-与-‘SO-REUSEADDR’-和-‘SO-REUSEPORT’"><a href="#UDP-与-‘SO-REUSEADDR’-和-‘SO-REUSEPORT’" class="headerlink" title="UDP 与 ‘SO_REUSEADDR’ 和 ‘SO_REUSEPORT’"></a>UDP 与 ‘SO_REUSEADDR’ 和 ‘SO_REUSEPORT’</h2><ul>
+<li>UDP 允许完全重复的绑定: 同 IP 和 同端口绑定到多个套接字;</li>
+<li>TCP 则不完全支持。<blockquote>
+<p><strong>PS</strong>: Refer to <em>“UNIX Network Programming VOLUME 1”</em> Page 179.</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="SS-是否支持封装-encapsulate-UDP-报文"><a href="#SS-是否支持封装-encapsulate-UDP-报文" class="headerlink" title="SS 是否支持封装(encapsulate) UDP 报文?"></a>SS 是否支持封装(encapsulate) UDP 报文?</h2><ul>
+<li>Socks4 不支持, Socks5 支持 UDP;</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-01-23T06:57:47.504Z" itemprop="dateUpdated">2017年1月23日 14:57</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2017/01/22/UDP Q&amp;A/" target="_blank" rel="external">http://walter-du.io/2017/01/22/UDP Q&amp;A/</a>
+    </div>
+    <footer>
+        <a href="http://walter-du.io">
+            <img src="/img/some.jpg" alt="walter-du">
+            walter-du
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.io/2017/01/22/UDP Q&A/&title=《UDP Q&A》 — Simply this&pic=http://walter-du.io/img/some.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.io/2017/01/22/UDP Q&A/&title=《UDP Q&A》 — Simply this&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.io/2017/01/22/UDP Q&A/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《UDP Q&A》 — Simply this&url=http://walter-du.io/2017/01/22/UDP Q&A/&via=http://walter-du.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.io/2017/01/22/UDP Q&A/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/01/22/Ssh-tunnel AND SS/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Ssh-tunnel AND SS</h4>
+      </a>
+    </div>
+  
+
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Simply this &copy; 2016 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.io/2017/01/22/UDP Q&A/&title=《UDP Q&A》 — Simply this&pic=http://walter-du.io/img/some.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.io/2017/01/22/UDP Q&A/&title=《UDP Q&A》 — Simply this&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.io/2017/01/22/UDP Q&A/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《UDP Q&A》 — Simply this&url=http://walter-du.io/2017/01/22/UDP Q&A/&via=http://walter-du.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.io/2017/01/22/UDP Q&A/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxklEQVR42u3aS27DMAwFwNz/0inQbWvnkbRkBxitAvk32RDSo16veLx/RzJzPv7e+VoxcHFxx9z8A0dP9eaP/sCRARcXdz/3vHh9eEXMyu85nMfFxX0Y95yeLFnO34mLi/uN3KSEzem4uLjP4V4VZEyWQRfv1XBxcQfcamC64vfCfBcXF7fIfRdHNTrJy1n0dVxc3C3cvIGagM6h5zOFkAUXF/cB3KRpWm265FejFAcXF/dSbvWoRFKkqsUuWRj9syLDxcXdzk2WO0ltyZu1UQHFxcW9idtrY1SfqpbIw0KGi4u7jJtsZqqsOfrDLg0XF3cZt7qUmTRfm5kNLi7uTdxeKzR/WzU2/dBWwcXFXczNX518bHKAI4pLcHFxN3KrrZF8QVONREedH1xc3Iu41Q1Mb5MzCVkOGyq4uLjLuL3jU70jFPOIFhcXdye3F4xWA9BygouLi3srt1qY5mHKqImCi4u7mFstKFVEr0GbXMXFxV3N7RWvPB6txiJRTxgXF3cLt7fhmYSnvVYuLi7u07hVSvmMWLK0wsXFfSQ3oSTQ5sYJFxd3I7e3jUnmqwXxslgEFxd3wL0qMO0dwKoeyMDFxV3M/QGyKnad81Q1RAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.6"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.6" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
