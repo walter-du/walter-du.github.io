@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Staticmethod and classmethod | Simply this | That is exactly what I&#39;m saying.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Python">
+    <meta name="description" content="Python syntax: staticmethod, classmethod">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Staticmethod and classmethod">
+<meta property="og:url" content="http://walter-du.github.io/2017/01/18/Staticmethod_AND_classmethod/index.html">
+<meta property="og:site_name" content="Simply this">
+<meta property="og:description" content="Python syntax: staticmethod, classmethod">
+<meta property="og:updated_time" content="2017-02-07T07:38:13.620Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Staticmethod and classmethod">
+<meta name="twitter:description" content="Python syntax: staticmethod, classmethod">
+    
+        <link rel="alternative" href="/atom.xml" title="Simply this" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/some.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">walter-du</h5>
+          <h6 class="motto">Burn out or fade away, up to youself~</h6>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/walter-du" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Staticmethod and classmethod</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Staticmethod and classmethod</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-01-17T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-01-18
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Python/">Python</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+<article id="post-Staticmethod_AND_classmethod"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Staticmethod and classmethod</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年01月18日 0:00" datetime="2017-01-17T16:00:00.000Z"  itemprop="datePublished">2017-01-18</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Python/">Python</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <hr>
+<p>classmethod 的存在是显然的；</p>
+<p>staticmethod 的意义在哪里?<br>主要还是作用域吧，如果某个函数只在某个 class 中使用，且无关 self or cls ，则可以一用，比野在外面强；<br>其实直接 self 不用也无妨；只是意义更明确，此为 class’s function 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if NOT access instance &apos;self&apos;:</div><div class="line">    if NOT access class &apos;cls&apos;:</div><div class="line">        choose &apos;staticmethod&apos;</div><div class="line">    else:</div><div class="line">        choose &apos;classmethod&apos;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>Refer to</strong>:<br>    <a href="http://pythoncentral.io/difference-between-staticmethod-and-classmethod-in-python/" target="_blank" rel="external">http://pythoncentral.io/difference-between-staticmethod-and-classmethod-in-python/</a><br>    <a href="http://stackoverflow.com/questions/12179271/python-classmethod-and-staticmethod-for-beginner" target="_blank" rel="external">http://stackoverflow.com/questions/12179271/python-classmethod-and-staticmethod-for-beginner</a></p>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-02-07T07:38:13.620Z" itemprop="dateUpdated">2017年2月7日 15:38</time>
+</span><br>
+
+
+        原文地址：<a href="/2017/01/18/Staticmethod_AND_classmethod/" target="_blank" rel="external">http://walter-du.github.io/2017/01/18/Staticmethod_AND_classmethod/</a>
+    </div>
+    <footer>
+        <a href="http://walter-du.github.io">
+            <img src="/img/some.jpg" alt="walter-du">
+            walter-du
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.github.io/2017/01/18/Staticmethod_AND_classmethod/&title=《Staticmethod and classmethod》 — Simply this&pic=http://walter-du.github.io/img/some.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.github.io/2017/01/18/Staticmethod_AND_classmethod/&title=《Staticmethod and classmethod》 — Simply this&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.github.io/2017/01/18/Staticmethod_AND_classmethod/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Staticmethod and classmethod》 — Simply this&url=http://walter-du.github.io/2017/01/18/Staticmethod_AND_classmethod/&via=http://walter-du.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.github.io/2017/01/18/Staticmethod_AND_classmethod/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/01/22/UDP_Q&A/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">UDP Q&amp;A</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2016/12/14/Epoll_AND_select/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Why &#39;epoll&#39; faster than &#39;select&#39;</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Simply this &copy; 2016 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.github.io/2017/01/18/Staticmethod_AND_classmethod/&title=《Staticmethod and classmethod》 — Simply this&pic=http://walter-du.github.io/img/some.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.github.io/2017/01/18/Staticmethod_AND_classmethod/&title=《Staticmethod and classmethod》 — Simply this&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.github.io/2017/01/18/Staticmethod_AND_classmethod/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Staticmethod and classmethod》 — Simply this&url=http://walter-du.github.io/2017/01/18/Staticmethod_AND_classmethod/&via=http://walter-du.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.github.io/2017/01/18/Staticmethod_AND_classmethod/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACv0lEQVR42u3aQW7kMAwEwPz/01lgTwssbDdJ0TOH8ikIJmOWDiLT0s9P/Pz+fe5////P/z73f3X/mfsaDjx4eHh4rdKvnqsirsq6+uZkCZI35jXj4eHhbfOSTT8p5eFlxSVImtCDBQ8PD++jvPtx+WoIvh+ak2/rLQEeHh7e9/Dm//X33oKHh4f3bbxqWckrq4N1tQkdzlrw8PDw+vlA+fXv/7x4voeHh4c3GILnoUPvk3ls8VAtHh4e3gKvWlxyjSAZc+/H31MHaXh4eHjbvPyqU06thsX5N+SBLx4eHt5ZXn5U3xt884i2eswW7fx4eHh4C7x8XK62jXyYrjabpOXg4eHhvcPL/6ywEcfHab2GUXg7Hh4e3iFeHrb2Ll2dXZpytXh4eHhrvOqwW72S1UuXe1ev8PDw8D7Fy5G9Qbx6UeC+tst68PDw8NZ41fg1GYXzheuFEdFFBDw8PLxl3qkLVflGn0TJvYZUzlrw8PDwOpNwNPjmEW0eUuQXrXpNBQ8PD2+Dl1+0ymOF6jWCPLStNio8PDy8bV7eAJLNOg95J8Huw+/x8PDwjvLywHRy0NVbvrwZXC4HHh4e3iu8amw6GbjPhrxRY8DDw8M7xMu/tHcpKjnQKhxl4eHh4X2UNz+2n0QSp4JjPDw8vPd589F5EuBG9xpadeLh4eFt8Hrbbt4e8maQX6UqBMF4eHh4L/KSTT8fiPMSk1aRLzoeHh7eBq8XreYvnkQb82/Dw8PD2+D9Fp/JcVceKPQG7oeRGg8PD+8Qr3okn5Q1aR5J6eWUGg8PD2+BN2kG+XL0tvVJmIuHh4e3zZtEBvk1rOT+12Qpm/kKHh4e3hovL6h60FUdoAsjOx4eHt7X8PLIYCO8KDQbPDw8vDVeNYyYHIMlI3J1ND+cteDh4eGlO3PhP/p8a56HF/NYGQ8PD+8Q7w/AhrtgSGeo/AAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

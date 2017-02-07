@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://walter-du.github.io/"/>
-  <updated>2017-02-07T02:21:05.506Z</updated>
+  <updated>2017-02-07T06:13:54.167Z</updated>
   <id>http://walter-du.github.io/</id>
   
   <author>
@@ -17,10 +17,10 @@
   
   <entry>
     <title>Route and conntrack</title>
-    <link href="http://walter-du.github.io/2017/02/07/Route_AND_conntrack/"/>
-    <id>http://walter-du.github.io/2017/02/07/Route_AND_conntrack/</id>
-    <published>2017-02-06T16:00:00.000Z</published>
-    <updated>2017-02-07T02:21:05.506Z</updated>
+    <link href="http://walter-du.github.io/2017/02/06/Route_AND_conntrack/"/>
+    <id>http://walter-du.github.io/2017/02/06/Route_AND_conntrack/</id>
+    <published>2017-02-05T16:00:00.000Z</published>
+    <updated>2017-02-07T06:13:54.167Z</updated>
     
     <content type="html"><![CDATA[<hr>
 <p>两者关系不明显；<br>路由表和连接跟踪表对应着不同的功能；</p>
@@ -308,6 +308,154 @@ $ git push origin v1.0
     
     
       <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Staticmethod and classmethod</title>
+    <link href="http://walter-du.github.io/2017/01/18/Staticmethod_AND_classmethod/"/>
+    <id>http://walter-du.github.io/2017/01/18/Staticmethod_AND_classmethod/</id>
+    <published>2017-01-17T16:00:00.000Z</published>
+    <updated>2017-02-07T07:38:13.620Z</updated>
+    
+    <content type="html"><![CDATA[<hr>
+<p>classmethod 的存在是显然的；</p>
+<p>staticmethod 的意义在哪里?<br>主要还是作用域吧，如果某个函数只在某个 class 中使用，且无关 self or cls ，则可以一用，比野在外面强；<br>其实直接 self 不用也无妨；只是意义更明确，此为 class’s function 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if NOT access instance &apos;self&apos;:</div><div class="line">    if NOT access class &apos;cls&apos;:</div><div class="line">        choose &apos;staticmethod&apos;</div><div class="line">    else:</div><div class="line">        choose &apos;classmethod&apos;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>Refer to</strong>:<br>    <a href="http://pythoncentral.io/difference-between-staticmethod-and-classmethod-in-python/" target="_blank" rel="external">http://pythoncentral.io/difference-between-staticmethod-and-classmethod-in-python/</a><br>    <a href="http://stackoverflow.com/questions/12179271/python-classmethod-and-staticmethod-for-beginner" target="_blank" rel="external">http://stackoverflow.com/questions/12179271/python-classmethod-and-staticmethod-for-beginner</a></p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      Python syntax: staticmethod, classmethod
+    
+    </summary>
+    
+      <category term="Python" scheme="http://walter-du.github.io/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://walter-du.github.io/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Why &#39;epoll&#39; faster than &#39;select&#39;</title>
+    <link href="http://walter-du.github.io/2016/12/14/Epoll_AND_select/"/>
+    <id>http://walter-du.github.io/2016/12/14/Epoll_AND_select/</id>
+    <published>2016-12-13T16:00:00.000Z</published>
+    <updated>2017-02-07T08:31:41.733Z</updated>
+    
+    <content type="html"><![CDATA[<hr>
+<blockquote>
+<p>epoll 快于 select 的本质是有 kernel 时刻在帮忙。<br>select() 需要进程当场轮询所有的 fd (调用每个 fd 对应的底层 poll)以确定可用的 fd 集;<br>而 epoll epoll_wait() 是进程直接返回被内核 I/O 事件异步唤醒而加入到 ready list 的 fd 集，相当于其收集可用的 fd 集的工作已由内核(软中断)在之前就完成了。</p>
+</blockquote>
+<h2 id="select-的实现"><a href="#select-的实现" class="headerlink" title="select 的实现"></a>select 的实现</h2><p>select 比较常用，其实现过程大致如下:<br>sys_select -&gt; do_select<br>{</p>
+<ul>
+<li>将所有的 fd 从用户态 copy 到内核态;</li>
+<li>依次调用每个 fd 对应的底层 poll 函数，对于 socket fd 通常就是 tcp_poll/udp_poll(datagram_poll)， check 对应的 sk queue 是否有数据可读/可写，若有则保存到临时变量;</li>
+<li>每调用一次底层 poll 函数，还会 cond_resched() 一次 (2.6.15);</li>
+<li>所有 fd 都 poll 一遍以后，若有数据则返回; 没有则 check 是否 timeout，没有则 sleep timeout，睡眠结束后再进行一次遍历 poll ;</li>
+<li>timeout or 有数据才返回;</li>
+<li>返回后有数据则将其从 内核态 copy 到 用户态。</li>
+</ul>
+<p>}</p>
+<h2 id="epoll-VS-select"><a href="#epoll-VS-select" class="headerlink" title="epoll VS select"></a>epoll VS select</h2><p>对于多路复用 I/O 所涉及的注册、通知和处理过程， 相较于 select ， epoll 将大部分工作放到了内核。<br>由于其设计时专门考虑到了大量的 fd 处理场景，其效率要高很多，具体体现在:</p>
+<ol>
+<li>少了 socket 句柄从 用户态 到 内核态的拷贝;</li>
+<li>少了 select 每次对 fdset 的重新初始化;</li>
+<li><p>The most important:<br> select 在内核层面还是轮询而非真正的异步，并且时机比 epoll 晚;<br> select 是在 调用 select() 时才着手等待并记录异步事件;<br> 而 epoll 先于 select ，即在 epoll_ctl() 添加 fd 时就已经开始等待并记录异步事件，这样调用 epoll_wait() 时马上就能返回已记录好的异步数据;</p>
+<p> 这是通过在内核中维护一个事件 list ，并在 epoll_ctl() 添加 fd 时，在内核中为每个 fd 注册 异步回调函数 (将 ep_poll_callback 挂到等待队列 wait_queue_head_t *whead) 的机制来实现的;</p>
+<blockquote>
+<p>[ eg: sys_epoll_ctl –&gt; ep_insert –&gt; sock_poll –&gt; tcp_poll –&gt; poll_wait –&gt; ep_ptable_queue_proc –&gt; init_waitqueue_func_entry(&amp;pwq-&gt;wait, ep_poll_callback) ]</p>
+</blockquote>
+<p> 当对应的 fd 有事件发生 (eg: socket 收到报文， sock_def_readable) 时，主动唤醒等待队列 (wake_up_interruptible(sk-&gt;sk_sleep) )，即调用等待队列上的回调函数，回调函数就将对应的 fd 添加到事件 list ，待 epoll_wait() 时直接从 list 取出即可;</p>
+<p> 可知，对于 epoll 进程来讲，事件获取的大部分工作其实是由系统 (对于 socket 而言收发包为软中断，而非用户进程) 在幕后完成的，进程只是纯粹的读取结果;<br> 而 select 进程对事件的轮询，其工作都由 select 进程自己 (从用户态到内核态) 当场完成;</p>
+<p> 当被监视的 fd 数目非常大时，select 和 poll 系统调用完成操作需时 O(n) ，而 epoll 能在 O(1) 时间内完成;<br> 显然， epoll 要快的多。</p>
+</li>
+</ol>
+<h2 id="PS-libevent"><a href="#PS-libevent" class="headerlink" title="PS: libevent"></a>PS: libevent</h2><blockquote>
+<p>Linux - epoll，BSD - kqueue，Solaris - “/dev/poll”</p>
+</blockquote>
+<p><em><br>“类 select 模型将事件探测和事件响应夹杂在一起，一旦事件响应的执行体庞大，则对整个模型是灾难性的。<br>幸运的是，有很多高效的事件驱动库可以屏蔽上述的困难，常见的事件驱动库有 libevent 库，还有作为 libevent 替代者的 libev 库。<br>这些库会根据操作系统的特点选择最合适的事件探测接口，并且加入了信号 (signal) 等技术以支持异步响应，这使得这些库成为构建事件驱动模型的不二选择。”
+</em></p>
+]]></content>
+    
+    <summary type="html">
+    
+      epoll, select
+    
+    </summary>
+    
+      <category term="network" scheme="http://walter-du.github.io/categories/network/"/>
+    
+    
+      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
+    
+      <category term="I/O" scheme="http://walter-du.github.io/tags/I-O/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>How &#39;sleep&#39; happens</title>
+    <link href="http://walter-du.github.io/2016/12/14/How_sleep_happens/"/>
+    <id>http://walter-du.github.io/2016/12/14/How_sleep_happens/</id>
+    <published>2016-12-13T16:00:00.000Z</published>
+    <updated>2017-02-07T08:36:36.876Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="sleep-的实现过程"><a href="#sleep-的实现过程" class="headerlink" title="sleep 的实现过程"></a>sleep 的实现过程</h2><p>sleep –&gt; sys_nanosleep<br>{</p>
+<ul>
+<li>为当前进程注册一个 timer 及超时回调函数 process_timeout;</li>
+<li>将进程置为 TASK_INTERRUPTIBLE;</li>
+<li>将 timer 挂到每 CPU 链 tvec_bases;</li>
+<li>schedule() 让出 CPU;</li>
+<li>时钟软中断 TIMER_SOFTIRQ 函数 run_timer_softirq 检查 tvec_bases 是否有 timer 超时;</li>
+<li>超时则回调 process_timeout 进而 wake_up_process 唤醒进程到 TASK_RUNNING,等待时间片调度。</li>
+</ul>
+<p>}</p>
+]]></content>
+    
+    <summary type="html">
+    
+      Linux to sleep
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://walter-du.github.io/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://walter-du.github.io/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Property and getattr</title>
+    <link href="http://walter-du.github.io/2016/11/28/Property_AND_getattr/"/>
+    <id>http://walter-du.github.io/2016/11/28/Property_AND_getattr/</id>
+    <published>2016-11-27T16:00:00.000Z</published>
+    <updated>2017-02-07T07:48:25.459Z</updated>
+    
+    <content type="html"><![CDATA[<hr>
+<p>@property 只能针对单个属性;<br>getattr 作用于该 class 的所有属性;</p>
+<p>显然，应用场景就很不同了。</p>
+<p><em><br>“The main downside to properties is that they aren’t reusable.”<br>“Most of the time/in the general case, property is of no use unless you <strong>DO</strong> need to do some extra work when access the attribute.”
+</em></p>
+<blockquote>
+<p><strong>Refer to</strong>:<br>    <a href="http://nbviewer.jupyter.org/urls/gist.github.com/ChrisBeaumont/5758381/raw/descriptor_writeup.ipynb" target="_blank" rel="external">http://nbviewer.jupyter.org/urls/gist.github.com/ChrisBeaumont/5758381/raw/descriptor_writeup.ipynb</a></p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      Python syntax: property, getattr
+    
+    </summary>
+    
+      <category term="Python" scheme="http://walter-du.github.io/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://walter-du.github.io/tags/Python/"/>
     
   </entry>
   

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Why &#39;epoll&#39; faster than &#39;select&#39; | Simply this | That is exactly what I&#39;m saying.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="network,I/O">
+    <meta name="description" content="epoll, select">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Why 'epoll' faster than 'select'">
+<meta property="og:url" content="http://walter-du.github.io/2016/12/14/Epoll_AND_select/index.html">
+<meta property="og:site_name" content="Simply this">
+<meta property="og:description" content="epoll, select">
+<meta property="og:updated_time" content="2017-02-07T08:31:41.733Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Why 'epoll' faster than 'select'">
+<meta name="twitter:description" content="epoll, select">
+    
+        <link rel="alternative" href="/atom.xml" title="Simply this" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/some.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">walter-du</h5>
+          <h6 class="motto">Burn out or fade away, up to youself~</h6>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/walter-du" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Why &#39;epoll&#39; faster than &#39;select&#39;</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Why &#39;epoll&#39; faster than &#39;select&#39;</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2016-12-13T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2016-12-14
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/network/">network</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#select-的实现"><span class="post-toc-number">1.</span> <span class="post-toc-text">select 的实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#epoll-VS-select"><span class="post-toc-number">2.</span> <span class="post-toc-text">epoll VS select</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#PS-libevent"><span class="post-toc-number">3.</span> <span class="post-toc-text">PS: libevent</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Epoll_AND_select"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Why 'epoll' faster than 'select'</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2016年12月14日 0:00" datetime="2016-12-13T16:00:00.000Z"  itemprop="datePublished">2016-12-14</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/network/">network</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <hr>
+<blockquote>
+<p>epoll 快于 select 的本质是有 kernel 时刻在帮忙。<br>select() 需要进程当场轮询所有的 fd (调用每个 fd 对应的底层 poll)以确定可用的 fd 集;<br>而 epoll epoll_wait() 是进程直接返回被内核 I/O 事件异步唤醒而加入到 ready list 的 fd 集，相当于其收集可用的 fd 集的工作已由内核(软中断)在之前就完成了。</p>
+</blockquote>
+<h2 id="select-的实现"><a href="#select-的实现" class="headerlink" title="select 的实现"></a>select 的实现</h2><p>select 比较常用，其实现过程大致如下:<br>sys_select -&gt; do_select<br>{</p>
+<ul>
+<li>将所有的 fd 从用户态 copy 到内核态;</li>
+<li>依次调用每个 fd 对应的底层 poll 函数，对于 socket fd 通常就是 tcp_poll/udp_poll(datagram_poll)， check 对应的 sk queue 是否有数据可读/可写，若有则保存到临时变量;</li>
+<li>每调用一次底层 poll 函数，还会 cond_resched() 一次 (2.6.15);</li>
+<li>所有 fd 都 poll 一遍以后，若有数据则返回; 没有则 check 是否 timeout，没有则 sleep timeout，睡眠结束后再进行一次遍历 poll ;</li>
+<li>timeout or 有数据才返回;</li>
+<li>返回后有数据则将其从 内核态 copy 到 用户态。</li>
+</ul>
+<p>}</p>
+<h2 id="epoll-VS-select"><a href="#epoll-VS-select" class="headerlink" title="epoll VS select"></a>epoll VS select</h2><p>对于多路复用 I/O 所涉及的注册、通知和处理过程， 相较于 select ， epoll 将大部分工作放到了内核。<br>由于其设计时专门考虑到了大量的 fd 处理场景，其效率要高很多，具体体现在:</p>
+<ol>
+<li>少了 socket 句柄从 用户态 到 内核态的拷贝;</li>
+<li>少了 select 每次对 fdset 的重新初始化;</li>
+<li><p>The most important:<br> select 在内核层面还是轮询而非真正的异步，并且时机比 epoll 晚;<br> select 是在 调用 select() 时才着手等待并记录异步事件;<br> 而 epoll 先于 select ，即在 epoll_ctl() 添加 fd 时就已经开始等待并记录异步事件，这样调用 epoll_wait() 时马上就能返回已记录好的异步数据;</p>
+<p> 这是通过在内核中维护一个事件 list ，并在 epoll_ctl() 添加 fd 时，在内核中为每个 fd 注册 异步回调函数 (将 ep_poll_callback 挂到等待队列 wait_queue_head_t *whead) 的机制来实现的;</p>
+<blockquote>
+<p>[ eg: sys_epoll_ctl –&gt; ep_insert –&gt; sock_poll –&gt; tcp_poll –&gt; poll_wait –&gt; ep_ptable_queue_proc –&gt; init_waitqueue_func_entry(&amp;pwq-&gt;wait, ep_poll_callback) ]</p>
+</blockquote>
+<p> 当对应的 fd 有事件发生 (eg: socket 收到报文， sock_def_readable) 时，主动唤醒等待队列 (wake_up_interruptible(sk-&gt;sk_sleep) )，即调用等待队列上的回调函数，回调函数就将对应的 fd 添加到事件 list ，待 epoll_wait() 时直接从 list 取出即可;</p>
+<p> 可知，对于 epoll 进程来讲，事件获取的大部分工作其实是由系统 (对于 socket 而言收发包为软中断，而非用户进程) 在幕后完成的，进程只是纯粹的读取结果;<br> 而 select 进程对事件的轮询，其工作都由 select 进程自己 (从用户态到内核态) 当场完成;</p>
+<p> 当被监视的 fd 数目非常大时，select 和 poll 系统调用完成操作需时 O(n) ，而 epoll 能在 O(1) 时间内完成;<br> 显然， epoll 要快的多。</p>
+</li>
+</ol>
+<h2 id="PS-libevent"><a href="#PS-libevent" class="headerlink" title="PS: libevent"></a>PS: libevent</h2><blockquote>
+<p>Linux - epoll，BSD - kqueue，Solaris - “/dev/poll”</p>
+</blockquote>
+<p><em><br>“类 select 模型将事件探测和事件响应夹杂在一起，一旦事件响应的执行体庞大，则对整个模型是灾难性的。<br>幸运的是，有很多高效的事件驱动库可以屏蔽上述的困难，常见的事件驱动库有 libevent 库，还有作为 libevent 替代者的 libev 库。<br>这些库会根据操作系统的特点选择最合适的事件探测接口，并且加入了信号 (signal) 等技术以支持异步响应，这使得这些库成为构建事件驱动模型的不二选择。”
+</em></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-02-07T08:31:41.733Z" itemprop="dateUpdated">2017年2月7日 16:31</time>
+</span><br>
+
+
+        原文地址：<a href="/2016/12/14/Epoll_AND_select/" target="_blank" rel="external">http://walter-du.github.io/2016/12/14/Epoll_AND_select/</a>
+    </div>
+    <footer>
+        <a href="http://walter-du.github.io">
+            <img src="/img/some.jpg" alt="walter-du">
+            walter-du
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/I-O/">I/O</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.github.io/2016/12/14/Epoll_AND_select/&title=《Why 'epoll' faster than 'select'》 — Simply this&pic=http://walter-du.github.io/img/some.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.github.io/2016/12/14/Epoll_AND_select/&title=《Why 'epoll' faster than 'select'》 — Simply this&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.github.io/2016/12/14/Epoll_AND_select/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Why 'epoll' faster than 'select'》 — Simply this&url=http://walter-du.github.io/2016/12/14/Epoll_AND_select/&via=http://walter-du.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.github.io/2016/12/14/Epoll_AND_select/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/01/18/Staticmethod_AND_classmethod/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Staticmethod and classmethod</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2016/12/14/How_sleep_happens/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">How &#39;sleep&#39; happens</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Simply this &copy; 2016 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.github.io/2016/12/14/Epoll_AND_select/&title=《Why 'epoll' faster than 'select'》 — Simply this&pic=http://walter-du.github.io/img/some.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.github.io/2016/12/14/Epoll_AND_select/&title=《Why 'epoll' faster than 'select'》 — Simply this&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.github.io/2016/12/14/Epoll_AND_select/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Why 'epoll' faster than 'select'》 — Simply this&url=http://walter-du.github.io/2016/12/14/Epoll_AND_select/&via=http://walter-du.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.github.io/2016/12/14/Epoll_AND_select/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKUlEQVR42u3aS27DMAwFwNz/0i7QVYEk9iPpFo00Whmpa3u0IPjR4xGv43s9X//85fme53X+5He/3LYwMDA+lnGcrnPG+XXyzPyXi03BwMDYgJEE2TwU5gE6YSRhGgMDA+P8nkmYrt6JgYGBkQTcd8E3KVknJAwMDIxqwZk3y/Jg3SuGMTAwdmBMitLfvv6j+QYGBsY/ZhzFlT+nemceZF88AQMDY2lGL5nLhwe9Rl7vmRgYGKsy5q+ZhODkE6OSFQMDYwNG9ZhXfmCitwX5BmFgYOzGqB7eSqj5UCFPB6NaHAMDYyHGJNcqVMkxqbpZGBgYOzDmg8b8cEZ1Rwvfg4GBsQGj19BPXjwfUiYlNAYGxg6M/JzVZDyQtP6bhS4GBsbGjHlInY8qo/EnBgbG0oxeo//eoxV5unnxXxgYGIsyqm36XnFbfUI+On1Ri2NgYCzKmJeXvQA6TwcxMDD2ZNwbFqtjgGRI8OItGBgYSzPydLDQ9hqsfDyAgYGxD2OS/OWJYL41va3EwMDYgVFN/pKhQvWj8+L2YniJgYGxHKOXAk4OhFVDdmHjMDAwFmVMGl4XzfreMLIXpjEwMJZm3BCtB0e+8vQ02TIMDIy1GUmQnR/F6I0HzkmPfFKKgYGxBKN6tKLcvr+JV/4zBgbGZoxJQMyL0mZRjYGBgTGoj++iXtyJgYGxAaOX/PXGCUlLLj86hoGBsQNjUkAW2mGD1v9tGAwMjM9jfAHI+0HPVBouAQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
