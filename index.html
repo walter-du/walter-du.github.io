@@ -141,7 +141,61 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
-            <article id="post-Git manual"
+            <article id="post-Route_AND_conntrack"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017年02月07日 0:00" datetime="2017-02-06T16:00:00.000Z"  itemprop="datePublished">2017-02-07</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/network/">network</a></li></ul>
+
+
+
+        
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/02/07/Route_AND_conntrack/">Route and conntrack</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        
+两者关系不明显；路由表和连接跟踪表对应着不同的功能；
+路由表用于确定 skb 的 ip_output，连接跟踪表记录了 skb 源和目的两端的五元组信息；
+即有了路由表，包才知道往哪里发送，包发送后才知道并记录该包完整的源和目的五元组，即创建连接跟踪表；
+
+CAUTION:        iptable nat table 规则如其名，Network Address Translation...
+    
+
+        <a href="/2017/02/07/Route_AND_conntrack/" class="post-more waves-effect waves-button">
+            more...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-Git_manual"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -161,7 +215,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/01/23/Git manual/">Git manual</a>
+      <a class="post-title-link" href="/2017/01/23/Git_manual/">Git manual</a>
     </h3>
   
 
@@ -177,7 +231,7 @@ $ git checkout release    切换到本地 release 分支
 $ git pull origin release 更新本地库中的 origin/release 分支且合并到本地 release 分支...
     
 
-        <a href="/2017/01/23/Git manual/" class="post-more waves-effect waves-button">
+        <a href="/2017/01/23/Git_manual/" class="post-more waves-effect waves-button">
             more...
         </a>
     </div>
@@ -193,7 +247,7 @@ $ git pull origin release 更新本地库中的 origin/release 分支且合并�
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-Ssh-tunnel AND SS"
+            <article id="post-Ssh-tunnel_AND_SS"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -213,7 +267,7 @@ $ git pull origin release 更新本地库中的 origin/release 分支且合并�
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/01/22/Ssh-tunnel AND SS/">Ssh-tunnel AND SS</a>
+      <a class="post-title-link" href="/2017/01/22/Ssh-tunnel_AND_SS/">Ssh-tunnel AND SS</a>
     </h3>
   
 
@@ -234,7 +288,7 @@ Windows 自带 MD5 命令: certutil -hashfile  MD5 ;
 查看某 server 是否开启 80 端口: # nc &lt;server’s ip&gt; 80 (st...
     
 
-        <a href="/2017/01/22/Ssh-tunnel AND SS/" class="post-more waves-effect waves-button">
+        <a href="/2017/01/22/Ssh-tunnel_AND_SS/" class="post-more waves-effect waves-button">
             more...
         </a>
     </div>
@@ -250,7 +304,7 @@ Windows 自带 MD5 命令: certutil -hashfile  MD5 ;
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-UDP Q&amp;A"
+            <article id="post-UDP_Q&amp;A"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -270,7 +324,7 @@ Windows 自带 MD5 命令: certutil -hashfile  MD5 ;
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/01/22/UDP Q&A/">UDP Q&amp;A</a>
+      <a class="post-title-link" href="/2017/01/22/UDP_Q&A/">UDP Q&amp;A</a>
     </h3>
   
 
@@ -290,7 +344,7 @@ UDP write 若能成功返回,则说明 UDP 数据报(或其分片片段)一路�
 UDP 发包过快会...
     
 
-        <a href="/2017/01/22/UDP Q&A/" class="post-more waves-effect waves-button">
+        <a href="/2017/01/22/UDP_Q&A/" class="post-more waves-effect waves-button">
             more...
         </a>
     </div>

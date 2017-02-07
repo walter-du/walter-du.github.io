@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Ssh-tunnel AND SS | Simply this | That is exactly what I&#39;m saying.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="network,SS">
+    <meta name="description" content="Ssh-tunnel, SS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ssh-tunnel AND SS">
+<meta property="og:url" content="http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/index.html">
+<meta property="og:site_name" content="Simply this">
+<meta property="og:description" content="Ssh-tunnel, SS">
+<meta property="og:updated_time" content="2017-01-23T07:00:00.802Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ssh-tunnel AND SS">
+<meta name="twitter:description" content="Ssh-tunnel, SS">
+    
+        <link rel="alternative" href="/atom.xml" title="Simply this" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/some.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">walter-du</h5>
+          <h6 class="motto">Burn out or fade away, up to youself~</h6>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/walter-du" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Ssh-tunnel AND SS</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Ssh-tunnel AND SS</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-01-21T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-01-22
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/network/">network</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#On-Top"><span class="post-toc-number">1.</span> <span class="post-toc-text">On-Top</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Tools"><span class="post-toc-number">2.</span> <span class="post-toc-text">Tools</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#单一的-ssh-tunnel"><span class="post-toc-number">3.</span> <span class="post-toc-text">单一的 ssh-tunnel</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SS"><span class="post-toc-number">4.</span> <span class="post-toc-text">SS</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Ssh-tunnel_AND_SS"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Ssh-tunnel AND SS</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年01月22日 0:00" datetime="2017-01-21T16:00:00.000Z"  itemprop="datePublished">2017-01-22</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/network/">network</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <hr>
+<h2 id="On-Top"><a href="#On-Top" class="headerlink" title="On-Top"></a>On-Top</h2><ul>
+<li>update ‘hosts’</li>
+<li>update ‘g~f~wlist’</li>
+</ul>
+<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
+<li>Windows 自带 MD5 命令: certutil -hashfile <filename> MD5 ;</filename></li>
+<li>‘ssh’/‘netcat’(nc,支持明文或其他加密) 都能实现简单的端口转发功能;<br>  eg:<blockquote>
+<p>查看某 server 是否开启 80 端口: # nc &lt;server’s ip&gt; 80 (strace 或 tcpdump 查看报文交互)</p>
+</blockquote>
+</li>
+<li>‘dig’ for lookup ;</li>
+</ul>
+<h2 id="单一的-ssh-tunnel"><a href="#单一的-ssh-tunnel" class="headerlink" title="单一的 ssh-tunnel"></a>单一的 ssh-tunnel</h2><ul>
+<li>由于 ssh 本身就是基于 RSA 加密技术,所以 G~F~W 无法从数据传输的过程中对加密数据内容进行关键词分析,避免了被重置链接的问题;</li>
+<li>但由于创建隧道和数据传输的过程中, ssh 本身的特征是明显的,所以 G~F~W 可以通过分析连接的特征进行干扰,导致 ssh 存在被定向进行干扰的问题。</li>
+</ul>
+<h2 id="SS"><a href="#SS" class="headerlink" title="SS"></a>SS</h2><ul>
+<li><p>简单理解的话, SS 是将原来 ssh 创建的 Socks5 协议拆开成 server 端和 client 端,其原理基本上和利用 ssh-tunnel 大致类似:<br>  1.客户端发出的请求基于 Socks5 协议跟 ss-local 端进行通讯,由于这个 ss-local 一般是本机或路由器或局域网的其他机器,不经过 G~F~W ,所以解决了上面被 G~F~W 通过特征分析进行干扰的问题;<br>  2.ss-local 和 ss-server 两端通过多种可选的加密方法进行通讯,经过 G~F~W 的时候是常规的 TCP 包,没有明显的特征码且 G~F~W 也无法对通讯数据进行解密;<br>  3.ss-server 将收到的加密数据进行解密,还原原来的请求,再发送到用户需要访问的服务,获取响应原路返回。</p>
+<p>  两条 DNS 查询链：</p>
+<blockquote>
+<p>国外：Client—ChinaDNS—dnsmasq—SS—代理Server—GoogleDNS<br>国内：Client—ChinaDNS—114DNS</p>
+</blockquote>
+</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-01-23T07:00:00.802Z" itemprop="dateUpdated">2017年1月23日 15:00</time>
+</span><br>
+
+
+        原文地址：<a href="/2017/01/22/Ssh-tunnel_AND_SS/" target="_blank" rel="external">http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/</a>
+    </div>
+    <footer>
+        <a href="http://walter-du.github.io">
+            <img src="/img/some.jpg" alt="walter-du">
+            walter-du
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SS/">SS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/&title=《Ssh-tunnel AND SS》 — Simply this&pic=http://walter-du.github.io/img/some.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/&title=《Ssh-tunnel AND SS》 — Simply this&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Ssh-tunnel AND SS》 — Simply this&url=http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/&via=http://walter-du.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/01/23/Git_manual/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Git manual</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/01/22/UDP_Q&A/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">UDP Q&amp;A</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Simply this &copy; 2016 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/&title=《Ssh-tunnel AND SS》 — Simply this&pic=http://walter-du.github.io/img/some.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/&title=《Ssh-tunnel AND SS》 — Simply this&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Ssh-tunnel AND SS》 — Simply this&url=http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/&via=http://walter-du.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMklEQVR42u3aS1LDMBAFwNz/0mHLAsF7Y4cqS60VRYyi9kLM7/WK13uxvn+6ej5/ZvXkbQsDA+OxjPevKz/Wauf2RSR/9cO3Y2BgHMBIDpF82h4i3/mPM2NgYGCUP7ch4GxPDAwMjOQaTRLXNtzEwMDAuJLEtmW4K898MBfHwMB4ICOvuv//zx/pb2BgYDyK8S7XrCSX7zNbGBgYezPaZuQwvSwT2tl5MDAwzmS0V3B7rLydGQWLGBgYBzCS0v/v+PZYV8YylhcuBgbGdozkikwwVwr6+SW+fGUYGBgHMPIt8iCyDS7ztDaqGmJgYGzEuLdM1l7Ks9bCzRk5BgbGQxizcv/1QLBNif84FQYGxqaMNr2ctSE/cR3XES4GBsZGjPbrozGIUSxXhIkYGBhbM5LW42zkos6hy8CxnlzDwMB4LGNW/GoHLPJrOg8xl51YDAyM7RizC/euka/b/mNgYGBszWiT2Lu+Ph+2iK5sDAyMrRmzrXN8O2qWtweWGAwMjE0ZySHatmXbMMiLdMvXhIGBcQDj+kBY/mlbtov2wcDAOIBxV2dw1gp9xSsKDTEwMDZivMt1pT7fjlYU6TEGBsbWjNk1VwxAxEnslboZBgbGCYxZuT8PHGdJcjtwhoGBcQKjKMEHLYGkkVCPf+X9DQwMDIxRypqHfflvPnLhYmBgbMFow8f26Pkru3ThYmBgPJCRJLH5sWZluHYgDAMD4xxGmzrmV2E75tWW5zAwMA5gfAEGQn+tgApBpQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://walter-du.github.io/"/>
-  <updated>2017-01-23T13:46:10.820Z</updated>
+  <updated>2017-02-07T02:21:05.506Z</updated>
   <id>http://walter-du.github.io/</id>
   
   <author>
@@ -16,9 +16,41 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Route and conntrack</title>
+    <link href="http://walter-du.github.io/2017/02/07/Route_AND_conntrack/"/>
+    <id>http://walter-du.github.io/2017/02/07/Route_AND_conntrack/</id>
+    <published>2017-02-06T16:00:00.000Z</published>
+    <updated>2017-02-07T02:21:05.506Z</updated>
+    
+    <content type="html"><![CDATA[<hr>
+<p>两者关系不明显；<br>路由表和连接跟踪表对应着不同的功能；</p>
+<p>路由表用于确定 skb 的 ip_output，连接跟踪表记录了 skb 源和目的两端的五元组信息；</p>
+<p>即有了路由表，包才知道往哪里发送，包发送后才知道并记录该包完整的源和目的五元组，即创建连接跟踪表；</p>
+<blockquote>
+<p><strong>CAUTION</strong>:<br>    <em><br>    iptable nat table 规则如其名，Network Address Translation 就是用于改变包的五元组信息的，即影响连接跟踪表的创建。<br>    但是，一旦某条连接跟踪表创建后，那么在其老化前，无论 iptable nat table 上的规则如何变化，都不会影响对应的包根据该条连接跟踪表来进行两端的发收。<br>    Why?<br>    修改 nat table 后为何不实时刷新 conntrack table ，refer to ‘ip_nat_fn’，显然不很容易；Linux 可能认为也无大必要。<br>    实在要为之，或者可以在创建连接跟踪表时 private point 影响其五元组的 nat table rules，然后联动，may be it works, no guarantee ~
+    </em></p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      Route table, conntrack table
+    
+    </summary>
+    
+      <category term="network" scheme="http://walter-du.github.io/categories/network/"/>
+    
+    
+      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
+    
+      <category term="Linux" scheme="http://walter-du.github.io/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Git manual</title>
-    <link href="http://walter-du.github.io/2017/01/23/Git%20manual/"/>
-    <id>http://walter-du.github.io/2017/01/23/Git manual/</id>
+    <link href="http://walter-du.github.io/2017/01/23/Git_manual/"/>
+    <id>http://walter-du.github.io/2017/01/23/Git_manual/</id>
     <published>2017-01-22T16:00:00.000Z</published>
     <updated>2017-01-23T13:46:10.820Z</updated>
     
@@ -153,8 +185,8 @@ $ git push origin v1.0
   
   <entry>
     <title>Ssh-tunnel AND SS</title>
-    <link href="http://walter-du.github.io/2017/01/22/Ssh-tunnel%20AND%20SS/"/>
-    <id>http://walter-du.github.io/2017/01/22/Ssh-tunnel AND SS/</id>
+    <link href="http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/"/>
+    <id>http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/</id>
     <published>2017-01-21T16:00:00.000Z</published>
     <updated>2017-01-23T07:00:00.802Z</updated>
     
@@ -202,10 +234,10 @@ $ git push origin v1.0
   
   <entry>
     <title>UDP Q&amp;A</title>
-    <link href="http://walter-du.github.io/2017/01/22/UDP%20Q&amp;A/"/>
-    <id>http://walter-du.github.io/2017/01/22/UDP Q&amp;A/</id>
+    <link href="http://walter-du.github.io/2017/01/22/UDP_Q&amp;A/"/>
+    <id>http://walter-du.github.io/2017/01/22/UDP_Q&amp;A/</id>
     <published>2017-01-21T16:00:00.000Z</published>
-    <updated>2017-01-23T06:57:47.504Z</updated>
+    <updated>2017-02-07T01:44:26.918Z</updated>
     
     <content type="html"><![CDATA[<hr>
 <h2 id="UDP-发送大包会发生什么"><a href="#UDP-发送大包会发生什么" class="headerlink" title="UDP 发送大包会发生什么?"></a>UDP 发送大包会发生什么?</h2><ul>
