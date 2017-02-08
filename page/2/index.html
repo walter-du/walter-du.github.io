@@ -141,6 +141,117 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
+            <article id="post-Process_scheduling"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2016年12月18日 0:00" datetime="2016-12-17T16:00:00.000Z"  itemprop="datePublished">2016-12-18</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Linux/">Linux</a></li></ul>
+
+
+
+        
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2016/12/18/Process_scheduling/">Process schedule</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        
+进程调度时机
+显示调度,进程主动调度或由于缺少相应申请的资源,显示调用调度器让出CPU；
+隐式调度,整个linux系统在运行过程中非显示的调用调度器,这又分两种情况：
+
+A)非抢占调度  比如:在系统调用,中断处理,异常处理返回用户态时,该进程的时间片已经用完
+B)抢占调度  比如:当前内核态执行过程中事先没有禁止内核态抢占,有中断产生并且中断处理又产生了更高优先级进程,那么就会直接抢占前...
+    
+
+        <a href="/2016/12/18/Process_scheduling/" class="post-more waves-effect waves-button">
+            more...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-Libevent_AND_event-driven_model"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2016年12月16日 0:00" datetime="2016-12-15T16:00:00.000Z"  itemprop="datePublished">2016-12-16</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/I-O/">I/O</a></li></ul>
+
+
+
+        
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2016/12/16/Libevent_AND_event-driven_model/">Libevent and event-driven model</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        
+基于 event 驱动的 I/O 模型 (Libevent, GDBus) 的关注点
+对不同的 event(fd) 设置不同的超时时间;
+对不同的 event(fd) 设置不同的优先级;
+运行过程中动态的 增加/删除 需关注的 event(fd);
+
+Libevent (Reactor)
+‘select_dispatch’ 中 ‘random() % nfds;’: 相同优先级的 even...
+    
+
+        <a href="/2016/12/16/Libevent_AND_event-driven_model/" class="post-more waves-effect waves-button">
+            more...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/I-O/">I/O</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IPC/">IPC</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-Epoll_AND_select"
   class="article-card article-type-post" itemprop="blogPost">
 
@@ -269,7 +380,7 @@ schedule() 让出 CPU;
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2016/11/28/Property_AND_getattr/">Property and getattr</a>
+      <a class="post-title-link" href="/2016/11/28/Property_AND_getattr/">&#39;Property&#39; and &#39;getattr&#39;</a>
     </h3>
   
 

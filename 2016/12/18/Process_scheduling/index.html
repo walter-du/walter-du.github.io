@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Process schedule | Simply this | That is exactly what I&#39;m saying.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux">
+    <meta name="description" content="Linux process schedule">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Process schedule">
+<meta property="og:url" content="http://walter-du.github.io/2016/12/18/Process_scheduling/index.html">
+<meta property="og:site_name" content="Simply this">
+<meta property="og:description" content="Linux process schedule">
+<meta property="og:updated_time" content="2017-02-08T03:21:27.015Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Process schedule">
+<meta name="twitter:description" content="Linux process schedule">
+    
+        <link rel="alternative" href="/atom.xml" title="Simply this" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/some.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">walter-du</h5>
+          <h6 class="motto">Burn out or fade away, up to youself~</h6>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/walter-du" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Process schedule</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Process schedule</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2016-12-17T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2016-12-18
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Linux/">Linux</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#进程调度时机"><span class="post-toc-number">1.</span> <span class="post-toc-text">进程调度时机</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常见的调度点"><span class="post-toc-number">2.</span> <span class="post-toc-text">常见的调度点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#应用态和内核态的while-1"><span class="post-toc-number">3.</span> <span class="post-toc-text">应用态和内核态的while(1)</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Process_scheduling"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Process schedule</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2016年12月18日 0:00" datetime="2016-12-17T16:00:00.000Z"  itemprop="datePublished">2016-12-18</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Linux/">Linux</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <hr>
+<h2 id="进程调度时机"><a href="#进程调度时机" class="headerlink" title="进程调度时机"></a>进程调度时机</h2><ol>
+<li>显示调度,进程主动调度或由于缺少相应申请的资源,显示调用调度器让出CPU；</li>
+<li><p>隐式调度,整个linux系统在运行过程中非显示的调用调度器,这又分两种情况：</p>
+<ul>
+<li>A)非抢占调度<br>  比如:在系统调用,中断处理,异常处理返回用户态时,该进程的时间片已经用完</li>
+<li><p>B)抢占调度<br>  比如:当前内核态执行过程中事先没有禁止内核态抢占,有中断产生并且中断处理又产生了更高优先级进程,那么就会直接抢占前面的内核态执行体</p>
+</li>
+<li><p>内核态抢占的抢占点有两处:<br>A)中断处理返回内核态时(如果事先没有禁止内核态抢占[preempt_disable])<br>B)重新起用内核态抢占时([preempt_enable])</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>相关数据结构:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">struct thread_info</div><div class="line">&#123;</div><div class="line">    .....</div><div class="line">    int preempt_count;  /* 0 =&gt; preemptable, &lt;0 =&gt; BUG */</div><div class="line">    (PREEMPT 0-7位表示内核态禁止抢占计数器,只要PREEMPT为0时才允许内核态抢占；</div><div class="line">    SOFTIRQ 8-15表示本地软中断禁止计数器,HARDIRQ 16-27表示本地CPU硬中断嵌套的深度)</div><div class="line">    .....</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="常见的调度点"><a href="#常见的调度点" class="headerlink" title="常见的调度点"></a>常见的调度点</h2><p>1)进程被阻塞时<br>    比如申请资源时被阻塞;</p>
+<p>2)调整参数时<br>    比如通过 sched_setscheduler() ,nice()等函数调整进程的调度策略,静态优先级时;</p>
+<p>3)睡眠进程被唤醒时<br>    比如 wake_up 唤醒等待队列中的进程时,如果该进程具有更高优先级则会设置当前进程 TIF_NEED_RESCHED ,如果允许内核态抢占,则会发生调度;</p>
+<p>4)中断返回时<br>    如果中断处理过程中设置了 TIF_NEED_SCHED 标志,中断返回时:<br>    当返回到用户态,就会检查都会 TIF_NEED_SCHED 标志;<br>    当返回到内核态,如果抢占被使能,也会检查 TIF_NEED_SCHED 标志。</p>
+<p>5)异常,系统调用返回时</p>
+<p>6)执行了preempt_enable()函数</p>
+<h2 id="应用态和内核态的while-1"><a href="#应用态和内核态的while-1" class="headerlink" title="应用态和内核态的while(1)"></a>应用态和内核态的while(1)</h2><p>通过系统调用后进入内核态后，while(1)，此时用户程序停止但是可以从外ping通网络,为什么？和在应用层while(1)有什么区别？</p>
+<p>对于UP来讲，进入内核态后while(1)，由于中断仍打开，此时所有的中断都能够正常进行，中断返回时：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line"> * Exit an interrupt context. Process softirqs if needed and possible:</div><div class="line"> */</div><div class="line">void irq_exit(void)</div><div class="line">&#123;</div><div class="line">    account_system_vtime(current);</div><div class="line">    sub_preempt_count(IRQ_EXIT_OFFSET);/* 自减硬中断计数 */</div><div class="line">    if (!in_interrupt() &amp;&amp; local_softirq_pending())</div><div class="line">        invoke_softirq();/* 执行挂起的软中断 */</div><div class="line">    preempt_enable_no_resched();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如果有软中断被激活，则会唤醒软中断并执行，故网络接收/发送软中断都有机会得到执行，所以可以从外ping通网络。<br>由于中断发生在内核态并且禁止了内核抢占，从中断返回时直接恢复到内核态继续while(1)，而不会检查 need_resched ，故不会有调度产生，其他进程（包括用户进程和内核线程）都不会有机会执行，事实上此时系统已不可能完成任何实际功能了。</p>
+<p>对于用户态的while(1)，每次时钟中断程序都会检查进程的时间片，当进程用完其时间片时，该进程会设置 need_resched ，待到从中断返回时，恢复到用户态时会检查 need_resched ，所以此时就会被调度。<br>至于每次top看到此进程占用CPU 99%，CPU利用率100%，这依赖于top程序的统计方法，由于while(1)几乎每次都会用完了自己的时间片才被调度，从不主动放弃CPU，即任何时候都至少有这个进程处于 TASK_RUNNING 状态，调度程序从不会选择idle进程（进程0），故CPU得利用率总是100%。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-02-08T03:21:27.015Z" itemprop="dateUpdated">2017年2月8日 11:21</time>
+</span><br>
+
+
+        原文地址：<a href="/2016/12/18/Process_scheduling/" target="_blank" rel="external">http://walter-du.github.io/2016/12/18/Process_scheduling/</a>
+    </div>
+    <footer>
+        <a href="http://walter-du.github.io">
+            <img src="/img/some.jpg" alt="walter-du">
+            walter-du
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.github.io/2016/12/18/Process_scheduling/&title=《Process schedule》 — Simply this&pic=http://walter-du.github.io/img/some.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.github.io/2016/12/18/Process_scheduling/&title=《Process schedule》 — Simply this&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.github.io/2016/12/18/Process_scheduling/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Process schedule》 — Simply this&url=http://walter-du.github.io/2016/12/18/Process_scheduling/&via=http://walter-du.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.github.io/2016/12/18/Process_scheduling/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/01/18/Staticmethod_AND_classmethod/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">&#39;Staticmethod&#39; and &#39;classmethod&#39;</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2016/12/16/Libevent_AND_event-driven_model/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Libevent and event-driven model</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Simply this &copy; 2016 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.github.io/2016/12/18/Process_scheduling/&title=《Process schedule》 — Simply this&pic=http://walter-du.github.io/img/some.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.github.io/2016/12/18/Process_scheduling/&title=《Process schedule》 — Simply this&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.github.io/2016/12/18/Process_scheduling/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Process schedule》 — Simply this&url=http://walter-du.github.io/2016/12/18/Process_scheduling/&via=http://walter-du.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.github.io/2016/12/18/Process_scheduling/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLklEQVR42u3a0Y6CQAxGYd//pdnEO+Mynr/FzdI5c2UUgQ+T2mn7eOB1PNfZ6/Wn70e+r7NrXbxkyJBxWwa5wPrC/JzrIzt4GTJk7MAgQZaHVwIjYHJvMmTIkMFvl6d667PJkCFDxrWMdQAlx/M0UYYMGTLSFC0NwRz/9b24DBkybsjoNwa+9/pP+xsyZMj4l4wjXLz0n25oO0uGDBmzGbzonwZitO0EpbrgSBkyZIxmpKMPtUJbbbSCn0eGDBlTGTxEkoJ+Z6dZSzplyJCxD4Ocjm9NU3BtW/vyXRkyZIxmFPPHUmjmqV6tXSpDhozZDLKZ5J+mwxP94QwZMmTswOgU19KxMN5+WIM/pIYyZMgYxKila2liV0s3SaiVIUPGDgye6qUtzHTwoh/0ZciQMZVBLkZKYLVhC95guGDYQoYMGbdlpMGUj0TUtr580ytDhox9GPx2SZpY23ymYff0F5AhQ8ZQBi+EpclcZ1ysmFzKkCFjNCMteKXJHE8o0wAtQ4aMHRhxMav9zGpluw/flSFDxmYMkswd4UrPFv8ByJAhYzSjNoxVm5MlySIfFJMhQ8Y+jKtCJw/ZaeMTpZUyZMgYzeCr04zsJHxxY0CGDBlDGWmQTbem5AHxpBNNjsiQIWMoozb4lQ6ZkYCesmXIkCGjNhbGw2UnffwlNZQhQ4aM0ju88clbCDJkyNiTURuVCC5TaljyYp8MGTJmM/qTGny0Ky3AXfUgZMiQcVvGD9xfCj852++CAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

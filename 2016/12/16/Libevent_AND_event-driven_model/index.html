@@ -13,23 +13,23 @@
     
     
     
-    <title>How &#39;sleep&#39; happens | Simply this | That is exactly what I&#39;m saying.</title>
+    <title>Libevent and event-driven model | Simply this | That is exactly what I&#39;m saying.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="Linux">
-    <meta name="description" content="Linux to sleep">
+    <meta name="keywords" content="I/O,IPC">
+    <meta name="description" content="event-driven model, I/O">
 <meta property="og:type" content="article">
-<meta property="og:title" content="How 'sleep' happens">
-<meta property="og:url" content="http://walter-du.github.io/2016/12/14/How_sleep_happens/index.html">
+<meta property="og:title" content="Libevent and event-driven model">
+<meta property="og:url" content="http://walter-du.github.io/2016/12/16/Libevent_AND_event-driven_model/index.html">
 <meta property="og:site_name" content="Simply this">
-<meta property="og:description" content="Linux to sleep">
-<meta property="og:updated_time" content="2017-02-07T08:36:36.876Z">
+<meta property="og:description" content="event-driven model, I/O">
+<meta property="og:updated_time" content="2017-02-08T05:33:40.830Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="How 'sleep' happens">
-<meta name="twitter:description" content="Linux to sleep">
+<meta name="twitter:title" content="Libevent and event-driven model">
+<meta name="twitter:description" content="event-driven model, I/O">
     
         <link rel="alternative" href="/atom.xml" title="Simply this" type="application/atom+xml">
     
@@ -106,7 +106,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">How &#39;sleep&#39; happens</div>
+        <div class="flex-col header-title ellipsis">Libevent and event-driven model</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -128,15 +128,15 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">How &#39;sleep&#39; happens</h1>
+        <h1 class="title">Libevent and event-driven model</h1>
         <h5 class="subtitle">
             
-                <time datetime="2016-12-13T16:00:00.000Z" itemprop="datePublished" class="page-time">
-  2016-12-14
+                <time datetime="2016-12-15T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2016-12-16
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Linux/">Linux</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/I-O/">I/O</a></li></ul>
 
             
         </h5>
@@ -152,20 +152,20 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#sleep-的实现过程"><span class="post-toc-number">1.</span> <span class="post-toc-text">sleep 的实现过程</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基于-event-驱动的-I-O-模型-Libevent-GDBus-的关注点"><span class="post-toc-number">1.</span> <span class="post-toc-text">基于 event 驱动的 I/O 模型 (Libevent, GDBus) 的关注点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Libevent-Reactor"><span class="post-toc-number">2.</span> <span class="post-toc-text">Libevent (Reactor)</span></a></li></ol>
         </nav>
     </aside>
     
-<article id="post-How_sleep_happens"
+<article id="post-Libevent_AND_event-driven_model"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">How 'sleep' happens</h1>
+        <h1 class="post-card-title">Libevent and event-driven model</h1>
         <div class="post-meta">
-            <time class="post-time" title="2016年12月14日 0:00" datetime="2016-12-13T16:00:00.000Z"  itemprop="datePublished">2016-12-14</time>
+            <time class="post-time" title="2016年12月16日 0:00" datetime="2016-12-15T16:00:00.000Z"  itemprop="datePublished">2016-12-16</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Linux/">Linux</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/I-O/">I/O</a></li></ul>
 
 
 
@@ -179,16 +179,19 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="sleep-的实现过程"><a href="#sleep-的实现过程" class="headerlink" title="sleep 的实现过程"></a>sleep 的实现过程</h2><p>sleep –&gt; sys_nanosleep<br>{</p>
-<ul>
-<li>为当前进程注册一个 timer 及超时回调函数 process_timeout;</li>
-<li>将进程置为 TASK_INTERRUPTIBLE;</li>
-<li>将 timer 挂到每 CPU 链 tvec_bases;</li>
-<li>schedule() 让出 CPU;</li>
-<li>时钟软中断 TIMER_SOFTIRQ 函数 run_timer_softirq 检查 tvec_bases 是否有 timer 超时;</li>
-<li>超时则回调 process_timeout 进而 wake_up_process 唤醒进程到 TASK_RUNNING,等待时间片调度。</li>
+            <hr>
+<h2 id="基于-event-驱动的-I-O-模型-Libevent-GDBus-的关注点"><a href="#基于-event-驱动的-I-O-模型-Libevent-GDBus-的关注点" class="headerlink" title="基于 event 驱动的 I/O 模型 (Libevent, GDBus) 的关注点"></a>基于 event 驱动的 I/O 模型 (Libevent, GDBus) 的关注点</h2><ol>
+<li>对不同的 event(fd) 设置不同的超时时间;</li>
+<li>对不同的 event(fd) 设置不同的优先级;</li>
+<li>运行过程中动态的 增加/删除 需关注的 event(fd);</li>
+</ol>
+<h2 id="Libevent-Reactor"><a href="#Libevent-Reactor" class="headerlink" title="Libevent (Reactor)"></a>Libevent (Reactor)</h2><ul>
+<li>‘select_dispatch’ 中 ‘random() % nfds;’: 相同优先级的 event 有公平的处理机会(入队先后顺序);</li>
+<li>‘event_process_active’,’activequeues’: 不同优先级的 event 加入到不同的 active 队列;</li>
+<li>‘event_process_active’: 一次 loop 虽然将所有可用的 event 都入 active 队列，但是只处理最高优先级 active 队列中的 event ;</li>
+<li>‘EVLIST_INSERTED’ 用以动态的 add/del event;</li>
+<li>支持多线程:<br>  1: ‘event_process_active_single_queue’ 中调用 event 处理函数 ‘ev_callback’ 时释放了 LOCK ;<br>  2: 主要的非临界区: select/epoll 时 和 调用 event 处理函数 ‘ev_callback’ 时(显然此处理函数不应操作公共变量);<br>  3: ‘event_continue’: 线程 A 在处理某个优先级队列中的 event, 线程 B 发现了更高优先级的 event ,则线程 A 完成当前 event 的处理后，停止处理当前队列中的下一个 event , 进而进入下一次 loop 去处理更高优先级的 event 。</li>
 </ul>
-<p>}</p>
 
         </div>
 
@@ -196,11 +199,11 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-02-07T08:36:36.876Z" itemprop="dateUpdated">2017年2月7日 16:36</time>
+    最后更新时间：<time datetime="2017-02-08T05:33:40.830Z" itemprop="dateUpdated">2017年2月8日 13:33</time>
 </span><br>
 
 
-        原文地址：<a href="/2016/12/14/How_sleep_happens/" target="_blank" rel="external">http://walter-du.github.io/2016/12/14/How_sleep_happens/</a>
+        原文地址：<a href="/2016/12/16/Libevent_AND_event-driven_model/" target="_blank" rel="external">http://walter-du.github.io/2016/12/16/Libevent_AND_event-driven_model/</a>
     </div>
     <footer>
         <a href="http://walter-du.github.io">
@@ -215,7 +218,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/I-O/">I/O</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IPC/">IPC</a></li></ul>
 
 
             
@@ -225,7 +228,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.github.io/2016/12/14/How_sleep_happens/&title=《How 'sleep' happens》 — Simply this&pic=http://walter-du.github.io/img/some.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.github.io/2016/12/16/Libevent_AND_event-driven_model/&title=《Libevent and event-driven model》 — Simply this&pic=http://walter-du.github.io/img/some.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -235,22 +238,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.github.io/2016/12/14/How_sleep_happens/&title=《How 'sleep' happens》 — Simply this&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.github.io/2016/12/16/Libevent_AND_event-driven_model/&title=《Libevent and event-driven model》 — Simply this&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.github.io/2016/12/14/How_sleep_happens/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.github.io/2016/12/16/Libevent_AND_event-driven_model/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《How 'sleep' happens》 — Simply this&url=http://walter-du.github.io/2016/12/14/How_sleep_happens/&via=http://walter-du.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Libevent and event-driven model》 — Simply this&url=http://walter-du.github.io/2016/12/16/Libevent_AND_event-driven_model/&via=http://walter-du.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.github.io/2016/12/14/How_sleep_happens/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.github.io/2016/12/16/Libevent_AND_event-driven_model/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -273,18 +276,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2016/12/14/Epoll_AND_select/" id="post-prev" class="post-nav-link">
+      <a href="/2016/12/18/Process_scheduling/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Why &#39;epoll&#39; faster than &#39;select&#39;</h4>
+        <h4 class="title">Process schedule</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2016/11/28/Property_AND_getattr/" id="post-next" class="post-nav-link">
+      <a href="/2016/12/14/Epoll_AND_select/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">&#39;Property&#39; and &#39;getattr&#39;</h4>
+        <h4 class="title">Why &#39;epoll&#39; faster than &#39;select&#39;</h4>
       </a>
     </div>
   
@@ -341,7 +344,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.github.io/2016/12/14/How_sleep_happens/&title=《How 'sleep' happens》 — Simply this&pic=http://walter-du.github.io/img/some.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.github.io/2016/12/16/Libevent_AND_event-driven_model/&title=《Libevent and event-driven model》 — Simply this&pic=http://walter-du.github.io/img/some.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -351,22 +354,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.github.io/2016/12/14/How_sleep_happens/&title=《How 'sleep' happens》 — Simply this&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.github.io/2016/12/16/Libevent_AND_event-driven_model/&title=《Libevent and event-driven model》 — Simply this&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.github.io/2016/12/14/How_sleep_happens/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.github.io/2016/12/16/Libevent_AND_event-driven_model/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《How 'sleep' happens》 — Simply this&url=http://walter-du.github.io/2016/12/14/How_sleep_happens/&via=http://walter-du.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Libevent and event-driven model》 — Simply this&url=http://walter-du.github.io/2016/12/16/Libevent_AND_event-driven_model/&via=http://walter-du.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.github.io/2016/12/14/How_sleep_happens/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.github.io/2016/12/16/Libevent_AND_event-driven_model/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -377,7 +380,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACK0lEQVR42u3aQY7DIAwF0N7/0p3tSFXIt0krxXmsRmkEvCw82Pj1isf7YPz/NX//8831k8sGBgbGbRnv5Th656qZP7e+XvdwDxgYGA9grEPheusXbKK4LgYGBkZvuurm1ngMDAyMHUZyfDx6cnRwTHgYGBgY1YLaeoZq6e2nuTgGBsYNGXnh7Pd/f+V+AwMD41aMd3FcFWqrb57Mg4GBMZqRB7it9LJ4QOztBwMDYypjJ1AmiWi+ofWcJ/NgYGCMZiSYZPn8YjL/cHkZDgMDYzYjCZF5YM2fVytmJ58SAwPjAYy8SaKaguaNFDuXmhgYGLMZeZPWTqPDTi2wvC4GBsZQRq/RYaf9Kw/WecjGwMCYysgbKXqhuXpArLajYWBgPI2xs0B+EOwlsSfHRAwMjNGMfOE8od1JenuXqRgYGLMZeTn+grat1gzlZgsMDIxxjOqFZbkNIj6Abv3HwMDAGM2oJrFJQ0b5KxbLcCfpKwYGxjjGzsVkEnx7mDx8Y2BgPIeRF+t3QmGvqFfYIQYGxgMY+ZVkL33tFdeS1BcDA+M5jN6GcnCvbFcI3BgYGEMZ7+KoLtM7LFYPiBgYGLMZvTBXaIDYLv331sLAwJjHSIJsNYnd+XLNPWBgYDyAkQe+5AhYbQKrIk/uNzAwMDC+HFjXK17QqYGBgfEARjWhTZ4nBbjoegADA2M0I29u2Cf1ms8uK7dhYGDckFFNHZND3s4VQjOJxcDAmMn4A6UpS6k4FvkNAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtElEQVR42u3aQW7jMAwF0N7/0h1gVrOog/9JKekAz6vAcGI9FRBZkl9f8fX993q68/rzv9frX376/HTn2IWHh4c3WvrTlSy0XcrrdyXPJGvGw8PDu81LjuzhC15uUL5Zr7/1eB8PDw/vo7x80e3hnqfmeHh4eP8jb1MmmC263W48PDy89/CSQ/x1mrtP0PNC8JVaCx4eHl5XK6gP9M9+vtjfw8PDw1t01dvG/6zd1d4pVouHh4d3gde2pvICbpJ8bwYLirfg4eHhHeXNmk/5/VmBeNZs++H38fDw8K7x8qUnDbB2a/JDvx5iwMPDw3sLb1aG2DSfZsWIaLvx8PDwLvA2izh1f/bM4Y4fHh4e3og3G29qy7ibYz35nWGtGg8PD6/kJcnrPpFNePkWr9pgeHh4eAveZmQqL+ZuMt6cjYeHh/ce3n5QYPO/f3tnVYbAw8PDu8BrA0A+LrAZwGr/AD/g8fDw8I7y2vZ/3rjKN6UNNkUAw8PDw7ucGyeHcrsRm9GBfG1Rwo2Hh4d3iHevLJt/KwkwbZjBw8PDu81rD/d2KbOUPU+mH9eAh4eHd4F348Xt8T1rqhXP4OHh4R3lzY7+HNw2wJJycJ3R4+Hh4V3g5cXTdpw0L+nm78LDw8P7LG+Gyb+1geUhKgpCeHh4eId4bWkgDx7tAMHZQIKHh4f3fl4+NJAnvm2Aeb1l0S/j4eHhXeDlQwCbEajkyU0ZInoeDw8P7xDvu7z2LbFZeGjfG6XUeHh4eCPerH80O9CT4JGEjSsDB3h4eHgl72ww2OzxPuHGw8PDeyfvVGl10wBrG3JRAo2Hh4f3UV4+YpUUCHJMPob1WMzFw8PD+wW8diNmgwg57EBKjYeHh1fy8mJEW9jNk+k8COUlZjw8PLwbvLYB1hZ521CRb+Wqp4eHh4c34f0BPx7FOs+vp7AAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 
