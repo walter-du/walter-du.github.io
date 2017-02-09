@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Tiny and Overlapping Fragment Attacks | Simply this | That is exactly what I&#39;m saying.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="network,Linux">
+    <meta name="description" content="Ip fragment attack, TCP/IP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tiny and Overlapping Fragment Attacks">
+<meta property="og:url" content="http://walter-du.github.io/2017/02/09/Tiny_and_overlapping_fragment_attack/index.html">
+<meta property="og:site_name" content="Simply this">
+<meta property="og:description" content="Ip fragment attack, TCP/IP">
+<meta property="og:updated_time" content="2017-02-09T05:48:26.110Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tiny and Overlapping Fragment Attacks">
+<meta name="twitter:description" content="Ip fragment attack, TCP/IP">
+    
+        <link rel="alternative" href="/atom.xml" title="Simply this" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/some.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">walter-du</h5>
+          <h6 class="motto">Burn out or fade away, up to youself~</h6>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/walter-du" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Tiny and Overlapping Fragment Attacks</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Tiny and Overlapping Fragment Attacks</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-02-08T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-02-09
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/network/">network</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+<article id="post-Tiny_and_overlapping_fragment_attack"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Tiny and Overlapping Fragment Attacks</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年02月09日 0:00" datetime="2017-02-08T16:00:00.000Z"  itemprop="datePublished">2017-02-09</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/network/">network</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <hr>
+<blockquote>
+<p><a href="http://blog.csdn.net/dog250/article/details/6572779" target="_blank" rel="external">http://blog.csdn.net/dog250/article/details/6572779</a><br>其中提到的 “两类ip fragment 的攻击”: “TCP小包攻击” 和 “TCP重叠攻击”<br>个人理解是这两种 attacks 成功的前提是 防火墙不重组 ip fragment, filter 默认会 pass 除第一个 fragment 的所有其它 ip fragment ;<br>去翻了下 协议栈 源码，Linux 在 priority 很高的 hook ‘ipv4_conntrack_defrag’ 就会重组 ip fragment ，故应该不会存在;</p>
+</blockquote>
+<ul>
+<li>“TCP小包攻击”:<br>  防火墙通常会 check 第一个 ip fragment 的信息，但第一个 fragment 过小，其四层信息不完整(eg: TCP 的 Flags)，filter 就可能匹配不上导致 pass ;</li>
+<li><p>“TCP重叠攻击”:<br>  TCP 的重组算法，如果两个 ip fragment 在 reassembly 时有 overlap，其中一个 fragment 会 overwrite 另一个的 overlap 部分 ;<br>  问题就来了，如果第二 fragment 有问题且被 filter pass，那么接收端在重组时就可能用有问题的部分 overwrite 第一个 fragment 的 overlap 部分 ;<br>  一个典型的例子就是 tcp syn 问题:</p>
+<pre><code>‘The filter is configured to drop TCP connection request packets’；
+第一个正常 fragment SYN=0, ACK=1，非 syn， pass
+第二个问题 fragment SYN=1, ACK=0，也会 sneak and pass 
+接收端就会重组成一个新的 TCP connection request , that&apos;s it.
+</code></pre></li>
+<li><p>另外，提到的 “nf-HiPAC” , 内核配置项 “IP_NF_HIPAC” 可开启。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">config IP_NF_HIPAC</div><div class="line">	tristate  &apos;nf-HiPAC support (High Performance Packet Classification)&apos;</div><div class="line">	depends on IP_NF_IPTABLES</div><div class="line">	help</div><div class="line">	  nf-HiPAC is a high performance packet classification framework on</div><div class="line">	  top of netfilter. It is based on a novel classification algorithm</div><div class="line">	  that is very much superior to the linear classication algorithm</div><div class="line">	  implemented by iptables. It provides highly efficient packet</div><div class="line">	  matching which is especially useful when large rulesets and/or high</div><div class="line">	  bandwidth networks are involved. Ruleset updates are submitted</div><div class="line">	  dynamically to the kernel via netlink on a per rule basis.</div><div class="line">	  In addition to its native matches (e.g. ip, proto, port match)</div><div class="line">	  nf-HiPAC allows the usage of iptables matches and targets and thus</div><div class="line">	  provides the same flexibility as iptables. Furthermore the semantics</div><div class="line">	  and construction of a ruleset is identical to the iptables way so</div><div class="line">	  that the internal representation is completely transparent to the</div><div class="line">	  user.</div><div class="line">	  Basically, you can think of nf-HiPAC as an alternative, optimized</div><div class="line">	  iptables filter table. Note that it cannot be used for packet</div><div class="line">	  mangling or NAT but you can still adopt iptables&apos; mangle or nat</div><div class="line">	  table for that purpose since nf-HiPAC and iptables can be used</div><div class="line">	  together at the same time.</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<blockquote>
+<p><a href="http://blog.csdn.net/dog250/article/details/7269212" target="_blank" rel="external">http://blog.csdn.net/dog250/article/details/7269212</a><br>之前关于 broute 和 REDIRECT 的一些疑问;</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><a href="http://blog.csdn.net/dog250/article/details/6612496" target="_blank" rel="external">http://blog.csdn.net/dog250/article/details/6612496</a><br>值得阅读</p>
+</blockquote>
+<p><strong>PS</strong>: 致敬原作者</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-02-09T05:48:26.110Z" itemprop="dateUpdated">2017年2月9日 13:48</time>
+</span><br>
+
+
+        原文地址：<a href="/2017/02/09/Tiny_and_overlapping_fragment_attack/" target="_blank" rel="external">http://walter-du.github.io/2017/02/09/Tiny_and_overlapping_fragment_attack/</a>
+    </div>
+    <footer>
+        <a href="http://walter-du.github.io">
+            <img src="/img/some.jpg" alt="walter-du">
+            walter-du
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.github.io/2017/02/09/Tiny_and_overlapping_fragment_attack/&title=《Tiny and Overlapping Fragment Attacks》 — Simply this&pic=http://walter-du.github.io/img/some.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.github.io/2017/02/09/Tiny_and_overlapping_fragment_attack/&title=《Tiny and Overlapping Fragment Attacks》 — Simply this&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.github.io/2017/02/09/Tiny_and_overlapping_fragment_attack/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Tiny and Overlapping Fragment Attacks》 — Simply this&url=http://walter-du.github.io/2017/02/09/Tiny_and_overlapping_fragment_attack/&via=http://walter-du.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.github.io/2017/02/09/Tiny_and_overlapping_fragment_attack/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/02/06/Route_AND_conntrack/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Route and conntrack</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Simply this &copy; 2016 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.github.io/2017/02/09/Tiny_and_overlapping_fragment_attack/&title=《Tiny and Overlapping Fragment Attacks》 — Simply this&pic=http://walter-du.github.io/img/some.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.github.io/2017/02/09/Tiny_and_overlapping_fragment_attack/&title=《Tiny and Overlapping Fragment Attacks》 — Simply this&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.github.io/2017/02/09/Tiny_and_overlapping_fragment_attack/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Tiny and Overlapping Fragment Attacks》 — Simply this&url=http://walter-du.github.io/2017/02/09/Tiny_and_overlapping_fragment_attack/&via=http://walter-du.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.github.io/2017/02/09/Tiny_and_overlapping_fragment_attack/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACzUlEQVR42u3a0W7qMBAEUP7/p+lrJUoys7avcqWTJ0TB8Ukle5n16xVf71/X73e+/TX/1ucnP8f5/PzmCw8PD29h6t9uc33j63GuJ3r9CJJv3dwRDw8P7xgvGS4Zun0o1xtD8vrGgoeHh/cAXvsIrknfxr9+Bw8PD+//4iWFbDL1NuDAw8PDexovKY5nUWz7mTxE3py14OHh4cW8vIv0nNdH+nt4eHh4y131fBFPyuu8MZb8NZotHh4e3gFevuCeK4XzWKSdJx4eHt4JXh7CtltFu6znMW7SZsPDw8M7zVv5dZ88lJWGVvLdKEHBw8PD28q7XqZnk2gPYK3EFjcxBB4eHt5W3q7W/mzLSdhtbBH17vDw8PCWeUlbKymak9GSYrrdqOrtAQ8PD2+B1zackkU8jyfagjtpkhUfxcPDwxvx2kW8PRzwGl35w01iCzw8PLwTvHzo9gDrrBk2CyyikAIPDw9vE6+NFfJm1fr7bRjxx5zx8PDwDvPyA1Vtoyt5vWu04f8BDw8PL642kwMEbZtqb6wwK/Tx8PDwTvDy8wXtFNfL8TaMqM/k4uHh4S3w1gvfE6FtvvFEzTA8PDy8TbxZYFoceIrDi1lpfjMHPDw8vAO8pZ1k0wjv+JrFu3h4eHh7eTNMG7zWzf5g0Y+CEjw8PLwDvCQGzY8UJEVzu7ivBx94eHh4/543K3zbgwUr7bebB4eHh4d3jNc2olaOXiXI2aGrm6wFDw8PbysvWYhn20ZbEL8WrpuSGg8PD2+Z9y6vdjNo2/ztFlJY8fDw8DbxZgvueumcB7izx4eHh4d3mrcSpOYNsLxlNdsYvt4XDw8P7xgvWazbNn8bVezdwPDw8PCewxs2osqDVm0c/PWOeHh4eA/g5e/M2v/twaz60BUeHh7eJl5+m2Ras5ijDUSixhgeHh7eAV7+Iz/fSPKCuw0y8vvi4eHhHeD9AGyNnHGdaO2SAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

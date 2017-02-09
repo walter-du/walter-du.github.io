@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://walter-du.github.io/"/>
-  <updated>2017-02-07T06:13:54.167Z</updated>
+  <updated>2017-02-09T05:48:26.110Z</updated>
   <id>http://walter-du.github.io/</id>
   
   <author>
@@ -14,6 +14,55 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Tiny and Overlapping Fragment Attacks</title>
+    <link href="http://walter-du.github.io/2017/02/09/Tiny_and_overlapping_fragment_attack/"/>
+    <id>http://walter-du.github.io/2017/02/09/Tiny_and_overlapping_fragment_attack/</id>
+    <published>2017-02-08T16:00:00.000Z</published>
+    <updated>2017-02-09T05:48:26.110Z</updated>
+    
+    <content type="html"><![CDATA[<hr>
+<blockquote>
+<p><a href="http://blog.csdn.net/dog250/article/details/6572779" target="_blank" rel="external">http://blog.csdn.net/dog250/article/details/6572779</a><br>其中提到的 “两类ip fragment 的攻击”: “TCP小包攻击” 和 “TCP重叠攻击”<br>个人理解是这两种 attacks 成功的前提是 防火墙不重组 ip fragment, filter 默认会 pass 除第一个 fragment 的所有其它 ip fragment ;<br>去翻了下 协议栈 源码，Linux 在 priority 很高的 hook ‘ipv4_conntrack_defrag’ 就会重组 ip fragment ，故应该不会存在;</p>
+</blockquote>
+<ul>
+<li>“TCP小包攻击”:<br>  防火墙通常会 check 第一个 ip fragment 的信息，但第一个 fragment 过小，其四层信息不完整(eg: TCP 的 Flags)，filter 就可能匹配不上导致 pass ;</li>
+<li><p>“TCP重叠攻击”:<br>  TCP 的重组算法，如果两个 ip fragment 在 reassembly 时有 overlap，其中一个 fragment 会 overwrite 另一个的 overlap 部分 ;<br>  问题就来了，如果第二 fragment 有问题且被 filter pass，那么接收端在重组时就可能用有问题的部分 overwrite 第一个 fragment 的 overlap 部分 ;<br>  一个典型的例子就是 tcp syn 问题:</p>
+<pre><code>‘The filter is configured to drop TCP connection request packets’；
+第一个正常 fragment SYN=0, ACK=1，非 syn， pass
+第二个问题 fragment SYN=1, ACK=0，也会 sneak and pass 
+接收端就会重组成一个新的 TCP connection request , that&apos;s it.
+</code></pre></li>
+<li><p>另外，提到的 “nf-HiPAC” , 内核配置项 “IP_NF_HIPAC” 可开启。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">config IP_NF_HIPAC</div><div class="line">	tristate  &apos;nf-HiPAC support (High Performance Packet Classification)&apos;</div><div class="line">	depends on IP_NF_IPTABLES</div><div class="line">	help</div><div class="line">	  nf-HiPAC is a high performance packet classification framework on</div><div class="line">	  top of netfilter. It is based on a novel classification algorithm</div><div class="line">	  that is very much superior to the linear classication algorithm</div><div class="line">	  implemented by iptables. It provides highly efficient packet</div><div class="line">	  matching which is especially useful when large rulesets and/or high</div><div class="line">	  bandwidth networks are involved. Ruleset updates are submitted</div><div class="line">	  dynamically to the kernel via netlink on a per rule basis.</div><div class="line">	  In addition to its native matches (e.g. ip, proto, port match)</div><div class="line">	  nf-HiPAC allows the usage of iptables matches and targets and thus</div><div class="line">	  provides the same flexibility as iptables. Furthermore the semantics</div><div class="line">	  and construction of a ruleset is identical to the iptables way so</div><div class="line">	  that the internal representation is completely transparent to the</div><div class="line">	  user.</div><div class="line">	  Basically, you can think of nf-HiPAC as an alternative, optimized</div><div class="line">	  iptables filter table. Note that it cannot be used for packet</div><div class="line">	  mangling or NAT but you can still adopt iptables&apos; mangle or nat</div><div class="line">	  table for that purpose since nf-HiPAC and iptables can be used</div><div class="line">	  together at the same time.</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<blockquote>
+<p><a href="http://blog.csdn.net/dog250/article/details/7269212" target="_blank" rel="external">http://blog.csdn.net/dog250/article/details/7269212</a><br>之前关于 broute 和 REDIRECT 的一些疑问;</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><a href="http://blog.csdn.net/dog250/article/details/6612496" target="_blank" rel="external">http://blog.csdn.net/dog250/article/details/6612496</a><br>值得阅读</p>
+</blockquote>
+<p><strong>PS</strong>: 致敬原作者</p>
+]]></content>
+    
+    <summary type="html">
+    
+      Ip fragment attack, TCP/IP
+    
+    </summary>
+    
+      <category term="network" scheme="http://walter-du.github.io/categories/network/"/>
+    
+    
+      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
+    
+      <category term="Linux" scheme="http://walter-du.github.io/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>Route and conntrack</title>
@@ -184,55 +233,6 @@ $ git push origin v1.0
   </entry>
   
   <entry>
-    <title>Ssh-tunnel and SS</title>
-    <link href="http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/"/>
-    <id>http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/</id>
-    <published>2017-01-21T16:00:00.000Z</published>
-    <updated>2017-02-07T08:44:31.554Z</updated>
-    
-    <content type="html"><![CDATA[<hr>
-<h2 id="On-Top"><a href="#On-Top" class="headerlink" title="On-Top"></a>On-Top</h2><ul>
-<li>update ‘hosts’</li>
-<li>update ‘g~f~wlist’</li>
-</ul>
-<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
-<li>Windows 自带 MD5 命令: certutil -hashfile <filename> MD5 ;</filename></li>
-<li>‘ssh’/‘netcat’(nc,支持明文或其他加密) 都能实现简单的端口转发功能;<br>  eg:<blockquote>
-<p>查看某 server 是否开启 80 端口: # nc &lt;server’s ip&gt; 80 (strace 或 tcpdump 查看报文交互)</p>
-</blockquote>
-</li>
-<li>‘dig’ for lookup ;</li>
-</ul>
-<h2 id="单一的-ssh-tunnel"><a href="#单一的-ssh-tunnel" class="headerlink" title="单一的 ssh-tunnel"></a>单一的 ssh-tunnel</h2><ul>
-<li>由于 ssh 本身就是基于 RSA 加密技术,所以 G~F~W 无法从数据传输的过程中对加密数据内容进行关键词分析,避免了被重置链接的问题;</li>
-<li>但由于创建隧道和数据传输的过程中, ssh 本身的特征是明显的,所以 G~F~W 可以通过分析连接的特征进行干扰,导致 ssh 存在被定向进行干扰的问题。</li>
-</ul>
-<h2 id="SS"><a href="#SS" class="headerlink" title="SS"></a>SS</h2><ul>
-<li><p>简单理解的话, SS 是将原来 ssh 创建的 Socks5 协议拆开成 server 端和 client 端,其原理基本上和利用 ssh-tunnel 大致类似:<br>  1.客户端发出的请求基于 Socks5 协议跟 ss-local 端进行通讯,由于这个 ss-local 一般是本机或路由器或局域网的其他机器,不经过 G~F~W ,所以解决了上面被 G~F~W 通过特征分析进行干扰的问题;<br>  2.ss-local 和 ss-server 两端通过多种可选的加密方法进行通讯,经过 G~F~W 的时候是常规的 TCP 包,没有明显的特征码且 G~F~W 也无法对通讯数据进行解密;<br>  3.ss-server 将收到的加密数据进行解密,还原原来的请求,再发送到用户需要访问的服务,获取响应原路返回。</p>
-<p>  两条 DNS 查询链：</p>
-<blockquote>
-<p>国外：Client—ChinaDNS—dnsmasq—SS—代理Server—GoogleDNS<br>国内：Client—ChinaDNS—114DNS</p>
-</blockquote>
-</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      Ssh-tunnel, SS
-    
-    </summary>
-    
-      <category term="network" scheme="http://walter-du.github.io/categories/network/"/>
-    
-    
-      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
-    
-      <category term="SS" scheme="http://walter-du.github.io/tags/SS/"/>
-    
-  </entry>
-  
-  <entry>
     <title>UDP Q&amp;A</title>
     <link href="http://walter-du.github.io/2017/01/22/UDP_Q&amp;A/"/>
     <id>http://walter-du.github.io/2017/01/22/UDP_Q&amp;A/</id>
@@ -308,6 +308,55 @@ $ git push origin v1.0
     
     
       <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ssh-tunnel and SS</title>
+    <link href="http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/"/>
+    <id>http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/</id>
+    <published>2017-01-21T16:00:00.000Z</published>
+    <updated>2017-02-07T08:44:31.554Z</updated>
+    
+    <content type="html"><![CDATA[<hr>
+<h2 id="On-Top"><a href="#On-Top" class="headerlink" title="On-Top"></a>On-Top</h2><ul>
+<li>update ‘hosts’</li>
+<li>update ‘g~f~wlist’</li>
+</ul>
+<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
+<li>Windows 自带 MD5 命令: certutil -hashfile <filename> MD5 ;</filename></li>
+<li>‘ssh’/‘netcat’(nc,支持明文或其他加密) 都能实现简单的端口转发功能;<br>  eg:<blockquote>
+<p>查看某 server 是否开启 80 端口: # nc &lt;server’s ip&gt; 80 (strace 或 tcpdump 查看报文交互)</p>
+</blockquote>
+</li>
+<li>‘dig’ for lookup ;</li>
+</ul>
+<h2 id="单一的-ssh-tunnel"><a href="#单一的-ssh-tunnel" class="headerlink" title="单一的 ssh-tunnel"></a>单一的 ssh-tunnel</h2><ul>
+<li>由于 ssh 本身就是基于 RSA 加密技术,所以 G~F~W 无法从数据传输的过程中对加密数据内容进行关键词分析,避免了被重置链接的问题;</li>
+<li>但由于创建隧道和数据传输的过程中, ssh 本身的特征是明显的,所以 G~F~W 可以通过分析连接的特征进行干扰,导致 ssh 存在被定向进行干扰的问题。</li>
+</ul>
+<h2 id="SS"><a href="#SS" class="headerlink" title="SS"></a>SS</h2><ul>
+<li><p>简单理解的话, SS 是将原来 ssh 创建的 Socks5 协议拆开成 server 端和 client 端,其原理基本上和利用 ssh-tunnel 大致类似:<br>  1.客户端发出的请求基于 Socks5 协议跟 ss-local 端进行通讯,由于这个 ss-local 一般是本机或路由器或局域网的其他机器,不经过 G~F~W ,所以解决了上面被 G~F~W 通过特征分析进行干扰的问题;<br>  2.ss-local 和 ss-server 两端通过多种可选的加密方法进行通讯,经过 G~F~W 的时候是常规的 TCP 包,没有明显的特征码且 G~F~W 也无法对通讯数据进行解密;<br>  3.ss-server 将收到的加密数据进行解密,还原原来的请求,再发送到用户需要访问的服务,获取响应原路返回。</p>
+<p>  两条 DNS 查询链：</p>
+<blockquote>
+<p>国外：Client—ChinaDNS—dnsmasq—SS—代理Server—GoogleDNS<br>国内：Client—ChinaDNS—114DNS</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      Ssh-tunnel, SS
+    
+    </summary>
+    
+      <category term="network" scheme="http://walter-du.github.io/categories/network/"/>
+    
+    
+      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
+    
+      <category term="SS" scheme="http://walter-du.github.io/tags/SS/"/>
     
   </entry>
   
