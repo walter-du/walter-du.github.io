@@ -13,7 +13,7 @@
     
     
     
-    <title>Simply this | That is exactly what I&#39;m saying.</title>
+    <title>Simply this | It is what it is.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
@@ -127,7 +127,7 @@
         <h1 class="title">Simply this</h1>
         <h5 class="subtitle">
             
-                That is exactly what I'm saying.
+                It is what it is.
             
         </h5>
     </div>
@@ -248,7 +248,7 @@ B)抢占调度  比如:当前内核态执行过程中事先没有禁止内核态
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-Libevent_AND_event-driven_model"
+            <article id="post-Event-driven_model"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -268,7 +268,7 @@ B)抢占调度  比如:当前内核态执行过程中事先没有禁止内核态
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2016/12/16/Libevent_AND_event-driven_model/">Libevent and event-driven model</a>
+      <a class="post-title-link" href="/2016/12/16/Event-driven_model/">Event-driven model</a>
     </h3>
   
 
@@ -279,16 +279,16 @@ B)抢占调度  比如:当前内核态执行过程中事先没有禁止内核态
 
     
         
-基于 event 驱动的 I/O 模型 (Libevent, GDBus) 的关注点
+基于 event 驱动的 I/O 模型 (Libevent, Glib) 的关注点
 对不同的 event(fd) 设置不同的超时时间;
 对不同的 event(fd) 设置不同的优先级;
 运行过程中动态的 增加/删除 需关注的 event(fd);
 
 Libevent (Reactor)
-‘select_dispatch’ 中 ‘random() % nfds;’: 相同优先级的 even...
+‘select_dispatch’ 中 ‘random() % nfds;’: 相同优先级的 event...
     
 
-        <a href="/2016/12/16/Libevent_AND_event-driven_model/" class="post-more waves-effect waves-button">
+        <a href="/2016/12/16/Event-driven_model/" class="post-more waves-effect waves-button">
             more...
         </a>
     </div>

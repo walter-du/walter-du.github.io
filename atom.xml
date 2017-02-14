@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Simply this</title>
-  <subtitle>That is exactly what I&#39;m saying.</subtitle>
+  <subtitle>It is what it is.</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://walter-du.github.io/"/>
@@ -233,6 +233,55 @@ $ git push origin v1.0
   </entry>
   
   <entry>
+    <title>Ssh-tunnel and SS</title>
+    <link href="http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/"/>
+    <id>http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/</id>
+    <published>2017-01-21T16:00:00.000Z</published>
+    <updated>2017-02-07T08:44:31.554Z</updated>
+    
+    <content type="html"><![CDATA[<hr>
+<h2 id="On-Top"><a href="#On-Top" class="headerlink" title="On-Top"></a>On-Top</h2><ul>
+<li>update ‘hosts’</li>
+<li>update ‘g~f~wlist’</li>
+</ul>
+<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
+<li>Windows 自带 MD5 命令: certutil -hashfile <filename> MD5 ;</filename></li>
+<li>‘ssh’/‘netcat’(nc,支持明文或其他加密) 都能实现简单的端口转发功能;<br>  eg:<blockquote>
+<p>查看某 server 是否开启 80 端口: # nc &lt;server’s ip&gt; 80 (strace 或 tcpdump 查看报文交互)</p>
+</blockquote>
+</li>
+<li>‘dig’ for lookup ;</li>
+</ul>
+<h2 id="单一的-ssh-tunnel"><a href="#单一的-ssh-tunnel" class="headerlink" title="单一的 ssh-tunnel"></a>单一的 ssh-tunnel</h2><ul>
+<li>由于 ssh 本身就是基于 RSA 加密技术,所以 G~F~W 无法从数据传输的过程中对加密数据内容进行关键词分析,避免了被重置链接的问题;</li>
+<li>但由于创建隧道和数据传输的过程中, ssh 本身的特征是明显的,所以 G~F~W 可以通过分析连接的特征进行干扰,导致 ssh 存在被定向进行干扰的问题。</li>
+</ul>
+<h2 id="SS"><a href="#SS" class="headerlink" title="SS"></a>SS</h2><ul>
+<li><p>简单理解的话, SS 是将原来 ssh 创建的 Socks5 协议拆开成 server 端和 client 端,其原理基本上和利用 ssh-tunnel 大致类似:<br>  1.客户端发出的请求基于 Socks5 协议跟 ss-local 端进行通讯,由于这个 ss-local 一般是本机或路由器或局域网的其他机器,不经过 G~F~W ,所以解决了上面被 G~F~W 通过特征分析进行干扰的问题;<br>  2.ss-local 和 ss-server 两端通过多种可选的加密方法进行通讯,经过 G~F~W 的时候是常规的 TCP 包,没有明显的特征码且 G~F~W 也无法对通讯数据进行解密;<br>  3.ss-server 将收到的加密数据进行解密,还原原来的请求,再发送到用户需要访问的服务,获取响应原路返回。</p>
+<p>  两条 DNS 查询链：</p>
+<blockquote>
+<p>国外：Client—ChinaDNS—dnsmasq—SS—代理Server—GoogleDNS<br>国内：Client—ChinaDNS—114DNS</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      Ssh-tunnel, SS
+    
+    </summary>
+    
+      <category term="network" scheme="http://walter-du.github.io/categories/network/"/>
+    
+    
+      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
+    
+      <category term="SS" scheme="http://walter-du.github.io/tags/SS/"/>
+    
+  </entry>
+  
+  <entry>
     <title>UDP Q&amp;A</title>
     <link href="http://walter-du.github.io/2017/01/22/UDP_Q&amp;A/"/>
     <id>http://walter-du.github.io/2017/01/22/UDP_Q&amp;A/</id>
@@ -312,55 +361,6 @@ $ git push origin v1.0
   </entry>
   
   <entry>
-    <title>Ssh-tunnel and SS</title>
-    <link href="http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/"/>
-    <id>http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/</id>
-    <published>2017-01-21T16:00:00.000Z</published>
-    <updated>2017-02-07T08:44:31.554Z</updated>
-    
-    <content type="html"><![CDATA[<hr>
-<h2 id="On-Top"><a href="#On-Top" class="headerlink" title="On-Top"></a>On-Top</h2><ul>
-<li>update ‘hosts’</li>
-<li>update ‘g~f~wlist’</li>
-</ul>
-<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
-<li>Windows 自带 MD5 命令: certutil -hashfile <filename> MD5 ;</filename></li>
-<li>‘ssh’/‘netcat’(nc,支持明文或其他加密) 都能实现简单的端口转发功能;<br>  eg:<blockquote>
-<p>查看某 server 是否开启 80 端口: # nc &lt;server’s ip&gt; 80 (strace 或 tcpdump 查看报文交互)</p>
-</blockquote>
-</li>
-<li>‘dig’ for lookup ;</li>
-</ul>
-<h2 id="单一的-ssh-tunnel"><a href="#单一的-ssh-tunnel" class="headerlink" title="单一的 ssh-tunnel"></a>单一的 ssh-tunnel</h2><ul>
-<li>由于 ssh 本身就是基于 RSA 加密技术,所以 G~F~W 无法从数据传输的过程中对加密数据内容进行关键词分析,避免了被重置链接的问题;</li>
-<li>但由于创建隧道和数据传输的过程中, ssh 本身的特征是明显的,所以 G~F~W 可以通过分析连接的特征进行干扰,导致 ssh 存在被定向进行干扰的问题。</li>
-</ul>
-<h2 id="SS"><a href="#SS" class="headerlink" title="SS"></a>SS</h2><ul>
-<li><p>简单理解的话, SS 是将原来 ssh 创建的 Socks5 协议拆开成 server 端和 client 端,其原理基本上和利用 ssh-tunnel 大致类似:<br>  1.客户端发出的请求基于 Socks5 协议跟 ss-local 端进行通讯,由于这个 ss-local 一般是本机或路由器或局域网的其他机器,不经过 G~F~W ,所以解决了上面被 G~F~W 通过特征分析进行干扰的问题;<br>  2.ss-local 和 ss-server 两端通过多种可选的加密方法进行通讯,经过 G~F~W 的时候是常规的 TCP 包,没有明显的特征码且 G~F~W 也无法对通讯数据进行解密;<br>  3.ss-server 将收到的加密数据进行解密,还原原来的请求,再发送到用户需要访问的服务,获取响应原路返回。</p>
-<p>  两条 DNS 查询链：</p>
-<blockquote>
-<p>国外：Client—ChinaDNS—dnsmasq—SS—代理Server—GoogleDNS<br>国内：Client—ChinaDNS—114DNS</p>
-</blockquote>
-</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      Ssh-tunnel, SS
-    
-    </summary>
-    
-      <category term="network" scheme="http://walter-du.github.io/categories/network/"/>
-    
-    
-      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
-    
-      <category term="SS" scheme="http://walter-du.github.io/tags/SS/"/>
-    
-  </entry>
-  
-  <entry>
     <title>&#39;Staticmethod&#39; and &#39;classmethod&#39;</title>
     <link href="http://walter-du.github.io/2017/01/18/Staticmethod_AND_classmethod/"/>
     <id>http://walter-du.github.io/2017/01/18/Staticmethod_AND_classmethod/</id>
@@ -436,14 +436,14 @@ $ git push origin v1.0
   </entry>
   
   <entry>
-    <title>Libevent and event-driven model</title>
-    <link href="http://walter-du.github.io/2016/12/16/Libevent_AND_event-driven_model/"/>
-    <id>http://walter-du.github.io/2016/12/16/Libevent_AND_event-driven_model/</id>
+    <title>Event-driven model</title>
+    <link href="http://walter-du.github.io/2016/12/16/Event-driven_model/"/>
+    <id>http://walter-du.github.io/2016/12/16/Event-driven_model/</id>
     <published>2016-12-15T16:00:00.000Z</published>
-    <updated>2017-02-08T05:33:40.830Z</updated>
+    <updated>2017-02-14T10:05:37.376Z</updated>
     
     <content type="html"><![CDATA[<hr>
-<h2 id="基于-event-驱动的-I-O-模型-Libevent-GDBus-的关注点"><a href="#基于-event-驱动的-I-O-模型-Libevent-GDBus-的关注点" class="headerlink" title="基于 event 驱动的 I/O 模型 (Libevent, GDBus) 的关注点"></a>基于 event 驱动的 I/O 模型 (Libevent, GDBus) 的关注点</h2><ol>
+<h2 id="基于-event-驱动的-I-O-模型-Libevent-Glib-的关注点"><a href="#基于-event-驱动的-I-O-模型-Libevent-Glib-的关注点" class="headerlink" title="基于 event 驱动的 I/O 模型 (Libevent, Glib) 的关注点"></a>基于 event 驱动的 I/O 模型 (Libevent, Glib) 的关注点</h2><ol>
 <li>对不同的 event(fd) 设置不同的超时时间;</li>
 <li>对不同的 event(fd) 设置不同的优先级;</li>
 <li>运行过程中动态的 增加/删除 需关注的 event(fd);</li>
@@ -455,20 +455,39 @@ $ git push origin v1.0
 <li>‘EVLIST_INSERTED’ 用以动态的 add/del event;</li>
 <li>支持多线程:<br>  1: ‘event_process_active_single_queue’ 中调用 event 处理函数 ‘ev_callback’ 时释放了 LOCK ;<br>  2: 主要的非临界区: select/epoll 时 和 调用 event 处理函数 ‘ev_callback’ 时(显然此处理函数不应操作公共变量);<br>  3: ‘event_continue’: 线程 A 在处理某个优先级队列中的 event, 线程 B 发现了更高优先级的 event ,则线程 A 完成当前 event 的处理后，停止处理当前队列中的下一个 event , 进而进入下一次 loop 去处理更高优先级的 event 。</li>
 </ul>
+<h2 id="Glib"><a href="#Glib" class="headerlink" title="Glib "></a>Glib </h2><pre><code>&quot;
+GSource: representing an event source.
+GMainContext: representing a set of sources to be handled in a main loop.
+GMainLoop: representing the main event loop of a GLib.
+&quot;
+
+&quot;
+To allow multiple independent sets of sources to be handled in different threads, each source is associated with a GMainContext.
+A GMainContext can only be running in a single thread, but sources can be added to it and removed from it from other threads.
+&quot;
+</code></pre><ul>
+<li>每个 GSource 只能从属于某个特定的 GMainContext [ g_source_attach ] , 一个 GMainContext 可以关联多个 GSource ;</li>
+<li>每个 GMainLoop 有一个 GMainContext [ loop-&gt;context ] , 在 g_main_loop_run(loop) 时将处理该 loop 下 loop-&gt;context 关联的各个 GSource 事件;</li>
+<li>GMainContext 是一个通过 g_main_context_new 动态分配的结构体, 通常每个进程至少有一个全局的 default_main_context , 此外也可以根据需要分配多个, 同理 GMainLoop;</li>
+<li>对于多 thread 而言: GMainContext 是全局的, 独立于 GThread , 每个 GThread 都可以访问所有的 GMainContext , 但是某一个时刻只能有一个 GThread 访问某个特定的 GMainContext [ g_main_context_acquire (GMainContext *context) ];<blockquote>
+<p><strong>Refer to</strong>:<br>  <a href="https://developer.gnome.org/glib/2.50/glib-The-Main-Event-Loop.html" target="_blank" rel="external">https://developer.gnome.org/glib/2.50/glib-The-Main-Event-Loop.html</a><br>  <a href="http://blog.csdn.net/jack0106/article/details/6258422" target="_blank" rel="external">http://blog.csdn.net/jack0106/article/details/6258422</a><br>  <a href="http://blog.csdn.net/jack0106/article/details/6271885" target="_blank" rel="external">http://blog.csdn.net/jack0106/article/details/6271885</a></p>
+</blockquote>
+</li>
+</ul>
 ]]></content>
     
     <summary type="html">
     
-      event-driven model, I/O
+      event-driven model, I/O loop
     
     </summary>
     
       <category term="I/O" scheme="http://walter-du.github.io/categories/I-O/"/>
     
     
-      <category term="I/O" scheme="http://walter-du.github.io/tags/I-O/"/>
-    
       <category term="IPC" scheme="http://walter-du.github.io/tags/IPC/"/>
+    
+      <category term="I/O" scheme="http://walter-du.github.io/tags/I-O/"/>
     
   </entry>
   
@@ -523,9 +542,9 @@ $ git push origin v1.0
       <category term="network" scheme="http://walter-du.github.io/categories/network/"/>
     
     
-      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
-    
       <category term="I/O" scheme="http://walter-du.github.io/tags/I-O/"/>
+    
+      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
     
   </entry>
   
