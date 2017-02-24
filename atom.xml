@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://walter-du.github.io/"/>
-  <updated>2017-02-09T05:48:26.110Z</updated>
+  <updated>2017-02-24T05:56:51.605Z</updated>
   <id>http://walter-du.github.io/</id>
   
   <author>
@@ -14,6 +14,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Abstract class and interface</title>
+    <link href="http://walter-du.github.io/2017/02/24/Abstract_class_AND_interface/"/>
+    <id>http://walter-du.github.io/2017/02/24/Abstract_class_AND_interface/</id>
+    <published>2017-02-23T16:00:00.000Z</published>
+    <updated>2017-02-24T05:56:51.605Z</updated>
+    
+    <content type="html"><![CDATA[<hr>
+<blockquote>
+<ul>
+<li>1、从类的层次结构上看，抽象类是在层次的顶端，但在实际的设计当中，一般来说抽象类应当是后面才会出现。为什么？实际上抽象类的获取有点像数学中的提取公因式：ax+bx，x就是抽象类，如果你没有前面的式子，你怎么知道x是不是公因式呢？在这点上，也符合人们认识世界的过程，先具体后抽象。因此在设计过程中如果你得到大量的具体概念并从当中找到其共性时，这个共性的集合就是抽象类应当是没错的。 </li>
+<li>2、interface从表面上看，和抽象类很相似，但用法完全不同。它的基本功能就是把一些毫不相关的类（概念）集合在一起形成一个新的、可集中操作的“新类”。我给学生的一个典型例子就是“司机”。谁可以当司机？谁都可以，只要领取了驾照。所以我不管你是学生，白领、蓝领还是老板，只要有驾照就是司机。 </li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<ul>
+<li>1）抽象类是对一种事物的抽象，即对类抽象，而接口是对行为的抽象。抽象类是对整个类整体进行抽象，包括属性、行为，但是接口却是对类局部（行为）进行抽象。举个简单的例子，飞机和鸟是不同类的事物，但是它们都有一个共性，就是都会飞。那么在设计的时候，可以将飞机设计为一个类Airplane，将鸟设计为一个类Bird，但是不能将 飞行 这个特性也设计为类，因此它只是一个行为特性，并不是对一类事物的抽象描述。此时可以将 飞行 设计为一个接口Fly，包含方法fly( )，然后Airplane和Bird分别根据自己的需要实现Fly这个接口。然后至于有不同种类的飞机，比如战斗机、民用飞机等直接继承Airplane即可，对于鸟也是类似的，不同种类的鸟直接继承Bird类即可。从这里可以看出，继承是一个 “是不是”的关系，而 接口 实现则是 “有没有”的关系。如果一个类继承了某个抽象类，则子类必定是抽象类的种类，而接口实现则是有没有、具备不具备的关系，比如鸟是否能飞（或者是否具备飞行这个特点），能飞行则可以实现这个接口，不能飞行就不实现这个接口。</li>
+<li>2）设计层面不同，抽象类作为很多子类的父类，它是一种模板式设计。而接口是一种行为规范，它是一种辐射式设计。什么是模板式设计？最简单例子，大家都用过ppt里面的模板，如果用模板A设计了ppt B和ppt C，ppt B和ppt C公共的部分就是模板A了，如果它们的公共部分需要改动，则只需要改动模板A就可以了，不需要重新对ppt B和ppt C进行改动。而辐射式设计，比如某个电梯都装了某种报警器，一旦要更新报警器，就必须全部更新。也就是说对于抽象类，如果需要添加新的方法，可以直接在抽象类中添加具体的实现，子类可以不进行变更；而对于接口则不行，如果接口进行了变更，则所有实现这个接口的类都必须进行相应的改动。</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<p><a href="http://www.cnblogs.com/xiaoao808/archive/2008/03/11/1100886.html" target="_blank" rel="external">http://www.cnblogs.com/xiaoao808/archive/2008/03/11/1100886.html</a><br><a href="http://www.cnblogs.com/felixzh/p/5938544.html" target="_blank" rel="external">http://www.cnblogs.com/felixzh/p/5938544.html</a></p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      Java&#39;s abstract class and interface
+    
+    </summary>
+    
+      <category term="java" scheme="http://walter-du.github.io/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://walter-du.github.io/tags/java/"/>
+    
+  </entry>
   
   <entry>
     <title>Tiny and Overlapping Fragment Attacks</title>
@@ -52,38 +92,6 @@
     <summary type="html">
     
       Ip fragment attack, TCP/IP
-    
-    </summary>
-    
-      <category term="network" scheme="http://walter-du.github.io/categories/network/"/>
-    
-    
-      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
-    
-      <category term="Linux" scheme="http://walter-du.github.io/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Route and conntrack</title>
-    <link href="http://walter-du.github.io/2017/02/06/Route_AND_conntrack/"/>
-    <id>http://walter-du.github.io/2017/02/06/Route_AND_conntrack/</id>
-    <published>2017-02-05T16:00:00.000Z</published>
-    <updated>2017-02-07T06:13:54.167Z</updated>
-    
-    <content type="html"><![CDATA[<hr>
-<p>两者关系不明显；<br>路由表和连接跟踪表对应着不同的功能；</p>
-<p>路由表用于确定 skb 的 ip_output，连接跟踪表记录了 skb 源和目的两端的五元组信息；</p>
-<p>即有了路由表，包才知道往哪里发送，包发送后才知道并记录该包完整的源和目的五元组，即创建连接跟踪表；</p>
-<blockquote>
-<p><strong>CAUTION</strong>:<br>    <em><br>    iptable nat table 规则如其名，Network Address Translation 就是用于改变包的五元组信息的，即影响连接跟踪表的创建。<br>    但是，一旦某条连接跟踪表创建后，那么在其老化前，无论 iptable nat table 上的规则如何变化，都不会影响对应的包根据该条连接跟踪表来进行两端的发收。<br>    Why?<br>    修改 nat table 后为何不实时刷新 conntrack table ，refer to ‘ip_nat_fn’，显然不很容易；Linux 可能认为也无大必要。<br>    实在要为之，或者可以在创建连接跟踪表时 private point 影响其五元组的 nat table rules，然后联动，may be it works, no guarantee ~
-    </em></p>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      Route table, conntrack table
     
     </summary>
     
@@ -233,55 +241,6 @@ $ git push origin v1.0
   </entry>
   
   <entry>
-    <title>Ssh-tunnel and SS</title>
-    <link href="http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/"/>
-    <id>http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/</id>
-    <published>2017-01-21T16:00:00.000Z</published>
-    <updated>2017-02-07T08:44:31.554Z</updated>
-    
-    <content type="html"><![CDATA[<hr>
-<h2 id="On-Top"><a href="#On-Top" class="headerlink" title="On-Top"></a>On-Top</h2><ul>
-<li>update ‘hosts’</li>
-<li>update ‘g~f~wlist’</li>
-</ul>
-<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
-<li>Windows 自带 MD5 命令: certutil -hashfile <filename> MD5 ;</filename></li>
-<li>‘ssh’/‘netcat’(nc,支持明文或其他加密) 都能实现简单的端口转发功能;<br>  eg:<blockquote>
-<p>查看某 server 是否开启 80 端口: # nc &lt;server’s ip&gt; 80 (strace 或 tcpdump 查看报文交互)</p>
-</blockquote>
-</li>
-<li>‘dig’ for lookup ;</li>
-</ul>
-<h2 id="单一的-ssh-tunnel"><a href="#单一的-ssh-tunnel" class="headerlink" title="单一的 ssh-tunnel"></a>单一的 ssh-tunnel</h2><ul>
-<li>由于 ssh 本身就是基于 RSA 加密技术,所以 G~F~W 无法从数据传输的过程中对加密数据内容进行关键词分析,避免了被重置链接的问题;</li>
-<li>但由于创建隧道和数据传输的过程中, ssh 本身的特征是明显的,所以 G~F~W 可以通过分析连接的特征进行干扰,导致 ssh 存在被定向进行干扰的问题。</li>
-</ul>
-<h2 id="SS"><a href="#SS" class="headerlink" title="SS"></a>SS</h2><ul>
-<li><p>简单理解的话, SS 是将原来 ssh 创建的 Socks5 协议拆开成 server 端和 client 端,其原理基本上和利用 ssh-tunnel 大致类似:<br>  1.客户端发出的请求基于 Socks5 协议跟 ss-local 端进行通讯,由于这个 ss-local 一般是本机或路由器或局域网的其他机器,不经过 G~F~W ,所以解决了上面被 G~F~W 通过特征分析进行干扰的问题;<br>  2.ss-local 和 ss-server 两端通过多种可选的加密方法进行通讯,经过 G~F~W 的时候是常规的 TCP 包,没有明显的特征码且 G~F~W 也无法对通讯数据进行解密;<br>  3.ss-server 将收到的加密数据进行解密,还原原来的请求,再发送到用户需要访问的服务,获取响应原路返回。</p>
-<p>  两条 DNS 查询链：</p>
-<blockquote>
-<p>国外：Client—ChinaDNS—dnsmasq—SS—代理Server—GoogleDNS<br>国内：Client—ChinaDNS—114DNS</p>
-</blockquote>
-</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      Ssh-tunnel, SS
-    
-    </summary>
-    
-      <category term="network" scheme="http://walter-du.github.io/categories/network/"/>
-    
-    
-      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
-    
-      <category term="SS" scheme="http://walter-du.github.io/tags/SS/"/>
-    
-  </entry>
-  
-  <entry>
     <title>UDP Q&amp;A</title>
     <link href="http://walter-du.github.io/2017/01/22/UDP_Q&amp;A/"/>
     <id>http://walter-du.github.io/2017/01/22/UDP_Q&amp;A/</id>
@@ -357,6 +316,55 @@ $ git push origin v1.0
     
     
       <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ssh-tunnel and SS</title>
+    <link href="http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/"/>
+    <id>http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/</id>
+    <published>2017-01-21T16:00:00.000Z</published>
+    <updated>2017-02-07T08:44:31.554Z</updated>
+    
+    <content type="html"><![CDATA[<hr>
+<h2 id="On-Top"><a href="#On-Top" class="headerlink" title="On-Top"></a>On-Top</h2><ul>
+<li>update ‘hosts’</li>
+<li>update ‘g~f~wlist’</li>
+</ul>
+<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
+<li>Windows 自带 MD5 命令: certutil -hashfile <filename> MD5 ;</filename></li>
+<li>‘ssh’/‘netcat’(nc,支持明文或其他加密) 都能实现简单的端口转发功能;<br>  eg:<blockquote>
+<p>查看某 server 是否开启 80 端口: # nc &lt;server’s ip&gt; 80 (strace 或 tcpdump 查看报文交互)</p>
+</blockquote>
+</li>
+<li>‘dig’ for lookup ;</li>
+</ul>
+<h2 id="单一的-ssh-tunnel"><a href="#单一的-ssh-tunnel" class="headerlink" title="单一的 ssh-tunnel"></a>单一的 ssh-tunnel</h2><ul>
+<li>由于 ssh 本身就是基于 RSA 加密技术,所以 G~F~W 无法从数据传输的过程中对加密数据内容进行关键词分析,避免了被重置链接的问题;</li>
+<li>但由于创建隧道和数据传输的过程中, ssh 本身的特征是明显的,所以 G~F~W 可以通过分析连接的特征进行干扰,导致 ssh 存在被定向进行干扰的问题。</li>
+</ul>
+<h2 id="SS"><a href="#SS" class="headerlink" title="SS"></a>SS</h2><ul>
+<li><p>简单理解的话, SS 是将原来 ssh 创建的 Socks5 协议拆开成 server 端和 client 端,其原理基本上和利用 ssh-tunnel 大致类似:<br>  1.客户端发出的请求基于 Socks5 协议跟 ss-local 端进行通讯,由于这个 ss-local 一般是本机或路由器或局域网的其他机器,不经过 G~F~W ,所以解决了上面被 G~F~W 通过特征分析进行干扰的问题;<br>  2.ss-local 和 ss-server 两端通过多种可选的加密方法进行通讯,经过 G~F~W 的时候是常规的 TCP 包,没有明显的特征码且 G~F~W 也无法对通讯数据进行解密;<br>  3.ss-server 将收到的加密数据进行解密,还原原来的请求,再发送到用户需要访问的服务,获取响应原路返回。</p>
+<p>  两条 DNS 查询链：</p>
+<blockquote>
+<p>国外：Client—ChinaDNS—dnsmasq—SS—代理Server—GoogleDNS<br>国内：Client—ChinaDNS—114DNS</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      Ssh-tunnel, SS
+    
+    </summary>
+    
+      <category term="network" scheme="http://walter-du.github.io/categories/network/"/>
+    
+    
+      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
+    
+      <category term="SS" scheme="http://walter-du.github.io/tags/SS/"/>
     
   </entry>
   
@@ -485,9 +493,9 @@ A GMainContext can only be running in a single thread, but sources can be added 
       <category term="I/O" scheme="http://walter-du.github.io/categories/I-O/"/>
     
     
-      <category term="IPC" scheme="http://walter-du.github.io/tags/IPC/"/>
-    
       <category term="I/O" scheme="http://walter-du.github.io/tags/I-O/"/>
+    
+      <category term="IPC" scheme="http://walter-du.github.io/tags/IPC/"/>
     
   </entry>
   
@@ -542,9 +550,9 @@ A GMainContext can only be running in a single thread, but sources can be added 
       <category term="network" scheme="http://walter-du.github.io/categories/network/"/>
     
     
-      <category term="I/O" scheme="http://walter-du.github.io/tags/I-O/"/>
-    
       <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
+    
+      <category term="I/O" scheme="http://walter-du.github.io/tags/I-O/"/>
     
   </entry>
   
@@ -607,6 +615,76 @@ A GMainContext can only be running in a single thread, but sources can be added 
     
     
       <category term="Python" scheme="http://walter-du.github.io/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Route cache and neighbour</title>
+    <link href="http://walter-du.github.io/2016/11/06/Route_cache_AND_neighbour/"/>
+    <id>http://walter-du.github.io/2016/11/06/Route_cache_AND_neighbour/</id>
+    <published>2016-11-05T16:00:00.000Z</published>
+    <updated>2017-02-24T06:25:57.269Z</updated>
+    
+    <content type="html"><![CDATA[<hr>
+<blockquote>
+<p>route cache 中 dst-&gt;neighbour 和 dst-&gt;hh 何时分配和赋值 ?</p>
+</blockquote>
+<h2 id="dst-gt-neighbour-是在第一次匹配路由后-create-route-cache-时分配和初始化的"><a href="#dst-gt-neighbour-是在第一次匹配路由后-create-route-cache-时分配和初始化的" class="headerlink" title="dst-&gt;neighbour 是在第一次匹配路由后 create route cache 时分配和初始化的;"></a>dst-&gt;neighbour 是在第一次匹配路由后 create route cache 时分配和初始化的;</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">ip_route_input</div><div class="line">    --&gt;ip_route_input_slow</div><div class="line">        --&gt;ip_mkroute_input</div><div class="line">            --&gt;ip_mkroute_input_def</div><div class="line">                /* create a routing cache entry */</div><div class="line">                --&gt;__mkroute_input</div><div class="line">                /* Try to bind route to arp only if it is output route or unicast forwarding path. */</div><div class="line">                --&gt;rt_intern_hash</div><div class="line">                    --&gt;arp_bind_neighbour</div><div class="line">                        --&gt;neigh_create</div><div class="line">                            --&gt;arp_constructor</div><div class="line">                            &#123;</div><div class="line">                                neigh-&gt;ops = &amp;arp_hh_ops;</div><div class="line">                                neigh-&gt;output = neigh-&gt;ops-&gt;output; [ neigh_resolve_output ]</div><div class="line">                            &#125;</div><div class="line">                    &#123;</div><div class="line">                        dst-&gt;neighbour = n;</div><div class="line">                    &#125;</div></pre></td></tr></table></figure>
+<h2 id="dst-gt-hh-是在发包前发送-arp-完整交互以后分配和赋值的"><a href="#dst-gt-hh-是在发包前发送-arp-完整交互以后分配和赋值的" class="headerlink" title="dst-&gt;hh 是在发包前发送 arp 完整交互以后分配和赋值的;"></a>dst-&gt;hh 是在发包前发送 arp 完整交互以后分配和赋值的;</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">ip_output</div><div class="line">    --&gt;ip_finish_output2</div><div class="line">        --&gt;dst-&gt;neighbour-&gt;output</div><div class="line">            --&gt;neigh_resolve_output</div><div class="line">                --&gt;neigh_event_send</div><div class="line">                &#123;</div><div class="line">                    /* start timer. */</div><div class="line">                    neigh_add_timer(neigh, now + 1);</div><div class="line">                    if (neigh-&gt;nud_state == NUD_INCOMPLETE) &#123;</div><div class="line">                        /* queue the current skb. */</div><div class="line">                        __skb_queue_tail(&amp;neigh-&gt;arp_queue, skb);</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#123;</div><div class="line">                /* create &apos;hh_cache *hh&apos; if neigh is ready by neigh timer. */</div><div class="line">                neigh_hh_init</div><div class="line">                    --&gt;dst-&gt;hh = hh;</div><div class="line">                --&gt;neigh-&gt;ops-&gt;queue_xmit(skb); [ dev_queue_xmit ]</div><div class="line">            &#125;</div><div class="line"></div><div class="line">neigh_timer_handler</div><div class="line">&#123;</div><div class="line">    /* if neigh is failed after neigh_max_probes, then dequeue skb and report_unreachable. */</div><div class="line">    neigh-&gt;nud_state = NUD_FAILED;</div><div class="line">    __skb_dequeue(&amp;neigh-&gt;arp_queue)</div><div class="line">    neigh-&gt;ops-&gt;error_report(neigh, skb); [ ipv4_negative_advice ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>PS:</p>
+<ul>
+<li>明确了 neigh 就确定了 xmit ;</li>
+<li>Linux 3.5 之后取消 route cache ;</li>
+<li>Add static arp:<br>  ip neigh add 8.8.8.8 lladdr 00:01:02:03:04:05 dev eth1 nud perm</li>
+</ul>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      Route cache and neighbour
+    
+    </summary>
+    
+      <category term="network" scheme="http://walter-du.github.io/categories/network/"/>
+    
+    
+      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
+    
+      <category term="Linux" scheme="http://walter-du.github.io/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Route and conntrack</title>
+    <link href="http://walter-du.github.io/2016/11/05/Route_AND_conntrack/"/>
+    <id>http://walter-du.github.io/2016/11/05/Route_AND_conntrack/</id>
+    <published>2016-11-04T16:00:00.000Z</published>
+    <updated>2017-02-24T06:26:05.978Z</updated>
+    
+    <content type="html"><![CDATA[<hr>
+<p>两者关系不明显；<br>路由表和连接跟踪表对应着不同的功能；</p>
+<p>路由表用于确定 skb 的 ip_output，连接跟踪表记录了 skb 源和目的两端的五元组信息；</p>
+<p>即有了路由表，包才知道往哪里发送，包发送后才知道并记录该包完整的源和目的五元组，即创建连接跟踪表；<br>另外，配置了任意 ip 地址（任意网段）的两台主机，即使直连，只要配置合理的路由，都能相互访问；</p>
+<blockquote>
+<p><strong>CAUTION</strong>:<br>    <em><br>    iptable nat table 规则如其名，Network Address Translation 就是用于改变包的五元组信息的，即影响连接跟踪表的创建。<br>    但是，一旦某条连接跟踪表创建后，那么在其老化前，无论 iptable nat table 上的规则如何变化，都不会影响对应的包根据该条连接跟踪表来进行两端的发收。<br>    Why?<br>    修改 nat table 后为何不实时刷新 conntrack table ，refer to ‘ip_nat_fn’，显然不很容易；Linux 可能认为也无大必要。<br>    实在要为之，或者可以在创建连接跟踪表时 private point 影响其五元组的 nat table rules，然后联动，may be it works, no guarantee ~
+    </em></p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      Route table, conntrack table
+    
+    </summary>
+    
+      <category term="network" scheme="http://walter-du.github.io/categories/network/"/>
+    
+    
+      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
+    
+      <category term="Linux" scheme="http://walter-du.github.io/tags/Linux/"/>
     
   </entry>
   

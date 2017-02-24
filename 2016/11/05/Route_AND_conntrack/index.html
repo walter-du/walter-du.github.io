@@ -23,10 +23,10 @@
     <meta name="description" content="Route table, conntrack table">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Route and conntrack">
-<meta property="og:url" content="http://walter-du.github.io/2017/02/06/Route_AND_conntrack/index.html">
+<meta property="og:url" content="http://walter-du.github.io/2016/11/05/Route_AND_conntrack/index.html">
 <meta property="og:site_name" content="Simply this">
 <meta property="og:description" content="Route table, conntrack table">
-<meta property="og:updated_time" content="2017-02-07T06:13:54.167Z">
+<meta property="og:updated_time" content="2017-02-24T06:26:05.978Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Route and conntrack">
 <meta name="twitter:description" content="Route table, conntrack table">
@@ -131,8 +131,8 @@
         <h1 class="title">Route and conntrack</h1>
         <h5 class="subtitle">
             
-                <time datetime="2017-02-05T16:00:00.000Z" itemprop="datePublished" class="page-time">
-  2017-02-06
+                <time datetime="2016-11-04T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2016-11-05
 </time>
 
 
@@ -155,7 +155,7 @@
     <div class="post-card">
         <h1 class="post-card-title">Route and conntrack</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017年02月06日 0:00" datetime="2017-02-05T16:00:00.000Z"  itemprop="datePublished">2017-02-06</time>
+            <time class="post-time" title="2016年11月05日 0:00" datetime="2016-11-04T16:00:00.000Z"  itemprop="datePublished">2016-11-05</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/network/">network</a></li></ul>
@@ -175,7 +175,7 @@
             <hr>
 <p>两者关系不明显；<br>路由表和连接跟踪表对应着不同的功能；</p>
 <p>路由表用于确定 skb 的 ip_output，连接跟踪表记录了 skb 源和目的两端的五元组信息；</p>
-<p>即有了路由表，包才知道往哪里发送，包发送后才知道并记录该包完整的源和目的五元组，即创建连接跟踪表；</p>
+<p>即有了路由表，包才知道往哪里发送，包发送后才知道并记录该包完整的源和目的五元组，即创建连接跟踪表；<br>另外，配置了任意 ip 地址（任意网段）的两台主机，即使直连，只要配置合理的路由，都能相互访问；</p>
 <blockquote>
 <p><strong>CAUTION</strong>:<br>    <em><br>    iptable nat table 规则如其名，Network Address Translation 就是用于改变包的五元组信息的，即影响连接跟踪表的创建。<br>    但是，一旦某条连接跟踪表创建后，那么在其老化前，无论 iptable nat table 上的规则如何变化，都不会影响对应的包根据该条连接跟踪表来进行两端的发收。<br>    Why?<br>    修改 nat table 后为何不实时刷新 conntrack table ，refer to ‘ip_nat_fn’，显然不很容易；Linux 可能认为也无大必要。<br>    实在要为之，或者可以在创建连接跟踪表时 private point 影响其五元组的 nat table rules，然后联动，may be it works, no guarantee ~
     </em></p>
@@ -187,11 +187,11 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-02-07T06:13:54.167Z" itemprop="dateUpdated">2017年2月7日 14:13</time>
+    最后更新时间：<time datetime="2017-02-24T06:26:05.978Z" itemprop="dateUpdated">2017年2月24日 14:26</time>
 </span><br>
 
 
-        原文地址：<a href="/2017/02/06/Route_AND_conntrack/" target="_blank" rel="external">http://walter-du.github.io/2017/02/06/Route_AND_conntrack/</a>
+        原文地址：<a href="/2016/11/05/Route_AND_conntrack/" target="_blank" rel="external">http://walter-du.github.io/2016/11/05/Route_AND_conntrack/</a>
     </div>
     <footer>
         <a href="http://walter-du.github.io">
@@ -216,7 +216,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.github.io/2017/02/06/Route_AND_conntrack/&title=《Route and conntrack》 — Simply this&pic=http://walter-du.github.io/img/some.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.github.io/2016/11/05/Route_AND_conntrack/&title=《Route and conntrack》 — Simply this&pic=http://walter-du.github.io/img/some.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -226,22 +226,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.github.io/2017/02/06/Route_AND_conntrack/&title=《Route and conntrack》 — Simply this&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.github.io/2016/11/05/Route_AND_conntrack/&title=《Route and conntrack》 — Simply this&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.github.io/2017/02/06/Route_AND_conntrack/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.github.io/2016/11/05/Route_AND_conntrack/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Route and conntrack》 — Simply this&url=http://walter-du.github.io/2017/02/06/Route_AND_conntrack/&via=http://walter-du.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Route and conntrack》 — Simply this&url=http://walter-du.github.io/2016/11/05/Route_AND_conntrack/&via=http://walter-du.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.github.io/2017/02/06/Route_AND_conntrack/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.github.io/2016/11/05/Route_AND_conntrack/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -264,20 +264,13 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2017/02/09/Tiny_and_overlapping_fragment_attack/" id="post-prev" class="post-nav-link">
+      <a href="/2016/11/06/Route_cache_AND_neighbour/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Tiny and Overlapping Fragment Attacks</h4>
+        <h4 class="title">Route cache and neighbour</h4>
       </a>
     </div>
   
 
-  
-    <div class="waves-block waves-effect next">
-      <a href="/2017/01/23/Git_manual/" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Git manual</h4>
-      </a>
-    </div>
   
 </nav>
 
@@ -332,7 +325,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.github.io/2017/02/06/Route_AND_conntrack/&title=《Route and conntrack》 — Simply this&pic=http://walter-du.github.io/img/some.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.github.io/2016/11/05/Route_AND_conntrack/&title=《Route and conntrack》 — Simply this&pic=http://walter-du.github.io/img/some.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -342,22 +335,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.github.io/2017/02/06/Route_AND_conntrack/&title=《Route and conntrack》 — Simply this&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.github.io/2016/11/05/Route_AND_conntrack/&title=《Route and conntrack》 — Simply this&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.github.io/2017/02/06/Route_AND_conntrack/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.github.io/2016/11/05/Route_AND_conntrack/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Route and conntrack》 — Simply this&url=http://walter-du.github.io/2017/02/06/Route_AND_conntrack/&via=http://walter-du.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Route and conntrack》 — Simply this&url=http://walter-du.github.io/2016/11/05/Route_AND_conntrack/&via=http://walter-du.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.github.io/2017/02/06/Route_AND_conntrack/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.github.io/2016/11/05/Route_AND_conntrack/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -368,7 +361,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMklEQVR42u3ay44CIRAFUP//p51kMgsXNrlVoJmGw8ooKqcXpF6PR7yev+v19eu62p/vHL+zbGFgYNyW8Ryu8U9f7bw6+tXO/NcuHwoGBsYBjOole3XE3uHGO5NrGgMDAyMPAZPgMv8vDAwMjJkLt3p15g8IAwMDYyaJTUK3XhA5vnAX5+IYGBg3ZPQaA995/fH+BgYGxr9nPIurGiZW2wnNU2FgYGzNqI47VFuM46AwT2Kj6xgDA+MYRuFrEyMXVVIULGJgYGzKqJaukpBuvkyWNDvfBIUYGBhbM6rFr96xeq3K6GwYGBjHMKrjX3lhLsHPFPUwMDDOYVQByc7qkFkvAMXAwNib0Rt6GJfnqkW98ZWav4OBgbE3o3ctJgFctXyWJ7oYGBgYSYltVai3auwDAwPjHMbaUYm8cJa3M8tTJBgYGNsxeiFdNX3NByyWRbgYGBg3Z8wMe+UHqj7RcoiJgYFxACM5RF5iy79bHeC4/C8MDIytGXmqWU0po4y5FSBiYGCcw6gmor3RsU8MhE3l0xgYGDdk9ArxSWjYa3yWL3cMDIytGasKavnhEl7z6sfAwNiUMVPwqialeTMyDx//PsXAwNiaMXOgXsDXu77zYBQDA2NXRnLJzpTGZoK/wrPHwMA4gFFtHPYKZ70QEwMDAyNn9BqcM03QQlKNgYGBEfz9TNGt1y59k8RiYGBszZgvoiWjG9USf3lyBAMDY1PGTALZS1OrQxjLMBgYGPdj/ADBpGqYKxLMTgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMklEQVR42u3awW6EMAxF0fn/n6abLipVgftsGAnnskJMFDip5NpOPh98HX+u1ZPVeDLy/MltlwwZMl7LOE6v1ZgnZv7PIDPIkCFjH8Z5KFzdk5E8TJN3LZ/LkCFDRmNM+qsMGTJk3MVYPeEJJU8cZciQIaM2HU/7SAnKi+cbanEZMmS8kMEbZ9+/f2R/Q4YMGa9iHOFFAi4Jo3d9z++cMmTIGM3gAa5VXoINA75tsBwpQ4aMbRj8czuNtlrIjrNXGTJkjGDc1caqNenSttpyuWXIkDGaQUJb55U1WOsAhwwZMsYxSOpG7tMQ2TmocdE1lCFDxjgGicQphjfg+ELEaasMGTIGMWqfxZt0vH3GZ1imhjJkyBjKqBWraaMtDbitWCpDhoxxDG5Nj4XxjU+Skl6AZciQsQEjbZClKSCvoUnYjc+syZAh4+UMPlFQRoaBlT8PSlwZMmQMYvCErNNo67T+0YLKkCFjA0atgKwdnugsX7AZIEOGjEEMUriSgxSdplstQVz+TWTIkLEBozMp36qsRcuLZZIhQ8ZmjHQ7s9ZiI4GbYGTIkLEPI00H+evTkFrcnZQhQ8ZQxhFeNQYvgNOFkCFDxg6MtBEWnNq46eBF8cyIDBkyxjHSIJu23jrJXxBwZciQsQHjieDYap+lIVuGDBkywm3LdFOzc1BMhgwZMsgU/NfzOUkD7qKIlSFDxmgGSd1IE7+2tcCRMmTI2JNRKx1rZSo/YNH/NyBDhowRjB9HcpNhH4707AAAAABJRU5ErkJggg==" alt="微信分享二维码">
 </div>
 
 

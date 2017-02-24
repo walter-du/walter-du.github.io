@@ -192,6 +192,113 @@
 
         </li>
     
+        <li class="post-list-item fade">
+            <article id="post-Route_cache_AND_neighbour"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2016年11月06日 0:00" datetime="2016-11-05T16:00:00.000Z"  itemprop="datePublished">2016-11-06</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/network/">network</a></li></ul>
+
+
+
+        
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2016/11/06/Route_cache_AND_neighbour/">Route cache and neighbour</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        
+
+route cache 中 dst-&gt;neighbour 和 dst-&gt;hh 何时分配和赋值 ?
+
+dst-&gt;neighbour 是在第一次匹配路由后 create route cache 时分配和初始化的;123456789101112131415161718ip_route_input    --&gt;ip_route_input_slow        --&g...
+    
+
+        <a href="/2016/11/06/Route_cache_AND_neighbour/" class="post-more waves-effect waves-button">
+            more...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-Route_AND_conntrack"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2016年11月05日 0:00" datetime="2016-11-04T16:00:00.000Z"  itemprop="datePublished">2016-11-05</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/network/">network</a></li></ul>
+
+
+
+        
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2016/11/05/Route_AND_conntrack/">Route and conntrack</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        
+两者关系不明显；路由表和连接跟踪表对应着不同的功能；
+路由表用于确定 skb 的 ip_output，连接跟踪表记录了 skb 源和目的两端的五元组信息；
+即有了路由表，包才知道往哪里发送，包发送后才知道并记录该包完整的源和目的五元组，即创建连接跟踪表；另外，配置了任意 ip 地址（任意网段）的两台主机，即使直连，只要配置合理的路由，都能相互访问；
+
+CAUTION:        ipt...
+    
+
+        <a href="/2016/11/05/Route_AND_conntrack/" class="post-more waves-effect waves-button">
+            more...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
     </ul>
 
     
