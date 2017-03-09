@@ -13,23 +13,23 @@
     
     
     
-    <title>Ssh-tunnel and SS | Simply this | It is what it is.</title>
+    <title>What&#39;s docker | Simply this | It is what it is.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="network,SS">
-    <meta name="description" content="Ssh-tunnel, SS">
+    <meta name="keywords" content="docker,Virtualization">
+    <meta name="description" content="docker, lxc">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ssh-tunnel and SS">
-<meta property="og:url" content="http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/index.html">
+<meta property="og:title" content="What's docker">
+<meta property="og:url" content="http://walter-du.github.io/2017/03/09/What_is_docker/index.html">
 <meta property="og:site_name" content="Simply this">
-<meta property="og:description" content="Ssh-tunnel, SS">
-<meta property="og:updated_time" content="2017-02-07T08:44:31.554Z">
+<meta property="og:description" content="docker, lxc">
+<meta property="og:updated_time" content="2017-03-09T11:45:59.192Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ssh-tunnel and SS">
-<meta name="twitter:description" content="Ssh-tunnel, SS">
+<meta name="twitter:title" content="What's docker">
+<meta name="twitter:description" content="docker, lxc">
     
         <link rel="alternative" href="/atom.xml" title="Simply this" type="application/atom+xml">
     
@@ -106,7 +106,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">Ssh-tunnel and SS</div>
+        <div class="flex-col header-title ellipsis">What&#39;s docker</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -128,15 +128,15 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">Ssh-tunnel and SS</h1>
+        <h1 class="title">What&#39;s docker</h1>
         <h5 class="subtitle">
             
-                <time datetime="2017-01-21T16:00:00.000Z" itemprop="datePublished" class="page-time">
-  2017-01-22
+                <time datetime="2017-03-08T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-03-09
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/network/">network</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Virtualization/">Virtualization</a></li></ul>
 
             
         </h5>
@@ -149,23 +149,16 @@
 
 <div class="container body-wrap">
     
-    <aside class="post-widget">
-        <nav class="post-toc-wrap" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#On-Top"><span class="post-toc-number">1.</span> <span class="post-toc-text">On-Top</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Tools"><span class="post-toc-number">2.</span> <span class="post-toc-text">Tools</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#单一的-ssh-tunnel"><span class="post-toc-number">3.</span> <span class="post-toc-text">单一的 ssh-tunnel</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SS"><span class="post-toc-number">4.</span> <span class="post-toc-text">SS</span></a></li></ol>
-        </nav>
-    </aside>
-    
-<article id="post-Ssh-tunnel_AND_SS"
+<article id="post-What_is_docker"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">Ssh-tunnel and SS</h1>
+        <h1 class="post-card-title">What's docker</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017年01月22日 0:00" datetime="2017-01-21T16:00:00.000Z"  itemprop="datePublished">2017-01-22</time>
+            <time class="post-time" title="2017年03月09日 0:00" datetime="2017-03-08T16:00:00.000Z"  itemprop="datePublished">2017-03-09</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/network/">network</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Virtualization/">Virtualization</a></li></ul>
 
 
 
@@ -180,30 +173,14 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <hr>
-<h2 id="On-Top"><a href="#On-Top" class="headerlink" title="On-Top"></a>On-Top</h2><ul>
-<li>update ‘hosts’</li>
-<li>update ‘g~f~wlist’</li>
-</ul>
-<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
-<li>Windows 自带 MD5 命令: certutil -hashfile <filename> MD5 ;</filename></li>
-<li>‘ssh’/‘netcat’(nc,支持明文或其他加密) 都能实现简单的端口转发功能;<br>  eg:<blockquote>
-<p>查看某 server 是否开启 80 端口: # nc &lt;server’s ip&gt; 80 (strace 或 tcpdump 查看报文交互)</p>
-</blockquote>
-</li>
-<li>‘dig’ for lookup ;</li>
-</ul>
-<h2 id="单一的-ssh-tunnel"><a href="#单一的-ssh-tunnel" class="headerlink" title="单一的 ssh-tunnel"></a>单一的 ssh-tunnel</h2><ul>
-<li>由于 ssh 本身就是基于 RSA 加密技术,所以 G~F~W 无法从数据传输的过程中对加密数据内容进行关键词分析,避免了被重置链接的问题;</li>
-<li>但由于创建隧道和数据传输的过程中, ssh 本身的特征是明显的,所以 G~F~W 可以通过分析连接的特征进行干扰,导致 ssh 存在被定向进行干扰的问题。</li>
-</ul>
-<h2 id="SS"><a href="#SS" class="headerlink" title="SS"></a>SS</h2><ul>
-<li><p>简单理解的话, SS 是将原来 ssh 创建的 Socks5 协议拆开成 server 端和 client 端,其原理基本上和利用 ssh-tunnel 大致类似:<br>  1.客户端发出的请求基于 Socks5 协议跟 ss-local 端进行通讯,由于这个 ss-local 一般是本机或路由器或局域网的其他机器,不经过 G~F~W ,所以解决了上面被 G~F~W 通过特征分析进行干扰的问题;<br>  2.ss-local 和 ss-server 两端通过多种可选的加密方法进行通讯,经过 G~F~W 的时候是常规的 TCP 包,没有明显的特征码且 G~F~W 也无法对通讯数据进行解密;<br>  3.ss-server 将收到的加密数据进行解密,还原原来的请求,再发送到用户需要访问的服务,获取响应原路返回。</p>
-<p>  两条 DNS 查询链：</p>
-<blockquote>
-<p>国外：Client—ChinaDNS—dnsmasq—SS—代理Server—GoogleDNS<br>国内：Client—ChinaDNS—114DNS</p>
-</blockquote>
-</li>
-</ul>
+<p>试用了一把 docker;</p>
+<p>一些基本的理解:</p>
+<ol>
+<li>docker 是应用容器，没有 kernel ;<br> 这是与一般意义的虚拟机(半虚拟或全虚拟)最本质的区别;</li>
+<li>docker 的隔离是: host 对 docker 容器隔离， docer 容器对 host 并不能隔离;</li>
+<li>所谓的 docker 发行版镜像( Debian\Fedora )可以看作是集成了对应发行版自带的 binS/libS 和 docker 本身运行所需的相关配置的压缩包;<br> 当然也可以根据需要将其它应用的 binS/libS 添加到发行版镜像中，重新打包生成支持相关业务的镜像;<br> 这是 docker 的主要使用场景;</li>
+<li>docker 适合于需要单纯的访问 网络 和 存储 的应用场景;<br> 即 docker 支持容器中的应用在某种程度访问/共享 host 的 网络 和 存储;<br> 如果应用还需要访问其它 I/O 外设，不知 docker 是否支持，至少只能间接的来，应该也不是 docker 的初衷。</li>
+</ol>
 
         </div>
 
@@ -211,11 +188,11 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-02-07T08:44:31.554Z" itemprop="dateUpdated">2017年2月7日 16:44</time>
+    最后更新时间：<time datetime="2017-03-09T11:45:59.192Z" itemprop="dateUpdated">2017年3月9日 19:45</time>
 </span><br>
 
 
-        原文地址：<a href="/2017/01/22/Ssh-tunnel_AND_SS/" target="_blank" rel="external">http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/</a>
+        原文地址：<a href="/2017/03/09/What_is_docker/" target="_blank" rel="external">http://walter-du.github.io/2017/03/09/What_is_docker/</a>
     </div>
     <footer>
         <a href="http://walter-du.github.io">
@@ -230,7 +207,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SS/">SS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Virtualization/">Virtualization</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
 
 
             
@@ -240,7 +217,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/&title=《Ssh-tunnel and SS》 — Simply this&pic=http://walter-du.github.io/img/some.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.github.io/2017/03/09/What_is_docker/&title=《What's docker》 — Simply this&pic=http://walter-du.github.io/img/some.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -250,22 +227,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/&title=《Ssh-tunnel and SS》 — Simply this&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.github.io/2017/03/09/What_is_docker/&title=《What's docker》 — Simply this&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.github.io/2017/03/09/What_is_docker/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Ssh-tunnel and SS》 — Simply this&url=http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/&via=http://walter-du.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《What's docker》 — Simply this&url=http://walter-du.github.io/2017/03/09/What_is_docker/&via=http://walter-du.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.github.io/2017/03/09/What_is_docker/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -285,21 +262,14 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2017/01/23/Git_manual/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Git manual</h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2017/01/22/UDP_Q&A/" id="post-next" class="post-nav-link">
+      <a href="/2017/02/24/Abstract_class_AND_interface/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">UDP Q&amp;A</h4>
+        <h4 class="title">Abstract class and interface</h4>
       </a>
     </div>
   
@@ -356,7 +326,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/&title=《Ssh-tunnel and SS》 — Simply this&pic=http://walter-du.github.io/img/some.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://walter-du.github.io/2017/03/09/What_is_docker/&title=《What's docker》 — Simply this&pic=http://walter-du.github.io/img/some.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -366,22 +336,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/&title=《Ssh-tunnel and SS》 — Simply this&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://walter-du.github.io/2017/03/09/What_is_docker/&title=《What's docker》 — Simply this&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://walter-du.github.io/2017/03/09/What_is_docker/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Ssh-tunnel and SS》 — Simply this&url=http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/&via=http://walter-du.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《What's docker》 — Simply this&url=http://walter-du.github.io/2017/03/09/What_is_docker/&via=http://walter-du.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://walter-du.github.io/2017/03/09/What_is_docker/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -392,7 +362,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMklEQVR42u3aS1LDMBAFwNz/0mHLAsF7Y4cqS60VRYyi9kLM7/WK13uxvn+6ej5/ZvXkbQsDA+OxjPevKz/Wauf2RSR/9cO3Y2BgHMBIDpF82h4i3/mPM2NgYGCUP7ch4GxPDAwMjOQaTRLXNtzEwMDAuJLEtmW4K898MBfHwMB4ICOvuv//zx/pb2BgYDyK8S7XrCSX7zNbGBgYezPaZuQwvSwT2tl5MDAwzmS0V3B7rLydGQWLGBgYBzCS0v/v+PZYV8YylhcuBgbGdozkikwwVwr6+SW+fGUYGBgHMPIt8iCyDS7ztDaqGmJgYGzEuLdM1l7Ks9bCzRk5BgbGQxizcv/1QLBNif84FQYGxqaMNr2ctSE/cR3XES4GBsZGjPbrozGIUSxXhIkYGBhbM5LW42zkos6hy8CxnlzDwMB4LGNW/GoHLPJrOg8xl51YDAyM7RizC/euka/b/mNgYGBszWiT2Lu+Ph+2iK5sDAyMrRmzrXN8O2qWtweWGAwMjE0ZySHatmXbMMiLdMvXhIGBcQDj+kBY/mlbtov2wcDAOIBxV2dw1gp9xSsKDTEwMDZivMt1pT7fjlYU6TEGBsbWjNk1VwxAxEnslboZBgbGCYxZuT8PHGdJcjtwhoGBcQKjKMEHLYGkkVCPf+X9DQwMDIxRypqHfflvPnLhYmBgbMFow8f26Pkru3ThYmBgPJCRJLH5sWZluHYgDAMD4xxGmzrmV2E75tWW5zAwMA5gfAEGQn+tgApBpQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACK0lEQVR42u3aQY7CMAwFUO5/6c52JNTyHRekOi8rVKDN68KyY79e8Tre1v/rZ5/Pvn2/8/WV2xYGBsZjGcflOtvWGjJ/Vr43DAyMfRjXoTAJpmehM9pE8NwPe8bAwMBopINJ8pcEXwwMDIwOI0kczzZ9fR0DAwOjWsTm4TIvWZOAe3MtjoGB8UBGfur++89f6W9gYGA8irEWIjuH+0nbsrwrDAyM0Yw8wK0hkzskxe31fjAwMGYz1srRalmbv9FFGAYGxjaMJBR2RiKqYbqQbmJgYGzJyMNiUuLm7dLF32NgYIxmrN0iwVRHvjpNTQwMjB0Ya8NefV4/fLcKWgwMjIcw1hK7/BguOeDLi9jTMI2BgTGakcerfNP9MYt8HA0DA2M3RpK05WMTeSLYaa8WYjkGBsbDGdVxrtse2W4PYGBg7MBYa1vmIbUzllFIDTEwMEYz8nGKuw7OOgVzOVpjYGAMYlRXtemYB/TO68PAwNiBsdYM6KSMVXY0wIGBgTGUkSdheUDMhyeqjYfCsAUGBsYGjHxorDNg0f8XBgbGPozCH4qHaD8a18DAwBjKOIorLymTzVXHO6KkEAMDYxyj2gxYGxHrHP1XXx8GBsZURr8ZkFzpvLIbmpcYGBgjGP02QHX8ot8K/VCLY2BgbMxIRiKSzeUDFl8JuBgYGKMZeRsyL0o7zVQMDIx9GHlLsjrClZfErTFWDAyM0Yxq6VhN/tYGLDqlNQYGxiDGH6YP+ggNPlRPAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 
