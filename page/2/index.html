@@ -340,8 +340,10 @@ B)抢占调度  比如:当前内核态执行过程中事先没有禁止内核态
 对不同的 event(fd) 设置不同的优先级;
 运行过程中动态的 增加/删除 需关注的 event(fd);
 
-Libevent (Reactor)
-‘select_dispatch’ 中 ‘random() % nfds;’: 相同优先级的 event...
+Libevent (Reactor)一次 loop 中:
+
+a. ‘select_dispatch’: 
+a1. select 确认有哪些 f...
     
 
         <a href="/2016/12/16/Event-driven_model/" class="post-more waves-effect waves-button">

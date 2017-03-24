@@ -26,7 +26,7 @@
 <meta property="og:url" content="http://walter-du.github.io/2016/12/16/Event-driven_model/index.html">
 <meta property="og:site_name" content="Simply this">
 <meta property="og:description" content="event-driven model, I/O loop">
-<meta property="og:updated_time" content="2017-02-14T10:05:37.376Z">
+<meta property="og:updated_time" content="2017-03-24T04:14:19.267Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Event-driven model">
 <meta name="twitter:description" content="event-driven model, I/O loop">
@@ -185,12 +185,29 @@
 <li>对不同的 event(fd) 设置不同的优先级;</li>
 <li>运行过程中动态的 增加/删除 需关注的 event(fd);</li>
 </ol>
-<h2 id="Libevent-Reactor"><a href="#Libevent-Reactor" class="headerlink" title="Libevent (Reactor)"></a>Libevent (Reactor)</h2><ul>
-<li>‘select_dispatch’ 中 ‘random() % nfds;’: 相同优先级的 event 有公平的处理机会(入队先后顺序);</li>
-<li>‘event_process_active’,’activequeues’: 不同优先级的 event 加入到不同的 active 队列;</li>
-<li>‘event_process_active’: 一次 loop 虽然将所有可用的 event 都入 active 队列，但是只处理最高优先级 active 队列中的 event ;</li>
-<li>‘EVLIST_INSERTED’ 用以动态的 add/del event;</li>
-<li>支持多线程:<br>  1: ‘event_process_active_single_queue’ 中调用 event 处理函数 ‘ev_callback’ 时释放了 LOCK ;<br>  2: 主要的非临界区: select/epoll 时 和 调用 event 处理函数 ‘ev_callback’ 时(显然此处理函数不应操作公共变量);<br>  3: ‘event_continue’: 线程 A 在处理某个优先级队列中的 event, 线程 B 发现了更高优先级的 event ,则线程 A 完成当前 event 的处理后，停止处理当前队列中的下一个 event , 进而进入下一次 loop 去处理更高优先级的 event 。</li>
+<h2 id="Libevent-Reactor"><a href="#Libevent-Reactor" class="headerlink" title="Libevent (Reactor)"></a>Libevent (Reactor)</h2><p>一次 loop 中:</p>
+<ul>
+<li>a. ‘select_dispatch’: <ul>
+<li>a1. select 确认有哪些 fd 可读/可写;</li>
+<li>a2.将关注这些 fd 的 event insert 到对应优先级的 activequeues 中,即不同优先级的 event 加入到不同的 active 队列;</li>
+<li>a3.其中 ‘random() % nfds;’ 用于保证相同优先级的 event 有公平的处理机会( insert 到 active 队列的入队先后顺序);</li>
+<li>a4. select_dispatch 的入参超时时间 tv 取自所有 event 中设置的最小超时时间,即可保证不同的超时时间;</li>
+</ul>
+</li>
+<li>b. ‘event_process_active’: <ul>
+<li>b1.根据 activequeues 的优先级依次处理(event_process_active_single_queue)每个 active 队列中的 event ,即调用各个 event 对应的 ev_callback;</li>
+<li>b2. ev_callback 为用户自定义，根据需要 read/write fd 并处理相关的数据;</li>
+<li>b3.在遍历过程中,每处理完当前优先级 active 队列中的所有 event 后可以选择是否继续处理低优先级 active 队列 或者 break 进入下一次 loop;</li>
+</ul>
+</li>
+<li>c.’EVLIST_INSERTED’ 用以动态的 add/del event;</li>
+<li>d.支持多线程: <ul>
+<li>d1: a2 完成后,如果支持多线程则可以通知其它线程来处理 event: ‘if (EVBASE_NEED_NOTIFY(base)) evthread_notify_base(base);’</li>
+<li>d2: ‘event_process_active_single_queue’ 中调用 event 处理函数 ‘ev_callback’ 时释放了 LOCK ;</li>
+<li>d3: 主要的非临界区: select/epoll 时 和 调用 event 处理函数 ‘ev_callback’ 时(显然此处理函数不应操作公共变量);</li>
+<li>d3: 多线程对优先级的支持 ‘event_continue’:<br>  线程 A 在处理(event_process_active_single_queue)某个优先级队列中的 event, 即处于 b1 阶段;<br>  线程 B 发现了更高优先级的 event,即 insert 了某个优先级更高的 event 到优先级更高的 active 队列, 即处于 a2 阶段;<br>  则线程 A 完成当前 event 的处理后，应停止处理当前队列中的下一个 event , 进而进入下一次 loop 去处理更高优先级的 event 。</li>
+</ul>
+</li>
 </ul>
 <h2 id="Glib"><a href="#Glib" class="headerlink" title="Glib "></a>Glib </h2><pre><code>&quot;
 GSource: representing an event source.
@@ -218,7 +235,7 @@ A GMainContext can only be running in a single thread, but sources can be added 
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-02-14T10:05:37.376Z" itemprop="dateUpdated">2017年2月14日 18:05</time>
+    最后更新时间：<time datetime="2017-03-24T04:14:19.267Z" itemprop="dateUpdated">2017年3月24日 12:14</time>
 </span><br>
 
 
