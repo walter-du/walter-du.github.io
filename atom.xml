@@ -550,22 +550,55 @@ A GMainContext can only be running in a single thread, but sources can be added 
   </entry>
   
   <entry>
+    <title>How &#39;sleep&#39; happens</title>
+    <link href="http://walter-du.github.io/2016/12/14/How_sleep_happens/"/>
+    <id>http://walter-du.github.io/2016/12/14/How_sleep_happens/</id>
+    <published>2016-12-13T16:00:00.000Z</published>
+    <updated>2017-02-07T08:36:36.876Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="sleep-的实现过程"><a href="#sleep-的实现过程" class="headerlink" title="sleep 的实现过程"></a>sleep 的实现过程</h2><p>sleep –&gt; sys_nanosleep<br>{</p>
+<ul>
+<li>为当前进程注册一个 timer 及超时回调函数 process_timeout;</li>
+<li>将进程置为 TASK_INTERRUPTIBLE;</li>
+<li>将 timer 挂到每 CPU 链 tvec_bases;</li>
+<li>schedule() 让出 CPU;</li>
+<li>时钟软中断 TIMER_SOFTIRQ 函数 run_timer_softirq 检查 tvec_bases 是否有 timer 超时;</li>
+<li>超时则回调 process_timeout 进而 wake_up_process 唤醒进程到 TASK_RUNNING,等待时间片调度。</li>
+</ul>
+<p>}</p>
+]]></content>
+    
+    <summary type="html">
+    
+      Linux to sleep
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://walter-du.github.io/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://walter-du.github.io/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Why &#39;epoll&#39; faster than &#39;select&#39;</title>
     <link href="http://walter-du.github.io/2016/12/14/Epoll_AND_select/"/>
     <id>http://walter-du.github.io/2016/12/14/Epoll_AND_select/</id>
     <published>2016-12-13T16:00:00.000Z</published>
-    <updated>2017-02-07T08:31:41.733Z</updated>
+    <updated>2018-08-11T09:52:16.281Z</updated>
     
     <content type="html"><![CDATA[<hr>
 <blockquote>
-<p>epoll 快于 select 的本质是有 kernel 时刻在帮忙。<br>select() 需要进程当场轮询所有的 fd (调用每个 fd 对应的底层 poll)以确定可用的 fd 集;<br>而 epoll epoll_wait() 是进程直接返回被内核 I/O 事件异步唤醒而加入到 ready list 的 fd 集，相当于其收集可用的 fd 集的工作已由内核(软中断)在之前就完成了。</p>
+<p>epoll 快于 select 的本质是有 kernel 时刻在帮忙。<br>select() (/在被异步唤醒后)需要进程当场轮询所有的 fd (调用每个 fd 对应的底层 poll)以确定可用的 fd 集;<br>而 epoll epoll_wait() 是进程直接返回被内核 I/O 事件异步唤醒而加入到 ready list 的 fd 集，相当于其收集可用的 fd 集的工作已由内核(软中断)在之前就完成了。</p>
 </blockquote>
 <h2 id="select-的实现"><a href="#select-的实现" class="headerlink" title="select 的实现"></a>select 的实现</h2><p>select 比较常用，其实现过程大致如下:<br>sys_select -&gt; do_select<br>{</p>
 <ul>
 <li>将所有的 fd 从用户态 copy 到内核态;</li>
 <li>依次调用每个 fd 对应的底层 poll 函数，对于 socket fd 通常就是 tcp_poll/udp_poll(datagram_poll)， check 对应的 sk queue 是否有数据可读/可写，若有则保存到临时变量;</li>
+<li>poll 时，如果此 fd 支持等待队列，则将此线程放到此 fd 对应的等待队列上，以支持异步唤醒;</li>
 <li>每调用一次底层 poll 函数，还会 cond_resched() 一次 (2.6.15);</li>
-<li>所有 fd 都 poll 一遍以后，若有数据则返回; 没有则 check 是否 timeout，没有则 sleep timeout，睡眠结束后再进行一次遍历 poll ;</li>
+<li>所有 fd 都 poll 一遍以后，若有数据则返回; 没有则 check 是否 timeout，没有则 sleep timeout，超时调度结束后(超时 或者 由于有 fd 可用被等待队列异步唤醒)再进行一次遍历 poll ;</li>
 <li>timeout or 有数据才返回;</li>
 <li>返回后有数据则将其从 内核态 copy 到 用户态。</li>
 </ul>
@@ -603,38 +636,6 @@ A GMainContext can only be running in a single thread, but sources can be added 
       <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
     
       <category term="I/O" scheme="http://walter-du.github.io/tags/I-O/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>How &#39;sleep&#39; happens</title>
-    <link href="http://walter-du.github.io/2016/12/14/How_sleep_happens/"/>
-    <id>http://walter-du.github.io/2016/12/14/How_sleep_happens/</id>
-    <published>2016-12-13T16:00:00.000Z</published>
-    <updated>2017-02-07T08:36:36.876Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="sleep-的实现过程"><a href="#sleep-的实现过程" class="headerlink" title="sleep 的实现过程"></a>sleep 的实现过程</h2><p>sleep –&gt; sys_nanosleep<br>{</p>
-<ul>
-<li>为当前进程注册一个 timer 及超时回调函数 process_timeout;</li>
-<li>将进程置为 TASK_INTERRUPTIBLE;</li>
-<li>将 timer 挂到每 CPU 链 tvec_bases;</li>
-<li>schedule() 让出 CPU;</li>
-<li>时钟软中断 TIMER_SOFTIRQ 函数 run_timer_softirq 检查 tvec_bases 是否有 timer 超时;</li>
-<li>超时则回调 process_timeout 进而 wake_up_process 唤醒进程到 TASK_RUNNING,等待时间片调度。</li>
-</ul>
-<p>}</p>
-]]></content>
-    
-    <summary type="html">
-    
-      Linux to sleep
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://walter-du.github.io/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="http://walter-du.github.io/tags/Linux/"/>
     
   </entry>
   

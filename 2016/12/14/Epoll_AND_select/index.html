@@ -26,7 +26,7 @@
 <meta property="og:url" content="http://walter-du.github.io/2016/12/14/Epoll_AND_select/index.html">
 <meta property="og:site_name" content="Simply this">
 <meta property="og:description" content="epoll, select">
-<meta property="og:updated_time" content="2017-02-07T08:31:41.733Z">
+<meta property="og:updated_time" content="2018-08-11T09:52:16.281Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Why 'epoll' faster than 'select'">
 <meta name="twitter:description" content="epoll, select">
@@ -181,14 +181,15 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <hr>
 <blockquote>
-<p>epoll 快于 select 的本质是有 kernel 时刻在帮忙。<br>select() 需要进程当场轮询所有的 fd (调用每个 fd 对应的底层 poll)以确定可用的 fd 集;<br>而 epoll epoll_wait() 是进程直接返回被内核 I/O 事件异步唤醒而加入到 ready list 的 fd 集，相当于其收集可用的 fd 集的工作已由内核(软中断)在之前就完成了。</p>
+<p>epoll 快于 select 的本质是有 kernel 时刻在帮忙。<br>select() (/在被异步唤醒后)需要进程当场轮询所有的 fd (调用每个 fd 对应的底层 poll)以确定可用的 fd 集;<br>而 epoll epoll_wait() 是进程直接返回被内核 I/O 事件异步唤醒而加入到 ready list 的 fd 集，相当于其收集可用的 fd 集的工作已由内核(软中断)在之前就完成了。</p>
 </blockquote>
 <h2 id="select-的实现"><a href="#select-的实现" class="headerlink" title="select 的实现"></a>select 的实现</h2><p>select 比较常用，其实现过程大致如下:<br>sys_select -&gt; do_select<br>{</p>
 <ul>
 <li>将所有的 fd 从用户态 copy 到内核态;</li>
 <li>依次调用每个 fd 对应的底层 poll 函数，对于 socket fd 通常就是 tcp_poll/udp_poll(datagram_poll)， check 对应的 sk queue 是否有数据可读/可写，若有则保存到临时变量;</li>
+<li>poll 时，如果此 fd 支持等待队列，则将此线程放到此 fd 对应的等待队列上，以支持异步唤醒;</li>
 <li>每调用一次底层 poll 函数，还会 cond_resched() 一次 (2.6.15);</li>
-<li>所有 fd 都 poll 一遍以后，若有数据则返回; 没有则 check 是否 timeout，没有则 sleep timeout，睡眠结束后再进行一次遍历 poll ;</li>
+<li>所有 fd 都 poll 一遍以后，若有数据则返回; 没有则 check 是否 timeout，没有则 sleep timeout，超时调度结束后(超时 或者 由于有 fd 可用被等待队列异步唤醒)再进行一次遍历 poll ;</li>
 <li>timeout or 有数据才返回;</li>
 <li>返回后有数据则将其从 内核态 copy 到 用户态。</li>
 </ul>
@@ -219,7 +220,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-02-07T08:31:41.733Z" itemprop="dateUpdated">2017年2月7日 16:31</time>
+    最后更新时间：<time datetime="2018-08-11T09:52:16.281Z" itemprop="dateUpdated">2018年8月11日 17:52</time>
 </span><br>
 
 
@@ -296,18 +297,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2016/12/16/Event-driven_model/" id="post-prev" class="post-nav-link">
+      <a href="/2016/12/14/How_sleep_happens/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Event-driven model</h4>
+        <h4 class="title">How &#39;sleep&#39; happens</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2016/12/14/How_sleep_happens/" id="post-next" class="post-nav-link">
+      <a href="/2016/11/28/Property_AND_getattr/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">How &#39;sleep&#39; happens</h4>
+        <h4 class="title">&#39;Property&#39; and &#39;getattr&#39;</h4>
       </a>
     </div>
   
@@ -350,7 +351,7 @@
     <div class="bottom">
         <p>
             <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
-            <span>Simply this &copy; 2016 - 2017</span>
+            <span>Simply this &copy; 2016 - 2018</span>
         </p>
     </div>
 </footer>
