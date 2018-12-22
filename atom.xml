@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://walter-du.github.io/"/>
-  <updated>2017-03-09T11:45:58.000Z</updated>
+  <updated>2018-12-22T14:20:53.000Z</updated>
   <id>http://walter-du.github.io/</id>
   
   <author>
@@ -14,6 +14,63 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>About Slax</title>
+    <link href="http://walter-du.github.io/2018/12/22/About_Slax/"/>
+    <id>http://walter-du.github.io/2018/12/22/About_Slax/</id>
+    <published>2018-12-21T16:00:00.000Z</published>
+    <updated>2018-12-22T14:20:53.000Z</updated>
+    
+    <content type="html"><![CDATA[<hr>
+<h1 id="关于-Slax"><a href="#关于-Slax" class="headerlink" title="关于 Slax"></a>关于 Slax</h1><hr>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><a href="https://www.slax.org/" target="_blank" rel="external">Slax</a>  是一个易于定制、可携带的小型 Linux 桌面发行版。<br>最新版 9.6.4，基于 debian 。<br>得益于 squashfs\autofs 以及 Slax 自身的 live 特性， 基于 Slax 可以很容易定制出针对特定用户需求的便携专用 Linux 桌面环境。<br>Slax 可以 burn 到 CD  或通过 USB Flash 携带，实际应用显然 USB 更普遍，以下记录也仅针对 USB 方式适用。</p>
+<h2 id="三种启动模式"><a href="#三种启动模式" class="headerlink" title="三种启动模式"></a>三种启动模式</h2><ul>
+<li>Persistent changes</li>
+<li>Fresh start</li>
+<li>Copy to RAM</li>
+</ul>
+<p><strong>Persistent changes:</strong> 默认启动方式，从此方式启动，运行过程中针对系统的修改都会保存到 ROM (即 USB Flash );<br><strong>Fresh start:</strong> 从此方式启动，运行过程中针对系统的修改保存在 RAM ，显然重启后会还原;<br><strong>Copy to RAM:</strong> 从此方式启动，系统本身会 copy 到 RAM ，以加快应用启动。</p>
+<p>实际使用时，可先通过 Persistent changes 方式安装所需的应用，将其打包成 sb ，即制作特定的 Linux 桌面环境；然后将 Fresh start 设置为默认启动方式，方便日常使用。这样可以减少对 USB Flash 的写操作消耗，毕竟好一些的 USB Flash 也就 10W+ 的写极限。</p>
+<p>Copy to RAM 方式意义不大，当前的 USB3.0 + MLC/SLC 颗粒 USB Flash 的读速率可达 200MB+ 。</p>
+<p>另外，从 Fresh start 启动，如果需要保存文件，可以借助 <code>/run/initramfs/memory/data</code> 或其它可挂载存储设备，具体使用说明参考官网。</p>
+<h2 id="启动后没声音"><a href="#启动后没声音" class="headerlink" title="启动后没声音"></a>启动后没声音</h2><p>Slax 的 audio 子系统基于 alsa ;</p>
+<p>1.确认可用声卡<br><code>#lspci -v | grep -i -A 10 audio</code><br><code>#dmesg | grep -i -A 10 audio</code><br><code>#cat /proc/asound/cards</code></p>
+<p>2.查看当前声卡<br><code>#alsamixer</code></p>
+<p>3.设置可用的默认声卡配置<br><code>#vi /etc/asound.conf</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">pcm.!default &#123;</div><div class="line">    type hw</div><div class="line">    card 1</div><div class="line">&#125;</div><div class="line"></div><div class="line">ctl.!default &#123;</div><div class="line">    type hw</div><div class="line">    card 1</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="Add-CN-apt-source"><a href="#Add-CN-apt-source" class="headerlink" title="Add CN apt source"></a>Add CN apt source</h2><p><code>#vi /etc/apt/source.list</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">deb http://mirrors.tuna.tsinghua.edu.cn/debian/ stretch main</div></pre></td></tr></table></figure></p>
+<p><code>#apt update</code></p>
+<h2 id="中文显示和输入法支持"><a href="#中文显示和输入法支持" class="headerlink" title="中文显示和输入法支持"></a>中文显示和输入法支持</h2><p>1.localtime<br><code>#ln -sf /usr/share/zoneinfo/Asia/Hong_Kong /etc/localtime</code></p>
+<p>2.locale<br><code>#apt purge locales</code><br><code>#apt install locales</code><br><code>#dpkg-reconfigure locales</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">1.Edit the file /etc/locale.gen and add your locale settings (one set per line), eg:</div><div class="line">zh_CN.UTF-8 UTF-8</div><div class="line">//dpkg-reconfigure locales </div><div class="line">2.locale-gen</div><div class="line">//update-locale</div><div class="line">3.locale -a to verify the list of available locales</div></pre></td></tr></table></figure></p>
+<p>3.fonts<br><code>#fc-list</code><br><code>#apt install fonts-wqy-zenhei</code><br><code>#apt install fonts-wqy-microhei</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">fonts-arphic-gbsn00lp (2.11-15)</div><div class="line">    &quot;AR PL SungtiL GB&quot; Chinese TrueType font by Arphic Technology</div><div class="line">fonts-arphic-gkai00mp (2.11-15)</div><div class="line">    &quot;AR PL KaitiM GB&quot; Chinese TrueType font by Arphic Technology</div><div class="line">fonts-arphic-ukai (0.2.20080216.2-4)</div><div class="line">    &quot;AR PL UKai&quot; Chinese Unicode TrueType font collection Kaiti style</div><div class="line">fonts-arphic-uming (0.2.20080216.2-7)</div><div class="line">    &quot;AR PL UMing&quot; Chinese Unicode TrueType font collection Mingti style</div></pre></td></tr></table></figure></p>
+<p><code>#dpkg-reconfigure fontconfig-config</code><br><code>//#dpkg-reconfigure fontconfig</code></p>
+<p>4.桌面 fluxbox 切换到 xfce<br><code>#apt install dbus-x11 task-xfce-desktop</code></p>
+<p>5.scim input method<br><code>#apt install im-config zenity</code><br><code>#apt install scim-pinyin</code><br><code>//#scim -d</code><br><code>//#apt install fcitx-googlepinyin</code></p>
+<h2 id="Firefox-没有声音"><a href="#Firefox-没有声音" class="headerlink" title="Firefox 没有声音"></a>Firefox 没有声音</h2><p>新版本的 Firefox 需要 pulseaudio 的支持；<br><code>#apt install firefox-esr</code><br><code>#apt install pulseaudio</code><br><code>#pulseaudio -D</code><br><code>//#apt install pavucontrol</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Is any of ALSA or PulseAudio running?</div><div class="line">-------------------------------------</div><div class="line">Both ALSA and PulseAudio come with command line appliciations to print out the state of our sound system.</div><div class="line">PulseAudio:</div><div class="line">    pactl list</div><div class="line">ALSA:</div><div class="line">    aplay -l</div><div class="line">Both will give an error if the sound system is not running. ALSA will be loaded with the kernel, PulseAudio will be started later.</div></pre></td></tr></table></figure></p>
+<h2 id="关于-aufs"><a href="#关于-aufs" class="headerlink" title="关于 aufs"></a>关于 aufs</h2><p>aufs 文件系统删除文件时:<br>如果该文件只在 rw 目录下有，那就直接删除 rw 目录下的该文件;<br>如果该文件在 ro 目录下有，那么 aufs 将会在 rw 目录里面创建一个 .wh 开头的文件，标识该文件已被删除。</p>
+<h2 id="查看-disk-I-O"><a href="#查看-disk-I-O" class="headerlink" title="查看 disk I/O"></a>查看 disk I/O</h2><p><code>#iotop -a</code></p>
+<h2 id="测试-disk-I-O-rate"><a href="#测试-disk-I-O-rate" class="headerlink" title="测试 disk I/O rate"></a>测试 disk I/O rate</h2><p><code>#hdparm -Tt /dev/sda</code><br>write:<br><code>#sync; dd if=/dev/zero of=/mnt/tmp/output bs=1M count=1024; sync</code><br>read:<br><code>#dd if=/mnt/tmp/output of=/dev/null bs=1M count=1024</code></p>
+<h2 id="Login-background-setting"><a href="#Login-background-setting" class="headerlink" title="Login background setting"></a>Login background setting</h2><p><code>#vi /etc/lightdm/lightdm-gtk-greeter.conf</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">background=/root/Downloads/Niubei.svg</div></pre></td></tr></table></figure></p>
+<hr>
+<blockquote>
+<p>Reference：<br><a href="https://www.slax.org/" target="_blank" rel="external">https://www.slax.org/</a><br><a href="https://wiki.debian.org/Fonts#Adding_fonts" target="_blank" rel="external">https://wiki.debian.org/Fonts#Adding_fonts</a><br><a href="https://wiki.debian.org/Locale" target="_blank" rel="external">https://wiki.debian.org/Locale</a><br><a href="https://blog.xulihang.me/slax-live-linux-for-translation/" target="_blank" rel="external">https://blog.xulihang.me/slax-live-linux-for-translation/</a><br><a href="http://isis.poly.edu/~qiming/" target="_blank" rel="external">http://isis.poly.edu/~qiming/</a><br><a href="https://github.com/Tomas-M/linux-live/issues/32" target="_blank" rel="external">https://github.com/Tomas-M/linux-live/issues/32</a><br><a href="https://github.com/alexandre-mbm/slax/issues/1" target="_blank" rel="external">https://github.com/alexandre-mbm/slax/issues/1</a><br><a href="https://wiki.debian.org/SoundFAQ" target="_blank" rel="external">https://wiki.debian.org/SoundFAQ</a><br><a href="https://packages.debian.org/jessie/volumecontrol.app" target="_blank" rel="external">https://packages.debian.org/jessie/volumecontrol.app</a><br><a href="https://askubuntu.com/questions/50067/howto-save-alsamixer-settings" target="_blank" rel="external">https://askubuntu.com/questions/50067/howto-save-alsamixer-settings</a><br><a href="https://help.ubuntu.com/community/SoundTroubleshooting" target="_blank" rel="external">https://help.ubuntu.com/community/SoundTroubleshooting</a><br><a href="https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture#Set_the_default_sound_card" target="_blank" rel="external">https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture#Set_the_default_sound_card</a><br><a href="https://www.linuxquestions.org/questions/debian-26/setting-default-sound-card-in-alsamixer-880393/" target="_blank" rel="external">https://www.linuxquestions.org/questions/debian-26/setting-default-sound-card-in-alsamixer-880393/</a><br><a href="https://superuser.com/questions/626606/how-to-make-alsa-pick-a-preferred-sound-device-automatically" target="_blank" rel="external">https://superuser.com/questions/626606/how-to-make-alsa-pick-a-preferred-sound-device-automatically</a></p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      slax, linux
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://walter-du.github.io/categories/Linux/"/>
+    
+    
+      <category term="Slax" scheme="http://walter-du.github.io/tags/Slax/"/>
+    
+      <category term="Linux" scheme="http://walter-du.github.io/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>What&#39;s docker</title>
@@ -131,9 +188,9 @@
       <category term="network" scheme="http://walter-du.github.io/categories/network/"/>
     
     
-      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
-    
       <category term="Linux" scheme="http://walter-du.github.io/tags/Linux/"/>
+    
+      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
     
   </entry>
   
@@ -274,55 +331,6 @@ $ git push origin v1.0
   </entry>
   
   <entry>
-    <title>Ssh-tunnel and SS</title>
-    <link href="http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/"/>
-    <id>http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/</id>
-    <published>2017-01-21T16:00:00.000Z</published>
-    <updated>2017-02-07T08:44:30.000Z</updated>
-    
-    <content type="html"><![CDATA[<hr>
-<h2 id="On-Top"><a href="#On-Top" class="headerlink" title="On-Top"></a>On-Top</h2><ul>
-<li>update ‘hosts’</li>
-<li>update ‘g~f~wlist’</li>
-</ul>
-<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
-<li>Windows 自带 MD5 命令: certutil -hashfile <filename> MD5 ;</filename></li>
-<li>‘ssh’/‘netcat’(nc,支持明文或其他加密) 都能实现简单的端口转发功能;<br>  eg:<blockquote>
-<p>查看某 server 是否开启 80 端口: # nc &lt;server’s ip&gt; 80 (strace 或 tcpdump 查看报文交互)</p>
-</blockquote>
-</li>
-<li>‘dig’ for lookup ;</li>
-</ul>
-<h2 id="单一的-ssh-tunnel"><a href="#单一的-ssh-tunnel" class="headerlink" title="单一的 ssh-tunnel"></a>单一的 ssh-tunnel</h2><ul>
-<li>由于 ssh 本身就是基于 RSA 加密技术,所以 G~F~W 无法从数据传输的过程中对加密数据内容进行关键词分析,避免了被重置链接的问题;</li>
-<li>但由于创建隧道和数据传输的过程中, ssh 本身的特征是明显的,所以 G~F~W 可以通过分析连接的特征进行干扰,导致 ssh 存在被定向进行干扰的问题。</li>
-</ul>
-<h2 id="SS"><a href="#SS" class="headerlink" title="SS"></a>SS</h2><ul>
-<li><p>简单理解的话, SS 是将原来 ssh 创建的 Socks5 协议拆开成 server 端和 client 端,其原理基本上和利用 ssh-tunnel 大致类似:<br>  1.客户端发出的请求基于 Socks5 协议跟 ss-local 端进行通讯,由于这个 ss-local 一般是本机或路由器或局域网的其他机器,不经过 G~F~W ,所以解决了上面被 G~F~W 通过特征分析进行干扰的问题;<br>  2.ss-local 和 ss-server 两端通过多种可选的加密方法进行通讯,经过 G~F~W 的时候是常规的 TCP 包,没有明显的特征码且 G~F~W 也无法对通讯数据进行解密;<br>  3.ss-server 将收到的加密数据进行解密,还原原来的请求,再发送到用户需要访问的服务,获取响应原路返回。</p>
-<p>  两条 DNS 查询链：</p>
-<blockquote>
-<p>国外：Client—ChinaDNS—dnsmasq—SS—代理Server—GoogleDNS<br>国内：Client—ChinaDNS—114DNS</p>
-</blockquote>
-</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      Ssh-tunnel, SS
-    
-    </summary>
-    
-      <category term="network" scheme="http://walter-du.github.io/categories/network/"/>
-    
-    
-      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
-    
-      <category term="SS" scheme="http://walter-du.github.io/tags/SS/"/>
-    
-  </entry>
-  
-  <entry>
     <title>UDP Q&amp;A</title>
     <link href="http://walter-du.github.io/2017/01/22/UDP_Q&amp;A/"/>
     <id>http://walter-du.github.io/2017/01/22/UDP_Q&amp;A/</id>
@@ -398,6 +406,55 @@ $ git push origin v1.0
     
     
       <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ssh-tunnel and SS</title>
+    <link href="http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/"/>
+    <id>http://walter-du.github.io/2017/01/22/Ssh-tunnel_AND_SS/</id>
+    <published>2017-01-21T16:00:00.000Z</published>
+    <updated>2017-02-07T08:44:30.000Z</updated>
+    
+    <content type="html"><![CDATA[<hr>
+<h2 id="On-Top"><a href="#On-Top" class="headerlink" title="On-Top"></a>On-Top</h2><ul>
+<li>update ‘hosts’</li>
+<li>update ‘g~f~wlist’</li>
+</ul>
+<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
+<li>Windows 自带 MD5 命令: certutil -hashfile <filename> MD5 ;</filename></li>
+<li>‘ssh’/‘netcat’(nc,支持明文或其他加密) 都能实现简单的端口转发功能;<br>  eg:<blockquote>
+<p>查看某 server 是否开启 80 端口: # nc &lt;server’s ip&gt; 80 (strace 或 tcpdump 查看报文交互)</p>
+</blockquote>
+</li>
+<li>‘dig’ for lookup ;</li>
+</ul>
+<h2 id="单一的-ssh-tunnel"><a href="#单一的-ssh-tunnel" class="headerlink" title="单一的 ssh-tunnel"></a>单一的 ssh-tunnel</h2><ul>
+<li>由于 ssh 本身就是基于 RSA 加密技术,所以 G~F~W 无法从数据传输的过程中对加密数据内容进行关键词分析,避免了被重置链接的问题;</li>
+<li>但由于创建隧道和数据传输的过程中, ssh 本身的特征是明显的,所以 G~F~W 可以通过分析连接的特征进行干扰,导致 ssh 存在被定向进行干扰的问题。</li>
+</ul>
+<h2 id="SS"><a href="#SS" class="headerlink" title="SS"></a>SS</h2><ul>
+<li><p>简单理解的话, SS 是将原来 ssh 创建的 Socks5 协议拆开成 server 端和 client 端,其原理基本上和利用 ssh-tunnel 大致类似:<br>  1.客户端发出的请求基于 Socks5 协议跟 ss-local 端进行通讯,由于这个 ss-local 一般是本机或路由器或局域网的其他机器,不经过 G~F~W ,所以解决了上面被 G~F~W 通过特征分析进行干扰的问题;<br>  2.ss-local 和 ss-server 两端通过多种可选的加密方法进行通讯,经过 G~F~W 的时候是常规的 TCP 包,没有明显的特征码且 G~F~W 也无法对通讯数据进行解密;<br>  3.ss-server 将收到的加密数据进行解密,还原原来的请求,再发送到用户需要访问的服务,获取响应原路返回。</p>
+<p>  两条 DNS 查询链：</p>
+<blockquote>
+<p>国外：Client—ChinaDNS—dnsmasq—SS—代理Server—GoogleDNS<br>国内：Client—ChinaDNS—114DNS</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      Ssh-tunnel, SS
+    
+    </summary>
+    
+      <category term="network" scheme="http://walter-du.github.io/categories/network/"/>
+    
+    
+      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
+    
+      <category term="SS" scheme="http://walter-du.github.io/tags/SS/"/>
     
   </entry>
   
@@ -550,38 +607,6 @@ A GMainContext can only be running in a single thread, but sources can be added 
   </entry>
   
   <entry>
-    <title>How &#39;sleep&#39; happens</title>
-    <link href="http://walter-du.github.io/2016/12/14/How_sleep_happens/"/>
-    <id>http://walter-du.github.io/2016/12/14/How_sleep_happens/</id>
-    <published>2016-12-13T16:00:00.000Z</published>
-    <updated>2017-02-07T08:36:36.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="sleep-的实现过程"><a href="#sleep-的实现过程" class="headerlink" title="sleep 的实现过程"></a>sleep 的实现过程</h2><p>sleep –&gt; sys_nanosleep<br>{</p>
-<ul>
-<li>为当前进程注册一个 timer 及超时回调函数 process_timeout;</li>
-<li>将进程置为 TASK_INTERRUPTIBLE;</li>
-<li>将 timer 挂到每 CPU 链 tvec_bases;</li>
-<li>schedule() 让出 CPU;</li>
-<li>时钟软中断 TIMER_SOFTIRQ 函数 run_timer_softirq 检查 tvec_bases 是否有 timer 超时;</li>
-<li>超时则回调 process_timeout 进而 wake_up_process 唤醒进程到 TASK_RUNNING,等待时间片调度。</li>
-</ul>
-<p>}</p>
-]]></content>
-    
-    <summary type="html">
-    
-      Linux to sleep
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://walter-du.github.io/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="http://walter-du.github.io/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Why &#39;epoll&#39; faster than &#39;select&#39;</title>
     <link href="http://walter-du.github.io/2016/12/14/Epoll_AND_select/"/>
     <id>http://walter-du.github.io/2016/12/14/Epoll_AND_select/</id>
@@ -636,6 +661,38 @@ A GMainContext can only be running in a single thread, but sources can be added 
       <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
     
       <category term="I/O" scheme="http://walter-du.github.io/tags/I-O/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>How &#39;sleep&#39; happens</title>
+    <link href="http://walter-du.github.io/2016/12/14/How_sleep_happens/"/>
+    <id>http://walter-du.github.io/2016/12/14/How_sleep_happens/</id>
+    <published>2016-12-13T16:00:00.000Z</published>
+    <updated>2017-02-07T08:36:36.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="sleep-的实现过程"><a href="#sleep-的实现过程" class="headerlink" title="sleep 的实现过程"></a>sleep 的实现过程</h2><p>sleep –&gt; sys_nanosleep<br>{</p>
+<ul>
+<li>为当前进程注册一个 timer 及超时回调函数 process_timeout;</li>
+<li>将进程置为 TASK_INTERRUPTIBLE;</li>
+<li>将 timer 挂到每 CPU 链 tvec_bases;</li>
+<li>schedule() 让出 CPU;</li>
+<li>时钟软中断 TIMER_SOFTIRQ 函数 run_timer_softirq 检查 tvec_bases 是否有 timer 超时;</li>
+<li>超时则回调 process_timeout 进而 wake_up_process 唤醒进程到 TASK_RUNNING,等待时间片调度。</li>
+</ul>
+<p>}</p>
+]]></content>
+    
+    <summary type="html">
+    
+      Linux to sleep
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://walter-du.github.io/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://walter-du.github.io/tags/Linux/"/>
     
   </entry>
   
@@ -701,9 +758,9 @@ A GMainContext can only be running in a single thread, but sources can be added 
       <category term="network" scheme="http://walter-du.github.io/categories/network/"/>
     
     
-      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
-    
       <category term="Linux" scheme="http://walter-du.github.io/tags/Linux/"/>
+    
+      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
     
   </entry>
   
@@ -733,9 +790,9 @@ A GMainContext can only be running in a single thread, but sources can be added 
       <category term="network" scheme="http://walter-du.github.io/categories/network/"/>
     
     
-      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
-    
       <category term="Linux" scheme="http://walter-du.github.io/tags/Linux/"/>
+    
+      <category term="network" scheme="http://walter-du.github.io/tags/network/"/>
     
   </entry>
   

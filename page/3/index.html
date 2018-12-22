@@ -192,6 +192,61 @@ epoll 快于 select 的本质是有 kernel 时刻在帮忙。select() (/在被�
         </li>
     
         <li class="post-list-item fade">
+            <article id="post-How_sleep_happens"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2016年12月14日 0:00" datetime="2016-12-13T16:00:00.000Z"  itemprop="datePublished">2016-12-14</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Linux/">Linux</a></li></ul>
+
+
+
+        
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2016/12/14/How_sleep_happens/">How &#39;sleep&#39; happens</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        sleep 的实现过程sleep –&gt; sys_nanosleep{
+
+为当前进程注册一个 timer 及超时回调函数 process_timeout;
+将进程置为 TASK_INTERRUPTIBLE;
+将 timer 挂到每 CPU 链 tvec_bases;
+schedule() 让出 CPU;
+时钟软中断 TIMER_SOFTIRQ 函数 run_timer_softirq 检...
+    
+
+        <a href="/2016/12/14/How_sleep_happens/" class="post-more waves-effect waves-button">
+            more...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-Property_AND_getattr"
   class="article-card article-type-post" itemprop="blogPost">
 
